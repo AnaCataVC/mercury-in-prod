@@ -6,15 +6,14 @@ Direct Python port of ``AstrologyEngine.kt`` using ``astronomy-engine`` to guara
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime, timezone
-from enum import Enum
 import math
-from typing import Iterable
+from collections.abc import Iterable
+from dataclasses import dataclass
+from datetime import UTC, datetime
+from enum import Enum
 
 import astronomy
 import pandas as pd
-
 
 SYNODIC_MONTH_DAYS = 29.530588
 
@@ -171,7 +170,7 @@ class AstrologyEngine:
     @staticmethod
     def to_astronomy_time(dt: datetime) -> astronomy.Time:
         """Convert a Python ``datetime`` into an ``astronomy.Time`` in UTC."""
-        utc_dt = dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt.astimezone(timezone.utc)
+        utc_dt = dt.replace(tzinfo=UTC) if dt.tzinfo is None else dt.astimezone(UTC)
         seconds = utc_dt.second + utc_dt.microsecond / 1_000_000.0
         return astronomy.Time.Make(
             utc_dt.year,
@@ -220,7 +219,7 @@ class AstrologyEngine:
     @classmethod
     def compute_snapshot(cls, dt: datetime | None = None) -> AstrologySnapshot:
         """Compute a deterministic solar, lunar, and planetary snapshot for ``dt``."""
-        target_dt = datetime.now(timezone.utc) if dt is None else dt
+        target_dt = datetime.now(UTC) if dt is None else dt
         time = cls.to_astronomy_time(target_dt)
 
         # 1. Sun Sign & position

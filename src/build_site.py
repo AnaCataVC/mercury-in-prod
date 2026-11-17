@@ -8,7 +8,6 @@ from pathlib import Path
 from src.incidents import build_and_save_dataset
 from src.stats import run_full_study
 
-
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>

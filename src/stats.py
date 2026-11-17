@@ -9,9 +9,9 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from scipy import stats as sp_stats
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+from scipy import stats as sp_stats
 from statsmodels.stats.multitest import multipletests
 
 from src.ephemeris import (
@@ -63,8 +63,8 @@ def compare_binary_hypothesis(
     exposed = df.loc[mask, outcome_col].to_numpy(dtype=float)
     baseline = df.loc[~mask, outcome_col].to_numpy(dtype=float)
 
-    n_exp = int(len(exposed))
-    n_base = int(len(baseline))
+    n_exp = len(exposed)
+    n_base = len(baseline)
     if n_exp < 2 or n_base < 2:
         return {
             "n_exposed": n_exp,
@@ -235,7 +235,7 @@ def analyze_real_statuspage_sample(
 
     # Compute source-window-weighted expected astronomical base rates
     source_counts = joined["source"].value_counts()
-    total_n = int(len(joined))
+    total_n = len(joined)
     exp_retro_num = 0.0
     exp_full_moon_num = 0.0
     exp_shadow_num = 0.0
@@ -595,7 +595,7 @@ def run_full_study(
     timeline = df[timeline_cols].to_dict(orient="records")
 
     summary = {
-        "panel_days": int(len(df)),
+        "panel_days": len(df),
         "start_date": str(df["date"].min()),
         "end_date": str(df["date"].max()),
         "total_panel_incidents": int(df["incident_count"].sum()),
@@ -604,7 +604,7 @@ def run_full_study(
         "weekend_mean_incidents": round(float(df.loc[df["is_weekend"], "incident_count"].mean()), 3),
         "mercury_retrograde_days": int(df["mercury_is_retrograde"].sum()),
         "mercury_retrograde_pct": round(float(df["mercury_is_retrograde"].mean() * 100.0), 2),
-        "real_public_incidents_count": int(len(raw_df)),
+        "real_public_incidents_count": len(raw_df),
         "real_public_sources_count": int(raw_df["source"].nunique()) if not raw_df.empty else 0,
     }
 

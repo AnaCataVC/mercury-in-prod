@@ -1,6 +1,6 @@
 """Parity unit tests mirroring ``AstrologyEngineTest.kt``."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import astronomy
 import pytest
@@ -33,7 +33,7 @@ def test_zodiac_sign_and_motion_state_bilingual_labels() -> None:
 
 
 def test_compute_snapshot_returns_five_planets_and_valid_lunar_status() -> None:
-    sample_dt = datetime(2026, 11, 16, 12, 0, 0, tzinfo=timezone.utc)
+    sample_dt = datetime(2026, 11, 16, 12, 0, 0, tzinfo=UTC)
     snapshot = AstrologyEngine.compute_snapshot(sample_dt)
 
     assert snapshot.sun_sign == ZodiacSign.SCORPIO
@@ -47,7 +47,7 @@ def test_compute_snapshot_returns_five_planets_and_valid_lunar_status() -> None:
 
 
 def test_mercury_retrograde_detected_in_april_2024_window() -> None:
-    retro_dt = datetime(2024, 4, 10, 12, 0, 0, tzinfo=timezone.utc)
+    retro_dt = datetime(2024, 4, 10, 12, 0, 0, tzinfo=UTC)
     mercury = AstrologyEngine.compute_snapshot(retro_dt).mercury_status
 
     assert mercury.motion_state == PlanetaryMotionState.RETROGRADE
@@ -56,7 +56,7 @@ def test_mercury_retrograde_detected_in_april_2024_window() -> None:
 
 
 def test_mercury_direct_detected_outside_retrograde_and_shadow_windows() -> None:
-    direct_dt = datetime(2024, 6, 15, 12, 0, 0, tzinfo=timezone.utc)
+    direct_dt = datetime(2024, 6, 15, 12, 0, 0, tzinfo=UTC)
     mercury = AstrologyEngine.compute_snapshot(direct_dt).mercury_status
 
     assert mercury.motion_state == PlanetaryMotionState.DIRECT
@@ -65,7 +65,7 @@ def test_mercury_direct_detected_outside_retrograde_and_shadow_windows() -> None
 
 
 def test_lunar_phase_status_synodic_age_and_trend() -> None:
-    sample_dt = datetime(2026, 11, 16, 12, 0, 0, tzinfo=timezone.utc)
+    sample_dt = datetime(2026, 11, 16, 12, 0, 0, tzinfo=UTC)
     lunar = AstrologyEngine.compute_snapshot(sample_dt).lunar_status
 
     assert 0.0 <= lunar.synodic_age_days <= 29.54

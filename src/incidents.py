@@ -7,9 +7,9 @@ operational panel merged with ``AstrologyEngine`` ephemeris data.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime, timezone
 import logging
+from dataclasses import dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -56,7 +56,7 @@ def _parse_iso_utc(value: str | None) -> datetime | None:
     cleaned = value.replace("Z", "+00:00")
     try:
         dt = datetime.fromisoformat(cleaned)
-        return dt.astimezone(timezone.utc) if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(UTC) if dt.tzinfo else dt.replace(tzinfo=UTC)
     except ValueError:
         return None
 

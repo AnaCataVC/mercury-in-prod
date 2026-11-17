@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from datetime import datetime, time, timezone
 import json
+from datetime import UTC, datetime, time
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 
 from src.ephemeris import AstrologyEngine, ZodiacSign, generate_ephemeris_df
@@ -21,7 +20,6 @@ from src.stats import (
     compare_binary_hypothesis,
     run_full_study,
 )
-
 
 DATA_DIR = Path("data")
 
@@ -186,12 +184,12 @@ def main() -> None:
         with col_d:
             selected_date = st.date_input(
                 t["date_pick"],
-                value=datetime(2024, 4, 10, tzinfo=timezone.utc).date(),
+                value=datetime(2024, 4, 10, tzinfo=UTC).date(),
             )
         with col_h:
             selected_hour = st.slider(t["hour_pick"], min_value=0, max_value=23, value=12)
 
-        target_dt = datetime.combine(selected_date, time(selected_hour, 0), tzinfo=timezone.utc)
+        target_dt = datetime.combine(selected_date, time(selected_hour, 0), tzinfo=UTC)
         snap = AstrologyEngine.compute_snapshot(target_dt)
         lunar = snap.lunar_status
         mercury = snap.mercury_status

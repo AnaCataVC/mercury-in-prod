@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pandas as pd
@@ -31,9 +31,9 @@ class _DummyResponse:
 
 
 def test_parse_iso_utc_handles_valid_and_invalid_values() -> None:
-    assert _parse_iso_utc("2024-04-10T12:30:00Z") == datetime(2024, 4, 10, 12, 30, 0, tzinfo=timezone.utc)
-    assert _parse_iso_utc("2024-04-10T10:30:00-02:00") == datetime(2024, 4, 10, 12, 30, 0, tzinfo=timezone.utc)
-    assert _parse_iso_utc("2024-04-10T12:30:00") == datetime(2024, 4, 10, 12, 30, 0, tzinfo=timezone.utc)
+    assert _parse_iso_utc("2024-04-10T12:30:00Z") == datetime(2024, 4, 10, 12, 30, 0, tzinfo=UTC)
+    assert _parse_iso_utc("2024-04-10T10:30:00-02:00") == datetime(2024, 4, 10, 12, 30, 0, tzinfo=UTC)
+    assert _parse_iso_utc("2024-04-10T12:30:00") == datetime(2024, 4, 10, 12, 30, 0, tzinfo=UTC)
     assert _parse_iso_utc(None) is None
     assert _parse_iso_utc("") is None
     assert _parse_iso_utc("not-a-timestamp") is None
