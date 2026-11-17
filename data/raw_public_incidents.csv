@@ -1,0 +1,401 @@
+incident_id,source,name,impact,is_critical_major,status,created_at_utc,date,duration_minutes
+qj1sgg136lbr,npm,Intermittent failures installing scoped packages,major,True,resolved,2024-06-03T17:55:19.723000+00:00,2024-06-03,102.71
+2v41lbhcj771,npm,"Failures publishing, deprecating, and installing packages",major,True,resolved,2024-06-11T15:09:19.271000+00:00,2024-06-11,94.83
+25b12z1q22nq,npm,Issue with search and replication feed,minor,False,resolved,2024-06-17T19:59:51.097000+00:00,2024-06-17,96.74
+dscg27mzph3d,npm,Intermittent Issues with View Package,minor,False,resolved,2024-06-20T19:37:11.493000+00:00,2024-06-20,98.19
+kg3dvmrr1gs4,reddit,Elevated API Errors,minor,False,resolved,2024-07-08T18:43:24.951000+00:00,2024-07-08,71.45
+4c1vjlptgddq,reddit,Comment Processing is Delayed,major,True,resolved,2024-07-14T00:24:33.947000+00:00,2024-07-14,87.12
+vj1wzh4m7f6n,reddit,Some subreddits/posts are failing to load,minor,False,resolved,2024-08-06T18:36:21.022000+00:00,2024-08-06,51.48
+qfmzhxz3frwb,npm,README files not rendering on npmjs.com website,minor,False,resolved,2024-08-09T11:18:08.960000+00:00,2024-08-09,28.91
+v3twwbc6srn5,reddit,Degraded Performance for reddit.com,minor,False,resolved,2024-08-13T20:51:45.896000+00:00,2024-08-13,70.25
+t8b942dzrwh1,reddit,Degraded Performance for reddit.com,critical,True,resolved,2024-08-28T20:16:34.656000+00:00,2024-08-28,60.21
+wm3qrshwchb8,bitbucket,Bitbucket Webhooks and Pipelines on push and pull request not being triggered,major,True,resolved,2024-09-05T02:19:56+00:00,2024-09-05,123.12
+7zzs81t50h0h,bitbucket,Bitbucket Cloud website performance degradation,critical,True,resolved,2024-09-06T06:49:53+00:00,2024-09-06,16.07
+jfhrnk0m1jc9,bitbucket,Unable to connect to Bitbucket Cloud via SSH,none,False,postmortem,2024-09-09T18:30:00+00:00,2024-09-09,0.0
+kpklswr8b6p0,bitbucket,Users are experiencing reCaptcha errors while signing up,critical,True,resolved,2024-09-12T02:08:09.099000+00:00,2024-09-12,80.84
+cjzbd0ksrkqx,reddit,Degraded Performance for reddit.com,minor,False,resolved,2024-09-19T19:15:14.738000+00:00,2024-09-19,67.02
+zvpm95sgl89p,npm,Issue with publishing packages,minor,False,resolved,2024-09-24T22:49:44.544000+00:00,2024-09-24,107.28
+s9fstrc9sfgq,npm,Failures to publish packlages,minor,False,resolved,2024-10-10T20:25:27.488000+00:00,2024-10-10,75.32
+cc12j3tshch8,reddit,Web performance degraded,none,False,resolved,2024-10-14T08:12:39.662000+00:00,2024-10-14,440.9
+17t7xvw846ms,bitbucket,Unable to invite new users due to missing recaptcha token,major,True,resolved,2024-11-04T09:37:18.325000+00:00,2024-11-04,144.84
+4tr89ms0r453,reddit,Degraded performance for reddit.com,major,True,resolved,2024-11-06T04:07:09.645000+00:00,2024-11-06,532.93
+psj9zh3lb9md,npm,Intermittent issues with package install,minor,False,resolved,2024-11-16T13:31:40.319000+00:00,2024-11-16,86.42
+xrnjyrbj4t2m,reddit,Degraded performance for reddit.com,minor,False,resolved,2024-11-20T20:38:08.155000+00:00,2024-11-20,449.9
+y0gsrfy6dfrz,reddit,Degraded performance for reddit.com,minor,False,resolved,2024-11-21T15:51:25.825000+00:00,2024-11-21,27.6
+bxvmmvlqzfds,npm,"Package Install failures due to ""304 Not Modified"" responses in Mumbai, India region",major,True,resolved,2024-12-17T12:50:30.918000+00:00,2024-12-17,208.68
+cdtc12drp4sm,bitbucket,"Issues with attachments, including viewing previews, downloading and uploading",minor,False,resolved,2024-12-18T12:51:27.897000+00:00,2024-12-18,43.95
+4tzzmx8bqdhp,bitbucket,Increased error rate in Bitbucket cloud APIs,none,False,resolved,2024-12-31T11:41:42.769000+00:00,2024-12-31,2279.0
+jlqm624klvs2,npm,npm is experiencing intermittent degraded installs,minor,False,resolved,2025-01-08T22:05:06.494000+00:00,2025-01-08,165.23
+mlt4ymb57c3c,reddit,Site issues,none,False,resolved,2025-01-17T09:09:10.522000+00:00,2025-01-17,87.43
+t5bcmddn4z26,bitbucket,"Bitbucket Cloud web, api, and Pipelines service outage",none,False,postmortem,2025-01-21T15:30:31.099000+00:00,2025-01-21,518.15
+mb73p3vm5y5r,bitbucket,Bitbucket has degraded performance,minor,False,postmortem,2025-02-11T16:12:05.452000+00:00,2025-02-11,64.13
+hys0bz1hfyld,reddit,Increase in errors,none,False,resolved,2025-02-18T22:17:31.460000+00:00,2025-02-18,39.96
+b2lqtrftlywf,bitbucket,Degraded website performance for some customers.,minor,False,resolved,2025-02-20T11:52:47.074000+00:00,2025-02-20,607.36
+s9szfhh4bqb9,reddit,Elevated Errors,major,True,resolved,2025-02-22T00:58:40.355000+00:00,2025-02-22,108.94
+g01bn6vpj1l5,reddit,Elevated Errors,none,False,resolved,2025-02-24T18:37:31.384000+00:00,2025-02-24,77.29
+f40dgv6fr8qk,reddit,Delayed Comments,major,True,resolved,2025-03-01T11:01:54.607000+00:00,2025-03-01,92.81
+jcqqpl0wdn2z,bitbucket,Bitbucket website and git operations down for some customers,major,True,resolved,2025-03-11T23:34:24.597000+00:00,2025-03-11,53.98
+fz8z5clzlj0c,bitbucket,Bitbucket has degraded performance,minor,False,resolved,2025-03-19T13:13:13.531000+00:00,2025-03-19,74.0
+hnskkq06xypw,bitbucket,Bitbucket pipelines showing error when running a build.,minor,False,resolved,2025-03-20T06:11:32.424000+00:00,2025-03-20,49.95
+6lzhx12yy2bt,bitbucket,Bitbucket has degraded performance,major,True,resolved,2025-03-21T20:10:59.176000+00:00,2025-03-21,261.58
+t5ck4dt7pj31,reddit,Elevated Errors,minor,False,resolved,2025-03-24T21:29:18.732000+00:00,2025-03-24,23.62
+6bkg7hsl8zf3,reddit,Degraded performance for comments,minor,False,resolved,2025-03-25T17:06:01.809000+00:00,2025-03-25,144.63
+rvrpcx0smnh8,reddit,Degraded performance for reddit.com,none,False,resolved,2025-03-27T19:16:10.741000+00:00,2025-03-27,938.59
+hdtkrsqp134s,npm,Intermittent issue with viewing and installing packages,minor,False,resolved,2025-04-01T16:40:26.288000+00:00,2025-04-01,180.55
+1fy8bll7qjms,reddit,Missing Action Buttons For Moderators,minor,False,resolved,2025-04-02T19:20:27.935000+00:00,2025-04-02,131.01
+j17xz3yd9pd9,npm,Issues publishing and installing packages,major,True,resolved,2025-04-05T10:53:51.023000+00:00,2025-04-05,262.11
+bndr0gf8nnsq,npm,Issues publishing and installing packages,minor,False,resolved,2025-04-11T02:46:34.910000+00:00,2025-04-11,724.62
+f8tm205kh3y9,reddit,Investigating elevated site errors,major,True,resolved,2025-04-21T15:52:41.032000+00:00,2025-04-21,28.74
+tzw7yxwqp6kb,reddit,Chat - elevated errors,major,True,resolved,2025-04-30T12:58:24.030000+00:00,2025-04-30,35.96
+m46pb7484jrd,bitbucket,Some pipeline builds are not triggering,major,True,resolved,2025-05-07T20:40:58.569000+00:00,2025-05-07,103.63
+z1lk6hmkp9gt,bitbucket,Bitbucket has degraded performance,major,True,postmortem,2025-05-08T15:41:12.779000+00:00,2025-05-08,1176.48
+6d1m99b88gnt,reddit,Elevated Errors,major,True,resolved,2025-05-16T22:47:35.882000+00:00,2025-05-16,66.07
+5g63f45f729y,bitbucket,Users receiving errors when attempting to load BitBucket,major,True,resolved,2025-05-25T23:45:51+00:00,2025-05-25,70.47
+t2bmz821sqpm,reddit,Errors viewing image posts on mobile clients,major,True,resolved,2025-05-28T17:07:19.138000+00:00,2025-05-28,52.59
+q5st1xmqy00q,bitbucket,Bitbucket - Steps are queued and delayed from starting,major,True,resolved,2025-05-30T13:42:39.727000+00:00,2025-05-30,77.54
+t740dtmtb2z2,reddit,Elevated errors,critical,True,resolved,2025-06-03T19:00:27.814000+00:00,2025-06-03,29.26
+qqycr537mjfr,bitbucket,Customers may experience delays receiving emails,major,True,resolved,2025-06-04T17:17:40+00:00,2025-06-04,221.33
+dn5mcp85737y,npm,"Issues with package install, package publish, and login.",major,True,resolved,2025-06-12T18:14:31.707000+00:00,2025-06-12,164.46
+z95xc4ythnnn,npm,Issue with package publish with provenance,minor,False,resolved,2025-06-12T21:00:22.330000+00:00,2025-06-12,84.77
+cmm67ddr8sj2,bitbucket,Intermittent issues affecting Bitbucket,critical,True,resolved,2025-06-13T09:14:06.316000+00:00,2025-06-13,127.12
+52znkw8lmxsf,bitbucket,Intermittent issues affecting Bitbucket cloud,critical,True,postmortem,2025-06-13T13:14:44.373000+00:00,2025-06-13,157.56
+cdq28049xp12,reddit,Elevated Errors,none,False,resolved,2025-06-19T18:24:28.068000+00:00,2025-06-19,57.28
+f6sxn03s1b2t,bitbucket,Bitbucket is slow in responding to customers,minor,False,resolved,2025-06-25T07:52:22.466000+00:00,2025-06-25,139.32
+4mcg46242wz4,bitbucket,Users experiencing errors attempting to load Bitbucket,major,True,postmortem,2025-07-01T03:03:54.348000+00:00,2025-07-01,128.25
+35tgph7w5qc6,bitbucket,Customers experiencing issues with Bitbucket builds,major,True,resolved,2025-07-03T01:23:10.858000+00:00,2025-07-03,49.56
+70ytfyybg2w7,reddit,Investigating elevated site errors,major,True,resolved,2025-07-16T15:52:06.845000+00:00,2025-07-16,46.26
+08gt8gfb906r,reddit,Elevated errors with comments,major,True,resolved,2025-07-16T23:16:22.979000+00:00,2025-07-16,386.54
+y98rtwt3q9p1,bitbucket,Some Bitbucket customers unable to push and clone,major,True,resolved,2025-08-01T08:16:29.491000+00:00,2025-08-01,65.99
+dn2vgm558r10,bitbucket,Bitbucket cloud degradation,none,False,resolved,2025-08-05T15:03:36.737000+00:00,2025-08-05,0.0
+b0f9jxcs1b67,npm,Incident with npm registry and website affecting logins and publishing,minor,False,resolved,2025-08-07T22:31:38.360000+00:00,2025-08-07,34.3
+zzvw2vj7n3qq,bitbucket,Bitbucket Cloud experiencing degraded performance and partial outage,major,True,resolved,2025-08-19T14:27:32.331000+00:00,2025-08-19,54.96
+p1qj0csd94y8,bitbucket,Git operations are slow/timing out.,minor,False,resolved,2025-08-20T07:30:28+00:00,2025-08-20,465.92
+z6vy1s1vk197,reddit,Elevated errors with comments,major,True,resolved,2025-08-25T23:15:21.263000+00:00,2025-08-25,40.49
+njwnds2vmdhz,npm,Degraded Package Install Experience,minor,False,resolved,2025-08-26T12:40:43.175000+00:00,2025-08-26,189.2
+cc32bz3qcw24,bitbucket,Core-daily Pipeline is delayed for 25th Aug run,none,False,resolved,2025-08-26T15:06:05.969000+00:00,2025-08-26,1459.64
+tn0sgc4kc36t,bitbucket,Delays in running Bitbucket Pipelines,minor,False,resolved,2025-09-16T04:00:45.092000+00:00,2025-09-16,30.07
+40dnjfbcxj9v,npm,Degraded performance on npmjs.com,minor,False,resolved,2025-10-03T18:07:58.133000+00:00,2025-10-03,454.96
+p20f40pt1rgv,bitbucket,Atlassian Cloud Services impacted,none,False,postmortem,2025-10-20T07:56:11.412000+00:00,2025-10-20,1288.26
+m3wkdj3c1q57,npm,Degraded performance of package publish and install,minor,False,resolved,2025-10-20T09:31:58.553000+00:00,2025-10-20,240.81
+1hcw0z152lmf,reddit,Elevated errors,major,True,resolved,2025-10-20T10:24:34.863000+00:00,2025-10-20,765.13
+7h414wqttky8,npm,Issue with package publishing,minor,False,resolved,2025-10-20T17:20:06.226000+00:00,2025-10-20,175.24
+n1b0mjmndf4g,reddit,Increased error rates on Reddit,minor,False,resolved,2025-11-04T12:27:32.272000+00:00,2025-11-04,50.2
+8c94rgnhqx9k,npm,Issue with npm website and login,minor,False,resolved,2025-11-06T13:56:25.448000+00:00,2025-11-06,32.43
+xwqvgfv2wfqw,bitbucket,Bitbucket availability degraded,critical,True,postmortem,2025-11-11T16:59:13.466000+00:00,2025-11-11,251.21
+67q3d5th9kcc,npm,npmjs.com - Service Disruption,none,False,resolved,2025-11-18T13:34:33.668000+00:00,2025-11-18,336.69
+zc6wxh76w04b,reddit,iOS Push Notifications Not Working,minor,False,resolved,2025-11-30T18:48:04.145000+00:00,2025-11-30,311.72
+bptmjs4rmx8q,npm,Issue connecting to website and registry,major,True,resolved,2025-12-05T09:02:54.570000+00:00,2025-12-05,39.79
+sdww9r6lj44m,reddit,Elevated errors,minor,False,resolved,2025-12-09T05:05:51.809000+00:00,2025-12-09,55.62
+5n62vhqm9lch,reddit,Elevated errors,major,True,resolved,2025-12-09T18:28:59.031000+00:00,2025-12-09,33.82
+pxtc317vq3qj,reddit,Video posts are not displaying correctly,minor,False,resolved,2025-12-18T22:49:44+00:00,2025-12-18,130.79
+466dz5g4jk3s,bitbucket,"Outbound Email, Mobile Push Notifications, and Support Ticket Delivery Impacting All Cloud Products",critical,True,postmortem,2025-12-27T04:42:31.916000+00:00,2025-12-27,37.83
+3t6bjkyhxncp,bitbucket,Bitbucket workspace invitations failing for all users,minor,False,resolved,2026-01-07T06:05:13.882000+00:00,2026-01-07,35.3
+bvc0xy1vlfgy,bitbucket,Unable to reach bitbucket site,critical,True,postmortem,2026-01-07T16:23:29.492000+00:00,2026-01-07,149.9
+j9smpl5kwyl5,reddit,Investigating elevated errors across reddit.com and native apps,minor,False,resolved,2026-01-13T17:01:09.468000+00:00,2026-01-13,63.13
+brsn0q8r649z,reddit,Increased error rates across the site,major,True,resolved,2026-01-17T00:20:31.666000+00:00,2026-01-17,197.45
+kcnnpj79625y,reddit,Elevated Errors,none,False,resolved,2026-01-18T21:33:14.290000+00:00,2026-01-18,10.96
+c3yknqk2vt11,bitbucket,Disrupted Bitbucket availability in eu-west-1,minor,False,resolved,2026-01-28T16:49:04+00:00,2026-01-28,191.02
+13qztnk1l4dh,npm,Degraded Experience Installing and Viewing Packages,minor,False,resolved,2026-01-29T20:04:33.697000+00:00,2026-01-29,45.02
+gtqg0zs1yvm3,npm,npm publishing impacted,minor,False,resolved,2026-02-17T20:01:39.812000+00:00,2026-02-17,147.3
+9jrddvx1b89p,npm,Degraded performance with package installation,minor,False,resolved,2026-02-25T18:43:34.689000+00:00,2026-02-25,80.21
+fvb0y6yp00sn,discord,possible issues with presence and DM delivery,minor,False,resolved,2026-02-28T14:39:39.835000+00:00,2026-02-28,118.25
+nm7zsjzv8kd2,discord,Continued issues with presence and DM delivery,major,True,resolved,2026-02-28T21:54:29+00:00,2026-02-28,59.98
+k22tny62jcw3,discord,A/V E2EE Enforcement for Non-stage Voice Calls,none,False,resolved,2026-03-02T20:02:15+00:00,2026-03-02,12802.85
+2vjc8h5hrrq5,reddit,Degraded performance for reddit.com,major,True,resolved,2026-03-04T00:35:10.545000+00:00,2026-03-04,11.76
+f3dxbcrcsysw,discord,Guild Unavailability,major,True,resolved,2026-03-05T01:37:11.746000+00:00,2026-03-05,20.93
+2cfxmzw4mqt6,npm,Degraded performance for package publish,minor,False,resolved,2026-03-05T11:41:18.350000+00:00,2026-03-05,354.65
+kp6zgtgk83mc,bitbucket,Disrupted Bitbucket availability,critical,True,postmortem,2026-03-06T02:44:40.605000+00:00,2026-03-06,147.0
+jvqsklfdcvt8,discord,UK/AU: Issues Completing Age Verification via k-ID,minor,False,resolved,2026-03-06T03:26:36+00:00,2026-03-06,22.73
+clqzb7y8t0r8,discord,Issues sending and loading messages,major,True,resolved,2026-03-09T17:08:03.357000+00:00,2026-03-09,50.75
+nhs3zcp3g3j7,discord,Some servers unavailable,major,True,resolved,2026-03-11T23:07:07.963000+00:00,2026-03-11,26.05
+l8hf15zcrvt0,bitbucket,Degraded performance of Bitbucket cloud,minor,False,resolved,2026-03-12T08:48:06.230000+00:00,2026-03-12,225.56
+dsv750sj44fn,discord,Applications experiencing 503 errors,major,True,resolved,2026-03-12T20:50:26.853000+00:00,2026-03-12,15.56
+jxpmdts24t6d,discord,Applications experiencing 503 errors,major,True,resolved,2026-03-12T21:04:13.338000+00:00,2026-03-12,0.0
+2vw56wyzvjqn,discord,Failure to start new voice calls,major,True,resolved,2026-03-20T02:47:07.528000+00:00,2026-03-20,189.67
+hm33xk31dk46,discord,Elevated errors for streaming and messaging,minor,False,resolved,2026-03-25T15:18:46.585000+00:00,2026-03-25,32.44
+9sng5r2j71sq,discord,Issues connecting to Discord,critical,True,resolved,2026-03-25T19:21:47.075000+00:00,2026-03-25,196.51
+wjpr7d1kq5s1,npm,Issue with npm website and login.,major,True,resolved,2026-03-25T22:39:14.709000+00:00,2026-03-25,46.83
+jt67pjfbbs3q,discord,General API errors,major,True,resolved,2026-03-28T21:23:50.319000+00:00,2026-03-28,20.44
+tnd276tdmbby,npm,delay and errors viewing packages and submitting web based authentication,minor,False,resolved,2026-03-30T14:54:58.862000+00:00,2026-03-30,64.31
+4c9s71vs4rs6,npm,delay and errors viewing packages and submitting web based authentication,minor,False,resolved,2026-03-30T16:41:25.672000+00:00,2026-03-30,156.2
+zsm67cmjp81g,discord,Captchas Not Showing,none,False,resolved,2026-03-31T05:11:48.484000+00:00,2026-03-31,25.06
+71xrzlv2ddvz,npm,Degraded Performance in View Package and Login on npmjs.com,minor,False,resolved,2026-03-31T19:12:32.074000+00:00,2026-03-31,156.85
+y715hyy146p2,npm,Increased errors in viewing packages and authentication on npmjs.com,none,False,resolved,2026-04-01T10:05:18.479000+00:00,2026-04-01,186.93
+qpwpll5pmvkz,reddit,Elevated site Errors,major,True,resolved,2026-04-06T18:49:51.015000+00:00,2026-04-06,68.09
+44jrtg7vmnzx,discord,Embeds not working,minor,False,resolved,2026-04-07T01:48:05.433000+00:00,2026-04-07,63.96
+3g8rl4wh1vy3,reddit,Elevated Site Errors,none,False,resolved,2026-04-07T20:18:53.598000+00:00,2026-04-07,35.58
+fxr44q252yzj,bitbucket,Users experiencing issues with login across Atlassian products,minor,False,postmortem,2026-04-13T07:29:45.600000+00:00,2026-04-13,167.59
+947scltt0c6j,discord,Issues with invites,minor,False,resolved,2026-04-16T19:47:09.573000+00:00,2026-04-16,42.95
+03v456nfcstq,bitbucket,Bitbucket Pipelines degraded performance,minor,False,resolved,2026-04-16T20:23:10.857000+00:00,2026-04-16,21.51
+g904ygw2n408,discord,User Profile Errors,major,True,resolved,2026-04-19T02:37:27.045000+00:00,2026-04-19,74.89
+7q86pc3q1zgv,npm,npm Website is unavailable,critical,True,resolved,2026-04-27T21:06:13.477000+00:00,2026-04-27,84.45
+mjj0126tzs2r,discord,Connection Delays,minor,False,resolved,2026-04-28T19:20:14.879000+00:00,2026-04-28,111.8
+blv1c65xmwwd,npm,npm website degraded service,minor,False,resolved,2026-04-28T19:55:01.731000+00:00,2026-04-28,149.56
+5d5wyzgs0yvg,npm,Degraded Performance in View Package and Login on npmjs.com,minor,False,resolved,2026-04-29T16:48:33.212000+00:00,2026-04-29,167.06
+h2yc0jb1h4hr,npm,npm website issues,minor,False,resolved,2026-04-29T20:07:03.898000+00:00,2026-04-29,42.26
+wt5dz5yw7501,reddit,Issues with reporting,major,True,resolved,2026-04-30T19:32:29.350000+00:00,2026-04-30,37.27
+k42p6rqypf7v,discord,Message Sends affected on certain channels,major,True,resolved,2026-05-02T17:03:31.594000+00:00,2026-05-02,25.77
+4xtn9kzpw2v8,reddit,Search experience and subreddit experience is degraded,none,False,resolved,2026-05-05T23:44:02.922000+00:00,2026-05-05,34.34
+k9ycmsw7k868,reddit,AWS availability causing degradation in user experiences for various services,minor,False,resolved,2026-05-08T00:47:39.533000+00:00,2026-05-08,5139.04
+hpkdy4vmq470,bitbucket,Multiple Atlassian services are experiencing issues,minor,False,postmortem,2026-05-08T01:31:38.240000+00:00,2026-05-08,1093.89
+h9t3sfjx36l3,digitalocean,Multiple Services in NYC2,minor,False,resolved,2026-05-08T18:01:42.481000+00:00,2026-05-08,118.11
+4hpm4454hxtx,discord,Increased API Errors,major,True,resolved,2026-05-08T19:08:32.005000+00:00,2026-05-08,209.76
+p3zyn7c4jyx7,digitalocean,Let's Encrypt Outage Affecting Certificate Issuance and Managed Databases Operations,minor,False,resolved,2026-05-08T20:46:22.108000+00:00,2026-05-08,68.37
+7p0t57ddsbgk,discord,Guild + Session Availability,none,False,resolved,2026-05-09T06:25:52.281000+00:00,2026-05-09,35.87
+7hb39w1wzmwf,digitalocean,Control Panel Errors - Unable to Enable 2FA and Google/GitHub,minor,False,resolved,2026-05-09T11:15:11.260000+00:00,2026-05-09,207.07
+bnq93nhgvtm6,digitalocean,GradientAI: Agent Platform Playground Interaction Errors,major,True,resolved,2026-05-12T10:24:07.025000+00:00,2026-05-12,73.08
+j41b2v131b6y,bitbucket,Users experiencing issues accessing multiple Atlassian products,critical,True,postmortem,2026-05-14T05:03:33.069000+00:00,2026-05-14,104.88
+gwgh41d5r0nz,digitalocean,"DNS service, Certificates and Managed MongoDB",minor,False,resolved,2026-05-14T13:57:38.574000+00:00,2026-05-14,409.03
+lrrw084g3whn,digitalocean,Anthropic reported outage that's impacting access to their Serverless Inference models,major,True,resolved,2026-05-15T01:21:51.685000+00:00,2026-05-15,38.79
+rj9mggtc19wf,reddit,Investigating elevated site errors and issues accessing media,minor,False,resolved,2026-05-18T17:39:06.058000+00:00,2026-05-18,205.37
+spgd2scvttth,digitalocean,Block Storage Volume Performance,minor,False,resolved,2026-05-20T01:05:16.154000+00:00,2026-05-20,248.56
+sv0tfb6jhqz8,digitalocean,Cloud Firewall,minor,False,resolved,2026-05-20T05:35:48.457000+00:00,2026-05-20,132.44
+55wh1mbv7vbs,digitalocean,Cloud Firewall,minor,False,resolved,2026-05-20T12:08:27.021000+00:00,2026-05-20,54.71
+kynnbfzr4psn,reddit,Investigating elevated errors and issues loading comments,none,False,resolved,2026-05-20T20:58:02.553000+00:00,2026-05-20,58.98
+vrdywypml5lf,discord,"API errors affecting message sends, session starts, and billing operations",major,True,resolved,2026-05-22T01:55:43.997000+00:00,2026-05-22,104.26
+yqvf53mhyb78,vercel,Elevated Function Invocation Errors in Stockholm region (ARN1),minor,False,resolved,2026-05-28T16:00:14.669000+00:00,2026-05-28,59.58
+y3p9v8vm4tfn,digitalocean,App Platform Deployments,minor,False,resolved,2026-05-29T00:14:19.240000+00:00,2026-05-29,464.07
+s3625k1ftc1b,vercel,Elevated Errors Creating New Deployments,minor,False,resolved,2026-06-01T19:21:13.671000+00:00,2026-06-01,40.96
+nnt4rfbgn1y6,digitalocean,DNS API Service,minor,False,resolved,2026-06-04T10:12:10.120000+00:00,2026-06-04,94.92
+yzhdk6nhy1kx,vercel,"Elevated Functions Invocation Errors in DUB1 (Dublin, Ireland) Region",minor,False,resolved,2026-06-08T18:57:47+00:00,2026-06-08,62.41
+l7m81jfvmv0v,vercel,Elevated Build Errors for Secure Compute/Static IPs Projects,major,True,resolved,2026-06-09T14:09:36.817000+00:00,2026-06-09,36.42
+w13pp3bc12v3,discord,All clients may see issues connecting to Discord,major,True,resolved,2026-06-09T21:24:31.040000+00:00,2026-06-09,19.72
+rtskh59jhdp2,discord,Activities cannot be launched,major,True,resolved,2026-06-10T17:15:38.349000+00:00,2026-06-10,79.57
+505mwh53nwl2,digitalocean,"DeepSeek V4 Pro is returning HTTP 429 ""Rate limit exceeded""",major,True,resolved,2026-06-11T14:24:20.851000+00:00,2026-06-11,197.74
+h51sr145gsmx,bitbucket,Degraded performance of Bitbucket,minor,False,resolved,2026-06-11T22:48:40.863000+00:00,2026-06-11,86.11
+7574lvmfqxg4,npm,intermittent Publish Failures,minor,False,resolved,2026-06-12T12:08:45.195000+00:00,2026-06-12,48.45
+2f4kf430rmlz,vercel,"Elevated latency and errors in FRA1 Vercel Region (Frankfurt, Germany)",major,True,resolved,2026-06-14T21:03:53.514000+00:00,2026-06-14,260.52
+fyjmwj5qy4vz,vercel,"Partial disruption of Observability, Analytics, Firewall, and Usage in dashboard",minor,False,resolved,2026-06-16T13:39:02.353000+00:00,2026-06-16,120.88
+bfsh34myw3bc,digitalocean,Intermittent 500 Errors on Serverless/GenAI Inference API,none,False,resolved,2026-06-16T22:00:52+00:00,2026-06-16,148.84
+nqkv7bnzr4l3,digitalocean,Monitoring Graphs in the Cloud Control Panel,minor,False,resolved,2026-06-19T14:00:32.960000+00:00,2026-06-19,157.09
+3h7jsmmrljwt,vercel,Resolved: Elevated ERR_STREAM_PREMATURE_CLOSE errors in Vercel Functions,none,False,resolved,2026-06-19T17:54:16+00:00,2026-06-19,0.0
+bc8kw6cjklny,vercel,Degraded Domain Search in Vercel Dashboard,minor,False,resolved,2026-06-23T23:24:24.620000+00:00,2026-06-23,10.19
+x4ngbgzymq4h,vercel,Increase in Workflow runs stuck as pending,major,True,resolved,2026-06-25T07:45:00.625000+00:00,2026-06-25,358.37
+9mwnzxknwysy,vercel,Intermittent Login Failures on Vercel Dashboard,major,True,resolved,2026-06-26T13:08:09+00:00,2026-06-26,125.91
+psk2b3pgbblq,digitalocean,Anthropic Inference Model Availability,none,False,resolved,2026-06-27T04:43:29.854000+00:00,2026-06-27,32.14
+m2shb5ks2rml,digitalocean,Droplet Backup Service,none,False,resolved,2026-06-27T18:24:25.041000+00:00,2026-06-27,0.0
+9kp14l66ty8s,discord,Intermittent chat functionality issues,minor,False,resolved,2026-06-29T18:46:22.622000+00:00,2026-06-29,97.98
+76l7xym7jd5m,digitalocean,Agent Timeouts While Retrieving Data from Knowledge Bases,none,False,resolved,2026-07-01T06:25:23.501000+00:00,2026-07-01,1273.5
+8mvnl6s4cmdt,digitalocean,Droplet Resize,none,False,resolved,2026-07-01T11:13:21.135000+00:00,2026-07-01,134.83
+phwpbgwcmkjn,digitalocean,DNS Lookup Failures for Managed Database,minor,False,resolved,2026-07-01T11:35:28.934000+00:00,2026-07-01,292.95
+kndhly1hl696,vercel,"Increase in Workflow runs stuck in pending, failed",minor,False,resolved,2026-07-01T16:57:02.933000+00:00,2026-07-01,93.43
+bgmdgj7m7bgm,vercel,"Degraded performance on CDN, Dashboard, Functions in Washington, Cleveland (iad1, cle1)",minor,False,resolved,2026-07-02T16:31:55.765000+00:00,2026-07-02,14.63
+rjfr3rbzxlx1,digitalocean,Managed Database Clusters,minor,False,resolved,2026-07-02T22:04:53.265000+00:00,2026-07-02,615.5
+7vmz1hmlzzrc,digitalocean,Droplet Actions in NYC3,none,False,resolved,2026-07-04T14:42:47.881000+00:00,2026-07-04,27.3
+wvj4t3y98gs7,digitalocean,Limited access to Deepseek V4 Pro model,major,True,resolved,2026-07-04T22:13:45.293000+00:00,2026-07-04,159.57
+lf0pm7scd74x,vercel,Delays Processing Builds,minor,False,resolved,2026-07-08T18:05:09.202000+00:00,2026-07-08,68.71
+gk45lsnmx35m,vercel,Delays loading Build Logs,none,False,resolved,2026-07-09T13:16:00+00:00,2026-07-09,0.0
+2kxtxyvzzzk0,digitalocean,Kubernetes Deployments in NYC1,minor,False,resolved,2026-07-09T20:31:52.156000+00:00,2026-07-09,1736.08
+yj1xklr7ynwg,discord,Issues with billing operations,major,True,resolved,2026-07-10T16:49:33.987000+00:00,2026-07-10,163.96
+458cy54l4d6d,vercel,Erroneous budget notifications,minor,False,resolved,2026-07-10T19:15:53.346000+00:00,2026-07-10,200.28
+j0ll7yc1jscj,vercel,Increased Build failure rates,minor,False,resolved,2026-07-10T21:22:09+00:00,2026-07-10,126.58
+8sjb7kmqnvk9,digitalocean,Serverless Inference - Gemma4 Latency Issues Causing Timeouts & Slow Responses,minor,False,resolved,2026-07-13T19:04:10.240000+00:00,2026-07-13,3042.42
+ydqg5447j7j0,vercel,Errors accessing teams that require 2FA,minor,False,resolved,2026-07-15T23:04:43.157000+00:00,2026-07-15,30.18
+xfkn71bbvc99,vercel,Missing Build CPU Minutes Usage Data,minor,False,resolved,2026-07-16T06:07:15.195000+00:00,2026-07-16,200.07
+nw8xv7ypn7y0,vercel,SAML Single Sign-On (SSO) errors,major,True,resolved,2026-07-16T08:39:35+00:00,2026-07-16,125.81
+nfhvp4yhyrfl,digitalocean,Reserved IP routing in TOR1,minor,False,resolved,2026-07-16T13:39:47.134000+00:00,2026-07-16,224.81
+vqndbxzgzhx9,vercel,GitHub-linked deployments and authentication affected,minor,False,resolved,2026-07-16T23:09:29.838000+00:00,2026-07-16,92.68
+vwmnnymc48b9,discord,API Errors,major,True,resolved,2026-07-17T00:49:10.632000+00:00,2026-07-17,179.56
+mskkl0ryk3zn,vercel,Increased invocation failures for Hobby Team functions,minor,False,resolved,2026-07-17T14:12:58+00:00,2026-07-17,66.92
+qzbsmdsw9lq8,digitalocean,Networking in BLR1,minor,False,resolved,2026-07-19T06:57:41.458000+00:00,2026-07-19,174.32
+84v7d9gkkzzf,digitalocean,"Block Storage Volume NYC1, NYC3, SGP1, SYD1 and BLR1",minor,False,resolved,2026-07-19T09:51:19+00:00,2026-07-19,341.34
+j6cjljphvgq7,digitalocean,Gradient AI Serverless Inference Requests Timing Out for qwen3.5-397b-a17b,minor,False,resolved,2026-07-22T16:50:42.474000+00:00,2026-07-22,171.58
+g196lnx3h2cz,discord,unable to establish voice connection,major,True,resolved,2026-07-22T23:32:44.340000+00:00,2026-07-22,25.04
+zxb1gkbxnktp,vercel,Dashboard authentication errors,critical,True,resolved,2026-07-23T06:47:01.252000+00:00,2026-07-23,54.94
+bwyq88fxt57g,vercel,Timeouts loading charts and observability data in Dashboard,major,True,resolved,2026-07-23T07:33:48.200000+00:00,2026-07-23,45.03
+ym1lj8ww7cpz,digitalocean,Llama-4-Maverick Model Availability,minor,False,resolved,2026-07-23T11:16:59.123000+00:00,2026-07-23,80.02
+w5jftzvfc8dr,npm,intermittent Publish and Install Failures,minor,False,resolved,2026-07-23T16:09:33.703000+00:00,2026-07-23,222.66
+1s8rqbswvwqc,vercel,Telemetry data loss for Drains,major,True,resolved,2026-07-23T19:00:00+00:00,2026-07-23,0.0
+w53965shllfq,digitalocean,Network Connectivity from India to NYC,minor,False,resolved,2026-07-24T10:36:52.252000+00:00,2026-07-24,125.56
+nwz55wql2vlc,npm,Publish and Install failures,major,True,resolved,2026-07-24T11:08:16.260000+00:00,2026-07-24,30.61
+3t7xtffbb544,reddit,Degraded performance across the site,major,True,resolved,2026-07-25T15:05:02.655000+00:00,2026-07-25,81.87
+yh45fsy7h0l8,vercel,Vercel Community temporarily unavailable,maintenance,False,resolved,2026-07-25T18:57:40.420000+00:00,2026-07-25,1368.76
+0gz6pdq1c141,discord,"session starts, DM message delivery down",major,True,resolved,2026-07-27T17:48:46.407000+00:00,2026-07-27,17.04
+fcfplv03vbwt,digitalocean,Agent Platform Requests Returning HTTP 500 Errors,major,True,resolved,2026-07-27T18:31:40.584000+00:00,2026-07-27,1252.8
+rdfp2h4syxz8,digitalocean,Response Degradation Impacting Kimi-K3,minor,False,resolved,2026-07-29T17:56:51.011000+00:00,2026-07-29,739.07
+r3v0vxwksk7s,npm,intermittent Publish Failures,minor,False,resolved,2026-07-30T12:06:38.990000+00:00,2026-07-30,263.98
+0y9sqyfyl262,bitbucket,BitBucket Site fails to Load,none,False,resolved,2026-07-31T13:09:55.121000+00:00,2026-07-31,148.57
+3nt69xj3wkk9,digitalocean,Cloud Control Panel Access,minor,False,resolved,2026-08-03T13:58:04.872000+00:00,2026-08-03,241.63
+l20hw5cfhksw,digitalocean,Spaces Cold Storage Billing,minor,False,resolved,2026-08-04T16:13:35.593000+00:00,2026-08-04,329.13
+73wgk29dznv4,discord,Messaging failures,critical,True,resolved,2026-08-04T18:49:50+00:00,2026-08-04,87.42
+vjm8qnbt45tb,digitalocean,Multiple Services Availability,none,False,resolved,2026-08-06T16:33:14.787000+00:00,2026-08-06,0.0
+vbxl834x9l7q,vercel,Delays delivering log drains,minor,False,resolved,2026-08-06T16:37:10.291000+00:00,2026-08-06,112.58
+cg3q7h89dbnq,digitalocean,Functions on App Platform,minor,False,resolved,2026-08-06T19:01:27.576000+00:00,2026-08-06,123.63
+pcg3nsfq6l2y,discord,Issues sending messages for bots and users,critical,True,resolved,2026-08-07T22:21:42+00:00,2026-08-07,40.61
+2wql4f4sb13r,digitalocean,"Account Registration, Droplets, and Related Services",minor,False,resolved,2026-08-08T18:57:49.228000+00:00,2026-08-08,363.22
+y3kn2w2qf5s4,digitalocean,Volume Attach/Detach events in FRA1,none,False,resolved,2026-08-13T14:59:44.847000+00:00,2026-08-13,0.0
+xtbm1jcfkbcs,discord,Issue with establishing a call,major,True,resolved,2026-08-14T06:09:38.232000+00:00,2026-08-14,14.44
+ysczd6rxyl7z,vercel,Dynamic API routes returned 404 errors for some deployments,none,False,resolved,2026-08-14T13:08:12.835000+00:00,2026-08-14,0.0
+nxvrk1jk0zyb,vercel,"Partial disruption of Observability, Analytics, Firewall, Usage, and Login in Dashboard",minor,False,resolved,2026-08-17T14:30:28+00:00,2026-08-17,414.97
+ybx6km0j1gwk,vercel,Elevated errors for Workflow streams,none,False,resolved,2026-08-18T23:00:00+00:00,2026-08-18,0.0
+qd8v4wddyqjr,digitalocean,Major Service Interruption in MKC1,critical,True,resolved,2026-08-19T11:10:06.329000+00:00,2026-08-19,504.8
+g5svdyg45c5b,vercel,Logs unavailable to query in Dashboard,major,True,resolved,2026-08-20T11:14:32.032000+00:00,2026-08-20,11.09
+w8r0qkm97p1c,vercel,New container functions are failing,major,True,resolved,2026-08-20T17:46:33.310000+00:00,2026-08-20,47.46
+s0dyq97c5v72,digitalocean,Container Registry and Spaces Accessibility,minor,False,resolved,2026-08-21T12:59:42.692000+00:00,2026-08-21,112.96
+r96y45y5sx59,digitalocean,Managed Databases Creation,minor,False,resolved,2026-08-23T05:11:37+00:00,2026-08-23,561.91
+4qwm6pzlx1z3,digitalocean,Cloud Control Panel and API,critical,True,postmortem,2026-08-24T17:14:43.701000+00:00,2026-08-24,1549.82
+s6hljjh3n822,vercel,Elevated build initialization times,minor,False,resolved,2026-08-25T19:27:23.387000+00:00,2026-08-25,37.92
+75b4vyf7cm69,vercel,Failures logging in with Vercel CLI,major,True,resolved,2026-08-26T03:06:11.564000+00:00,2026-08-26,82.33
+xpz8zbrdkgs2,discord,"Some servers and other services (voice calls, activities) not available for some users",major,True,resolved,2026-08-31T22:54:05.942000+00:00,2026-08-31,115.19
+s4ffy6g43v5h,reddit,Elevated site errors,major,True,resolved,2026-09-01T19:51:37.979000+00:00,2026-09-01,92.46
+1z2qkcjgfx3y,vercel,Increased deployment failures,major,True,resolved,2026-09-01T19:59:37.473000+00:00,2026-09-01,59.11
+ty5bs3l7xgcf,discord,Server Unavailability,major,True,resolved,2026-09-02T16:12:20.853000+00:00,2026-09-02,134.49
+h3xfmqrqhqw3,discord,Voice endpoint selection issues,major,True,resolved,2026-09-02T23:26:42.223000+00:00,2026-09-02,16.03
+lf84xp6q5qjc,discord,Some servers unavailable,major,True,resolved,2026-09-03T14:35:27.281000+00:00,2026-09-03,62.34
+nt3d1xvkb9q8,discord,Some Servers Unavailable,none,False,resolved,2026-09-03T21:31:27.760000+00:00,2026-09-03,56.09
+b6958bgj1sm3,npm,Intermittent Failures Impacting npm Publish,minor,False,resolved,2026-09-03T21:42:03.511000+00:00,2026-09-03,99.02
+l4f53bbr9200,npm,npm audits endpoint is having issues,minor,False,resolved,2026-09-04T11:29:00.252000+00:00,2026-09-04,139.6
+b6s5qz7tj35w,vercel,"Elevated latency in VCR, Blob, and Sandbox API",minor,False,resolved,2026-09-04T19:11:44+00:00,2026-09-04,75.7
+1t16vfgq3zpx,digitalocean,Power Degradation impacting GPU Performance in ATL1,minor,False,resolved,2026-09-09T10:47:40.428000+00:00,2026-09-09,98.2
+mf04gp4lrfz0,vercel,Elevated error rate on Connect and Passport,major,True,resolved,2026-09-10T17:42:15.875000+00:00,2026-09-10,93.84
+d82z44sn4fpx,discord,Issue with establishing voice calls,major,True,resolved,2026-09-11T04:21:35.751000+00:00,2026-09-11,140.89
+5vtp93dq1351,bitbucket,Intermittent reliability issue with Bitbucket Cloud,minor,False,resolved,2026-09-11T06:31:57.012000+00:00,2026-09-11,88.15
+5sp34swnxkh0,discord,Media Proxy Latency High,minor,False,resolved,2026-09-11T16:24:46.890000+00:00,2026-09-11,81.55
+btdsd2y407t5,discord,Session Unavailability,none,False,resolved,2026-09-15T14:26:02.212000+00:00,2026-09-15,50.27
+s219g6z13p2n,npm,Publishing Packages Degraded Performance,minor,False,resolved,2026-09-15T16:13:46.004000+00:00,2026-09-15,21.61
+y5yr5z8grj7q,npm,Package Publish Degradation,minor,False,resolved,2026-09-15T17:20:05.454000+00:00,2026-09-15,59.51
+k6ykmr68s0b1,vercel,Invoice Generation Paused,none,False,resolved,2026-09-16T03:21:00+00:00,2026-09-16,0.0
+n856qjj4f12k,bitbucket,Delays with Bitbucket Pipelines Execution,minor,False,resolved,2026-09-16T09:32:05.447000+00:00,2026-09-16,43.82
+grb2v0td1nq5,digitalocean,Support Portal Service Disruption,minor,False,resolved,2026-09-16T09:48:19.081000+00:00,2026-09-16,681.21
+w1jqw8bwk6xc,vercel,Missing Web Analytics and Speed Insights data,minor,False,resolved,2026-09-16T14:00:00+00:00,2026-09-16,0.0
+1z5kbv8r5pkv,discord,Google Pay Outage,major,True,resolved,2026-09-16T16:15:33.186000+00:00,2026-09-16,27.76
+chpjjdyk63yt,discord,API Errors,none,False,resolved,2026-09-16T19:03:28.046000+00:00,2026-09-16,24.56
+c9vn3xqlhzyl,discord,Issue establishing voice call,major,True,resolved,2026-09-16T21:32:50.472000+00:00,2026-09-16,62.31
+ttqhd2v8dq3p,vercel,Failures delivering Logs to Drains,none,False,resolved,2026-09-17T05:11:00+00:00,2026-09-17,120.0
+610vfhw9wjcj,discord,Issue / Delay in establishing call connection,major,True,resolved,2026-09-17T18:18:09.303000+00:00,2026-09-17,141.23
+j6cdljvmf2wf,vercel,Elevated Vercel KMS and Connect Errors,none,False,resolved,2026-09-18T12:00:00+00:00,2026-09-18,0.0
+bwkmw4hmrgmk,vercel,Elevated Errors Triggering Deployments,major,True,resolved,2026-09-18T20:32:36.902000+00:00,2026-09-18,49.83
+5c1lswm68bkg,vercel,Deployment stuck in initializing state,minor,False,resolved,2026-09-18T21:36:09.881000+00:00,2026-09-18,55.21
+tdmx94fpl0y6,reddit,Mods Unable to Approve Content,minor,False,resolved,2026-09-23T00:23:28.770000+00:00,2026-09-23,63.72
+8zc63m64hy36,github,Incident across several services,minor,False,resolved,2026-09-23T10:11:12.845000+00:00,2026-09-23,1124.35
+t00495fymyd6,discord,Age group status mismatch across devices,major,True,resolved,2026-09-24T02:08:27+00:00,2026-09-24,83.73
+1dk955gg3bvz,github,Disruption with billing information updates,minor,False,resolved,2026-09-24T16:51:32.619000+00:00,2026-09-24,229.66
+zff9xpz80gwf,npm,Issues with npm package publish and private install,minor,False,resolved,2026-09-27T00:50:52.921000+00:00,2026-09-27,357.04
+yy1sm6x5l83q,vercel,Build failures and 500 errors for functions using Edge runtime,minor,False,resolved,2026-09-28T13:44:29.838000+00:00,2026-09-28,27.0
+169pg72gg9jr,github,Copilot Code Review is unable to complete reviews,critical,True,resolved,2026-09-28T21:16:39.012000+00:00,2026-09-28,51.69
+dqn46wtvbdzv,github,[Retroactive] Actions workflow run failures after deployment gate approvals,minor,False,resolved,2026-10-01T02:00:00+00:00,2026-10-01,0.0
+vtywt50wxvtz,bitbucket,Job processing and scheduling is degraded affecting multiple Atlassian products,major,True,postmortem,2026-10-01T02:55:55.498000+00:00,2026-10-01,295.59
+c8466lzvnmsv,github,Elevated request latency,minor,False,resolved,2026-10-01T13:37:33.066000+00:00,2026-10-01,20.44
+2dpbcq5j165n,github,Actions Job Delays,minor,False,resolved,2026-10-01T14:47:48.138000+00:00,2026-10-01,189.1
+yb8bzhp6nd87,discord,Elevated API error rate,minor,False,resolved,2026-10-01T19:48:10.455000+00:00,2026-10-01,64.61
+6z6dt3t1bhb9,digitalocean,A Network Disruption in BLR1 Region Impacted Multiple Products (Resolved),none,False,resolved,2026-10-03T14:51:13.541000+00:00,2026-10-03,0.0
+5fxykytg48dx,digitalocean,VPC Networking Availability,minor,False,resolved,2026-10-05T10:38:07.086000+00:00,2026-10-05,95.15
+3q1yb5m7ltvb,github,Incident with Actions,critical,True,resolved,2026-10-05T19:11:58.382000+00:00,2026-10-05,217.74
+2kxnqcxcrr7f,github,Disruption with some GitHub services,major,True,resolved,2026-10-05T23:47:45.202000+00:00,2026-10-05,104.97
+xr8lx0kncx0g,vercel,Elevated Sandbox error rates in Paris (cdg1),minor,False,resolved,2026-10-06T09:12:06.681000+00:00,2026-10-06,24.81
+1dp8c0nfchtg,vercel,Vercel Auth login failures for pages with Deployment Protection enabled,major,True,resolved,2026-10-06T16:10:59.039000+00:00,2026-10-06,15.84
+cjwszcf57bff,github,Several services are degraded,critical,True,resolved,2026-10-06T19:57:35.445000+00:00,2026-10-06,223.15
+djlmxz2zd0j7,github,"Incident with Git Operations, Pull Requests and Actions",critical,True,resolved,2026-10-07T15:14:45.614000+00:00,2026-10-07,70.47
+qpfv5p86dmrl,github,"Incident with Git Operations, Issues, Actions and Pull Requests",critical,True,resolved,2026-10-07T17:17:05.776000+00:00,2026-10-07,47.73
+z05w3v6n09xy,reddit,Investigating elevated errors across reddit.com and native apps,none,False,resolved,2026-10-07T19:58:52.875000+00:00,2026-10-07,56.59
+bpzq72pgngc7,vercel,"Delays in Drains, Observability, and Workflow in Washington (iad1)",major,True,resolved,2026-10-10T00:15:49.929000+00:00,2026-10-10,81.18
+qfg5hmfhxw5d,digitalocean,DNS Resolution for Managed Kubernetes,minor,False,resolved,2026-10-11T22:01:39.863000+00:00,2026-10-11,87.36
+93njd414rpbx,github,"Incident with Actions, Pull Requests and Issues",minor,False,resolved,2026-10-12T12:21:47.972000+00:00,2026-10-12,474.32
+sps6n39gm4sg,vercel,Increased build and deployment failures,major,True,resolved,2026-10-12T13:35:07.398000+00:00,2026-10-12,396.09
+rl0fl1jtxw7l,digitalocean,App Platform Deployments,none,False,resolved,2026-10-13T17:09:47.490000+00:00,2026-10-13,0.0
+6yk962mhlr3h,github,[Retroactive] Actions workflow run logs delayed,minor,False,resolved,2026-10-13T20:30:00+00:00,2026-10-13,0.0
+nwrj52br2kjv,npm,Issues with login and viewing packages,minor,False,resolved,2026-10-14T09:29:04.643000+00:00,2026-10-14,135.3
+mgg6br7xyc6p,bitbucket,Bitbucket Cloud - Service Disruption,critical,True,postmortem,2026-10-15T10:07:21.477000+00:00,2026-10-15,120.92
+vlxrztp88101,github,CCA Automations are delayed when starting an Automation,minor,False,resolved,2026-10-15T18:31:49.838000+00:00,2026-10-15,24.24
+8tzbpcnl75jp,github,"Degraded availability for GitHub Actions, GitHub Pages and Webhooks",critical,True,resolved,2026-10-19T15:49:25.828000+00:00,2026-10-19,67.54
+nms1dpzmh9d9,github,Delays for Pull Requests and Webhook deliveries,critical,True,resolved,2026-10-21T14:52:49.979000+00:00,2026-10-21,270.04
+ldlx0fdgls28,bitbucket,Disrupted Bitbucket availability,critical,True,resolved,2026-10-21T17:22:02.059000+00:00,2026-10-21,39.77
+xfp75s9j3bp8,npm,Degraded Package Install and Publishing,major,True,resolved,2026-10-22T02:33:25.776000+00:00,2026-10-22,110.85
+56x3sh4qhr9s,npm,"Degraded Publish, Install, and View Package",minor,False,resolved,2026-10-22T06:43:54.961000+00:00,2026-10-22,316.03
+q29p76qtnkyk,github,Incident with Actions,minor,False,resolved,2026-10-22T14:18:15.723000+00:00,2026-10-22,60.51
+wq8305lppdc2,github,Project updates delayed,minor,False,resolved,2026-10-22T15:28:03.986000+00:00,2026-10-22,662.35
+ntrfd2jqldn6,github,Delayed Actions status check results,minor,False,resolved,2026-10-23T07:29:03.081000+00:00,2026-10-23,36.4
+71y513kjvbzh,github,Disruption with Dependabot Alerts,minor,False,resolved,2026-10-23T14:58:48.748000+00:00,2026-10-23,232.6
+4lgcbsr7l8xn,vercel,Delays in Logs and Observability data,minor,False,resolved,2026-10-23T16:31:02.356000+00:00,2026-10-23,61.74
+khv5nj9qy2kk,github,Grok 4.6 and Grok 4.7 Service Issues,minor,False,resolved,2026-10-23T23:41:54.223000+00:00,2026-10-23,41.64
+hf0q2nhdk5cp,npm,View package and auth outage on npmjs.com,major,True,resolved,2026-10-26T05:54:32.531000+00:00,2026-10-26,35.77
+f1vvv30224wd,github,"Incident with Actions, Issues, API Requests and Pull Requests",minor,False,resolved,2026-10-26T18:48:26.235000+00:00,2026-10-26,8.95
+dnslv7xdl4fj,github,Elevated 404s for GitHub App s2s tokens in git/API,none,False,resolved,2026-10-27T08:00:00+00:00,2026-10-27,0.0
+ckmpdk5z9xj9,digitalocean,Kubernetes Cluster Management Operations,major,True,resolved,2026-10-27T22:14:46.900000+00:00,2026-10-27,220.43
+l7ycmglmykgg,github,Disruption with some Copilot services,critical,True,resolved,2026-10-28T14:12:53.821000+00:00,2026-10-28,75.42
+rn76zdy367m2,github,Disruption with Copilot Cloud services,minor,False,resolved,2026-10-29T10:19:55.318000+00:00,2026-10-29,149.95
+nxy2l0ssxm10,github,Disruption with GitHub services,critical,True,resolved,2026-10-30T14:31:16.537000+00:00,2026-10-30,31.57
+fyf18nfvtqm7,discord,Issues establishing voice calls,major,True,resolved,2026-10-30T15:23:30.627000+00:00,2026-10-30,55.34
+pwxsjgnvrk6b,github,"Incident with Actions, Pages, and Webhooks",major,True,resolved,2026-10-30T17:50:54.677000+00:00,2026-10-30,92.76
+lyyfm7j4pkgl,github,Incident with Dependabot,minor,False,resolved,2026-10-30T20:59:14.225000+00:00,2026-10-30,149.87
+bg4s23tyzw6l,discord,Issues establishing voice call,major,True,resolved,2026-10-31T15:26:29.258000+00:00,2026-10-31,377.25
+db4x8hh362t8,github,Elevated errors on GPT-5.4 Nano,minor,False,resolved,2026-11-02T17:46:23.166000+00:00,2026-11-02,38.0
+3bv9locsg7ln,cloudflare,Cloudflare Gateway DNS-over-TLS Connectivity Issues over IPv4,minor,False,resolved,2026-11-02T22:12:39.280000+00:00,2026-11-02,141.57
+n5mvqjs26jg9,cloudflare,Cloudflare Container Issues,minor,False,resolved,2026-11-03T04:12:18.432000+00:00,2026-11-03,70.72
+j25w3rpv45gs,cloudflare,Network Performance Issues in APJC,minor,False,resolved,2026-11-03T04:44:12.062000+00:00,2026-11-03,72.29
+6c4ak19xodyt,cloudflare,Elevated number of 5xx errors in HKG,minor,False,resolved,2026-11-03T07:24:51.706000+00:00,2026-11-03,0.0
+rxlj89wpk7px,github,"Incident with API, Git, and Copilot requests",minor,False,resolved,2026-11-03T13:25:19.620000+00:00,2026-11-03,30.99
+nbyxn84kvb6o,cloudflare,Cloudflare Workers and Pages build errors,minor,False,resolved,2026-11-03T14:46:56.697000+00:00,2026-11-03,291.21
+7gixemnw9oei,cloudflare,"Increased Durable Object Errors in the Dallas, TX US region",minor,False,resolved,2026-11-03T15:38:17.485000+00:00,2026-11-03,63.73
+13b6lyl8d7bz,github,Incident with Git Operations,minor,False,resolved,2026-11-03T20:57:14.438000+00:00,2026-11-03,103.81
+me060q7dbayp,cloudflare,Cloudflare Pages Upload Issue,minor,False,resolved,2026-11-04T07:11:09.647000+00:00,2026-11-04,0.0
+tc28c0wzrnpz,github,Increased task-related errors for Copilot Mission Control,minor,False,resolved,2026-11-04T08:45:00.281000+00:00,2026-11-04,76.74
+smtdswd1h2w4,github,"Incident with Pull Requests, Git Operations and Issues",major,True,resolved,2026-11-04T09:49:55.685000+00:00,2026-11-04,120.18
+nbnize4e990z,cloudflare,Network latency issues in NRT,minor,False,resolved,2026-11-04T13:39:26.804000+00:00,2026-11-04,113.72
+dr9s0uvzwk6n,cloudflare,Increased Latency and Errors for R2 and Downstream Services in Western North America (WNAM),minor,False,resolved,2026-11-04T14:43:39.555000+00:00,2026-11-04,0.0
+xr3myzj7ms51,github,Incident with Actions and Pages,major,True,resolved,2026-11-04T16:05:31.580000+00:00,2026-11-04,55.67
+h02n9572mx9y,github,Incident with Actions,major,True,resolved,2026-11-04T17:40:33.675000+00:00,2026-11-04,35.58
+c3pjgxk8xnzn,cloudflare,Increased Errors for Durable Objects and Downstream Services in Eastern North America (ENAM),none,False,resolved,2026-11-04T22:21:26.035000+00:00,2026-11-04,0.0
+oy8gxjb38yse,cloudflare,Increased Errors for Durable Objects in Western Europe,minor,False,resolved,2026-11-05T13:23:55.346000+00:00,2026-11-05,1181.41
+1i6fnludjh1m,cloudflare,Network disruption across multiple colocations in India,minor,False,resolved,2026-11-05T15:05:13.791000+00:00,2026-11-05,71.57
+t89g2q1800fr,github,Incident with Actions,minor,False,resolved,2026-11-05T16:50:11.086000+00:00,2026-11-05,52.41
+w661l7k3kf4p,vercel,Build delays and degraded Vercel Dashboard performance,minor,False,resolved,2026-11-05T18:25:10.527000+00:00,2026-11-05,25.21
+yaa0witbl2me,cloudflare,Workers Builds Issues,minor,False,resolved,2026-11-05T19:51:39.176000+00:00,2026-11-05,28.52
+pfbmpxxfq1cy,github,Degraded performance for multiple GitHub services,minor,False,resolved,2026-11-05T23:36:06.204000+00:00,2026-11-05,44.72
+3ehw20ozwlkr,cloudflare,Network Performance Issues in Singapore,minor,False,resolved,2026-11-06T08:54:00.339000+00:00,2026-11-06,109.63
+wtsd415cavkc,cloudflare,"Wrangler Deployments, Pages, and Workers Builds failures",minor,False,resolved,2026-11-06T09:47:17.426000+00:00,2026-11-06,21.22
+wp49bp8bqo6c,cloudflare,Fedramp Customers have Delayed Purges,minor,False,resolved,2026-11-06T17:47:15.545000+00:00,2026-11-06,8569.28
+c60k3g4vsoc1,cloudflare,Spectrum Availability Issue in Phoenix,minor,False,resolved,2026-11-07T00:59:31.548000+00:00,2026-11-07,3697.41
+x9orajjmvvwa,cloudflare,Network Performance Issues in Chicago,minor,False,resolved,2026-11-07T05:34:24.281000+00:00,2026-11-07,0.0
+cc0t2r4403sy,npm,Minor issues impacting package publish,minor,False,resolved,2026-11-07T14:28:25.152000+00:00,2026-11-07,36.65
+pyynvrm1vskw,github,Increase in timeouts for some unauthenticated users,minor,False,resolved,2026-11-08T10:36:05.481000+00:00,2026-11-08,116.5
+c9px7cw2ghrs,github,Increased timeouts due to surge in anonymous users,minor,False,resolved,2026-11-09T05:59:07.851000+00:00,2026-11-09,190.81
+xxb3l2bm76dr,github,Incident with Webhooks and Actions,major,True,resolved,2026-11-09T10:00:35.232000+00:00,2026-11-09,110.01
+1x0tbxpmmttu,cloudflare,Changes made to Workers may be delayed or disrupted,minor,False,resolved,2026-11-09T16:15:26.798000+00:00,2026-11-09,571.03
+88hc76jnq2gn,cloudflare,Network Performance Issues in Eastern North America,minor,False,resolved,2026-11-09T16:34:35.356000+00:00,2026-11-09,217.86
+nrwykczfny3n,discord,Connectivity Issue w/ Discord's Homepage and Marketing Sites,major,True,resolved,2026-11-09T17:05:03.041000+00:00,2026-11-09,0.0
+tp8cghg7tlc4,github,Incident with Actions and Checks API,critical,True,resolved,2026-11-09T18:12:37.242000+00:00,2026-11-09,46.92
+6jm5k16vyhfg,github,Degraded availability for GPT-5.3 Codex and GPT-5.6 models in Copilot,major,True,resolved,2026-11-09T23:16:32.233000+00:00,2026-11-09,49.34
+0ocqieaifg7h,cloudflare,Changes to Cloudflare Workers are not producing Event Subscription events,minor,False,identified,2026-11-10T01:53:58.905000+00:00,2026-11-10,
+m644az5hr9xo,cloudflare,Account Analytics Filter Issue,minor,False,resolved,2026-11-10T08:02:37.766000+00:00,2026-11-10,42.6
+hnf21m9jkl3c,github,Incident with Git Operations and Pull Requests,critical,True,resolved,2026-11-10T16:10:52.174000+00:00,2026-11-10,104.19
+3en9cdyjn2sq,cloudflare,Prediction issue on OpenAI models via Replicate,minor,False,resolved,2026-11-10T18:35:39.915000+00:00,2026-11-10,31.33
+5m8qxy05bly7,vercel,Elevated Sandbox and Blob request latency and errors,minor,False,resolved,2026-11-10T21:04:28.549000+00:00,2026-11-10,0.0
+1h9c85fz6bm3,cloudflare,"Network Performance Issues in St. Louis, USA",minor,False,resolved,2026-11-10T22:50:23.422000+00:00,2026-11-10,140.05
+yu63fhh2peb7,cloudflare,Replicate Model Registry Unavailable,minor,False,resolved,2026-11-11T04:33:19.016000+00:00,2026-11-11,2710.98
+byzl30zyfc47,cloudflare,Cloudflare Worker Builds Issue,minor,False,resolved,2026-11-11T06:29:09.044000+00:00,2026-11-11,12.42
+21vwp89eiyjx,cloudflare,SSL Certificate Provisioning Issue,minor,False,resolved,2026-11-11T07:45:42.146000+00:00,2026-11-11,142.27
+4qxszy04pdjw,cloudflare,Elevated number of 5xx errors in Hong Kong,minor,False,resolved,2026-11-11T07:52:21.120000+00:00,2026-11-11,0.0
+3ptyvdaljq9b,cloudflare,Workers deployments errors with D1 bindings,minor,False,resolved,2026-11-11T13:09:04.520000+00:00,2026-11-11,0.0
+804glbb3pq6t,cloudflare,Network Performance Degraded,minor,False,resolved,2026-11-11T15:53:19.709000+00:00,2026-11-11,25.52
+1h2wbly1y72t,github,Incident with Webhooks,minor,False,resolved,2026-11-11T20:22:20.729000+00:00,2026-11-11,4.05
+dvy0t3mvh1lg,github,"Impact across multiple GitHub products including Actions, Pages, and Copilot products.",critical,True,resolved,2026-11-11T20:48:12.265000+00:00,2026-11-11,33.45
+8odt36zmvm36,cloudflare,DNSSEC Configuration Change Issues,minor,False,resolved,2026-11-12T04:53:29.795000+00:00,2026-11-12,33.27
+1na2mbfshgdh,cloudflare,Replicate Issue,minor,False,resolved,2026-11-12T08:30:17.012000+00:00,2026-11-12,183.76
+gl7yhd7jx00v,github,Incident with Webhooks API,minor,False,resolved,2026-11-12T18:43:13.817000+00:00,2026-11-12,50.67
+nwbjzl7nfrc2,github,Disruption with Email Delivery,minor,False,resolved,2026-11-12T19:36:45.563000+00:00,2026-11-12,127.18
+9zxr2bkqoct7,cloudflare,Durable Objects increased error rates in North America,minor,False,resolved,2026-11-12T22:39:40.553000+00:00,2026-11-12,305.15
+y03on2svrrxt,cloudflare,Elevated error rate for workers startup,minor,False,resolved,2026-11-13T13:54:01.333000+00:00,2026-11-13,82.09
+mc91s22odfvf,cloudflare,Cloudflare is currently having an issue with the r8.im registry used for Replicate model publishing and builds is currently restricted,minor,False,resolved,2026-11-13T14:55:26.179000+00:00,2026-11-13,596.05
+e7ktq32gphhe,cloudflare,Cloudflare is seeing an issue with Workers API availability,minor,False,resolved,2026-11-13T15:31:13.773000+00:00,2026-11-13,1326.45
+1xzmt89vv61l,github,Incident with Pull Requests,major,True,resolved,2026-11-13T15:47:12.290000+00:00,2026-11-13,162.32
+51drrqvsv66g,github,Copilot experiencing degraded model availability for some GPT models,minor,False,resolved,2026-11-13T20:13:51.325000+00:00,2026-11-13,74.13
+rikplz89rpml,cloudflare,Issues with 1.1.1.1 public resolver in Canada,minor,False,resolved,2026-11-13T23:53:18.687000+00:00,2026-11-13,67.98
+a643zcsfc71q,cloudflare,Increased errors for R2 and Tiered Cache,minor,False,resolved,2026-11-14T05:30:35.270000+00:00,2026-11-14,75.21
+dpao7idy3zei,cloudflare,Elevated error rates on R2 buckets in West North America,minor,False,resolved,2026-11-14T20:18:18.649000+00:00,2026-11-14,2.32
+sozoycnmog2m,cloudflare,Elevated number of errors in Bogotá,minor,False,resolved,2026-11-15T03:12:13.031000+00:00,2026-11-15,0.0
+jzcjy0pjq70s,reddit,Apple iOS App - Apple Account login issues,minor,False,resolved,2026-11-16T10:02:29.579000+00:00,2026-11-16,658.34
+926f6yhmdjgr,bitbucket,Bitbucket Cloud website and API slowness and intermittent errors,minor,False,resolved,2026-11-16T11:07:13.970000+00:00,2026-11-16,106.11
+2zfqmghmg3s3,github,Incident with Pull Requests,minor,False,resolved,2026-11-16T11:59:40.900000+00:00,2026-11-16,266.76
+69855o2zz6kl,cloudflare,Errors creating predictions for some models,minor,False,resolved,2026-11-16T14:30:20.417000+00:00,2026-11-16,108.81
+fdvp47jv22nl,digitalocean,App Platform Accessibility in Cloud Panel,none,False,resolved,2026-11-16T19:10:46.702000+00:00,2026-11-16,149.22
+wscmdyvmpb5d,cloudflare,"Network Performance Issues in Montreal, Canada",minor,False,resolved,2026-11-16T21:36:50.596000+00:00,2026-11-16,0.0
+3l6q71x7a37k,cloudflare,"Network Performance Issues in Ashburn, US",none,False,resolved,2026-11-17T00:41:03.939000+00:00,2026-11-17,67.04
+9x7ysmxtswkn,discord,Issues detected,none,False,resolved,2026-11-17T00:57:58.510000+00:00,2026-11-17,2.55
+1nqok7v173qg,cloudflare,Elevated number of 52x origin connectivity errors in Seoul,minor,False,resolved,2026-11-17T08:51:03.499000+00:00,2026-11-17,0.0
+5831aw44ia7i,cloudflare,Turnstile verification failures,minor,False,resolved,2026-11-17T10:24:59.409000+00:00,2026-11-17,372.19
+tawn3zx7wh0z,cloudflare,Cloudflare One Gateway traffic unable to connect to Cloudflare domains that are regionalized,minor,False,resolved,2026-11-17T13:54:19.030000+00:00,2026-11-17,62.56
+sv9tnfpjiojf,cloudflare,Errors and stalled predictions on some models,minor,False,identified,2026-11-17T15:02:47.698000+00:00,2026-11-17,
+1ip2m5rvk7vb,cloudflare,Elevated number of 5xx and 499 errors,minor,False,resolved,2026-11-17T15:50:54.167000+00:00,2026-11-17,0.0
+du63c25qjgjs,cloudflare,Network performance issues in Los Angeles (LAX) and Frankfurt (FRA) datacenters,minor,False,resolved,2026-11-17T17:12:37.707000+00:00,2026-11-17,47.5
+gcn9xop0f7zm,cloudflare,R2 elevated errors and timeouts for requests from South America,minor,False,monitoring,2026-11-17T20:05:29.550000+00:00,2026-11-17,
