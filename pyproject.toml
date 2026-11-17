@@ -1,0 +1,30 @@
+[project]
+name = "mercury-in-prod"
+version = "0.1.0"
+description = "Empirical ephemeris and software incidents statistical lab"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "astronomy-engine>=2.1.0",
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+    "scipy>=1.13.0",
+    "statsmodels>=0.14.0",
+    "plotly>=5.22.0",
+    "streamlit>=1.36.0",
+    "requests>=2.32.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "ruff>=0.6.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
