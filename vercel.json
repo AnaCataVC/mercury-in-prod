@@ -2,5 +2,23 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "",
-  "outputDirectory": "site"
+  "outputDirectory": "site",
+  "redirects": [
+    {
+      "source": "/lab",
+      "destination": "https://mercury-anacatavc.streamlit.app/",
+      "permanent": false
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "mercury-lab.ana-catalina.com"
+        }
+      ],
+      "destination": "https://mercury-anacatavc.streamlit.app/$1",
+      "permanent": false
+    }
+  ]
 }

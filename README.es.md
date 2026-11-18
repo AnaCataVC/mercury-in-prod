@@ -9,6 +9,9 @@
 
 Laboratorio empírico de Data Science que evalúa si **Mercurio retrógrado**, las sombras planetarias o las fases lunares tienen relación con incidentes en producción de software, y demuestra cómo los **confusores de calendario** y el **testeo de múltiples hipótesis (*p-hacking*)** generan patrones ilusorios.
 
+- **Data Story en Vivo (Estática):** https://mercury.ana-catalina.com
+- **Laboratorio Exploratorio en Vivo (Streamlit):** https://mercury-lab.ana-catalina.com ([URL directa en Streamlit](https://mercury-anacatavc.streamlit.app/))
+
 El motor de efemérides (`src/ephemeris.py`) es una réplica exacta en Python de `AstrologyEngine.kt` de `one-ui-extra-widgets`, impulsado por [`astronomy-engine`](https://pypi.org/project/astronomy-engine/) para cálculos astronómicos 100% deterministas y sin conexión.
 
 ---

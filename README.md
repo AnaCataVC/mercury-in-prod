@@ -9,6 +9,9 @@
 
 Empirical Data Science laboratory testing whether **Mercury retrograde**, planetary shadow windows, or lunar phases correlate with software production incidents—and demonstrating how **calendar confounders** and **multiple-hypothesis testing (*p*-hacking)** create illusory patterns.
 
+- **Live Data Story (Static):** https://mercury.ana-catalina.com
+- **Live Exploratory Lab (Streamlit):** https://mercury-lab.ana-catalina.com ([direct Streamlit URL](https://mercury-anacatavc.streamlit.app/))
+
 The ephemeris engine (`src/ephemeris.py`) is an exact Python port of `AstrologyEngine.kt` from `one-ui-extra-widgets`, powered by [`astronomy-engine`](https://pypi.org/project/astronomy-engine/) for 100% deterministic offline planetary and lunar calculations.
 
 ---
