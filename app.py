@@ -24,12 +24,12 @@ from src.stats import (
 DATA_DIR = Path("data")
 
 THEME_COLORS: dict[str, str] = {
-    "accent": "#7dd3fc",
-    "accent_2": "#fb7185",
+    "accent": "#22d3ee",
+    "accent_2": "#f472b6",
     "ok": "#34d399",
-    "danger": "#fda4af",
-    "muted": "#94a3b8",
-    "null": "#64748b",
+    "danger": "#fb7185",
+    "muted": "#a398c4",
+    "null": "#7c7299",
 }
 
 PLOTLY_CONFIG: dict[str, object] = {

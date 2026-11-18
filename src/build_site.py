@@ -22,43 +22,49 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0b0e14;
-      --bg-hero: #162033;
-      --bg-glow-2: #1f1629;
-      --surface: #121722;
-      --surface-card: rgba(18, 23, 34, 0.92);
-      --surface-alt: #181f2e;
-      --surface-elevated: #1e2738;
-      --nav-bg: rgba(11, 14, 20, 0.88);
-      --grid: #232c3d;
-      --plot-bg: rgba(11, 14, 20, 0.62);
+      --bg: #08070f;
+      --bg-hero: #2b103f;
+      --bg-glow-2: #0b2938;
+      --surface: #100e1c;
+      --surface-card: rgba(18, 15, 32, 0.90);
+      --surface-alt: #17132b;
+      --surface-elevated: #211b3d;
+      --nav-bg: rgba(8, 7, 15, 0.88);
+      --grid: #262042;
+      --plot-bg: rgba(8, 7, 15, 0.65);
       --plot-transparent: rgba(0, 0, 0, 0);
-      --border: #273145;
-      --border-hover: #3f4f6e;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --muted-light: #cbd5e1;
-      --accent: #7dd3fc;
-      --accent-contrast: #082f49;
-      --accent-2: #fb7185;
+      --border: #322857;
+      --border-hover: #d946ef;
+      --text: #f8f4ff;
+      --muted: #a398c4;
+      --muted-light: #dcd3f5;
+      --accent: #22d3ee;
+      --accent-contrast: #041f29;
+      --accent-2: #f472b6;
+      --accent-3: #e879f9;
       --ok: #34d399;
       --warn: #fbbf24;
-      --danger: #fda4af;
-      --null-color: #64748b;
-      --hover-bg: rgba(125, 211, 252, 0.1);
-      --chip-bg: rgba(24, 31, 46, 0.95);
-      --chip-active-bg: rgba(125, 211, 252, 0.16);
-      --retro-band: rgba(251, 113, 133, 0.08);
-      --callout-bg: linear-gradient(145deg, rgba(24, 31, 46, 0.95), rgba(18, 23, 34, 0.98));
-      --callout-border: rgba(125, 211, 252, 0.28);
-      --badge-null-bg: rgba(100, 116, 139, 0.2);
-      --badge-null-text: #cbd5e1;
-      --badge-hit-bg: rgba(251, 113, 133, 0.18);
-      --badge-hit-text: #fecdd3;
+      --danger: #fb7185;
+      --null-color: #7c7299;
+      --hover-bg: rgba(232, 121, 249, 0.12);
+      --chip-bg: rgba(23, 19, 43, 0.95);
+      --chip-active-bg: rgba(244, 114, 182, 0.16);
+      --retro-band: rgba(244, 114, 182, 0.09);
+      --callout-bg: linear-gradient(145deg, rgba(33, 22, 56, 0.94), rgba(14, 12, 26, 0.98));
+      --callout-border: rgba(244, 114, 182, 0.42);
+      --glow-rose: 0 0 24px rgba(244, 114, 182, 0.18);
+      --glow-cyan: 0 0 18px rgba(34, 211, 238, 0.22);
+      --btn-gradient: linear-gradient(135deg, #f472b6, #e879f9);
+      --btn-gradient-text: #160822;
+      --badge-null-bg: rgba(124, 114, 153, 0.22);
+      --badge-null-text: #dcd3f5;
+      --badge-hit-bg: rgba(244, 114, 182, 0.2);
+      --badge-hit-text: #fbcfe8;
       --badge-fdr-bg: rgba(52, 211, 153, 0.16);
       --badge-fdr-text: #a7f3d0;
-      --notice-error-border: rgba(253, 164, 175, 0.45);
-      --notice-error-bg: rgba(253, 164, 175, 0.08);
+      --notice-error-border: rgba(251, 113, 133, 0.5);
+      --notice-error-bg: rgba(251, 113, 133, 0.09);
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       --radius-lg: 14px;
       --radius-md: 8px;
       --radius-sm: 6px;
@@ -110,7 +116,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     .read-progress {
       height: 2px;
       width: 0%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      background: linear-gradient(90deg, var(--accent), var(--accent-3), var(--accent-2));
       transition: width 0.1s linear;
     }
     .top-nav-inner {
@@ -283,10 +289,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       justify-content: center;
     }
     .eyebrow {
-      font-size: 0.74rem;
-      letter-spacing: 0.12em;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-2);
       font-weight: 700;
       margin-bottom: 0.45rem;
     }
@@ -313,9 +320,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
-      background: var(--accent);
-      color: var(--accent-contrast);
-      border: 1px solid var(--accent);
+      background: var(--btn-gradient);
+      color: var(--btn-gradient-text);
+      border: 1px solid var(--accent-2);
       border-radius: var(--radius-md);
       padding: 0.62rem 1.05rem;
       min-height: 44px;
@@ -323,10 +330,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
-      transition: opacity 0.15s ease, transform 0.15s ease;
+      box-shadow: var(--glow-rose);
+      transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
     }
     .btn-primary:hover:not(:disabled) {
-      opacity: 0.92;
+      opacity: 0.94;
+      box-shadow: var(--glow-cyan);
     }
     .btn-secondary {
       display: inline-flex;
@@ -354,12 +363,14 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     .verdict-card {
       background: var(--callout-bg);
       border: 1px solid var(--callout-border);
+      border-top: 2px solid var(--accent-2);
       border-radius: var(--radius-lg);
       padding: 1.25rem 1.35rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 0.9rem;
+      box-shadow: var(--glow-rose);
     }
     .verdict-head {
       display: flex;
@@ -443,6 +454,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     }
     .kpi-card:hover {
       border-color: var(--border-hover);
+      box-shadow: var(--glow-rose);
       transform: translateY(-2px);
     }
     .kpi-label {
@@ -453,6 +465,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       font-weight: 600;
     }
     .kpi-value {
+      font-family: var(--font-mono);
       font-size: clamp(1.35rem, 2.2vw, 1.8rem);
       font-weight: 750;
       margin: 0.22rem 0 0.15rem;
@@ -482,11 +495,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       gap: 0.35rem;
     }
     .synthesis-num {
+      font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-2);
     }
     .synthesis-title {
       margin: 0;
@@ -570,6 +584,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       color: var(--text);
     }
     .chart-pill {
+      font-family: var(--font-mono);
       font-size: 0.74rem;
       font-weight: 600;
       padding: 0.18rem 0.6rem;
@@ -935,6 +950,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       .bottom-nav-item.active {
         color: var(--accent);
         background: var(--chip-active-bg);
+        box-shadow: inset 0 0 0 1px var(--callout-border);
       }
       .bottom-nav-item:focus-visible {
         outline: 2px solid var(--accent);
