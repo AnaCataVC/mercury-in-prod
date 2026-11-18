@@ -24,27 +24,34 @@ from src.stats import (
 DATA_DIR = Path("data")
 
 THEME_COLORS: dict[str, str] = {
-    "accent": "#93c5fd",
-    "accent_2": "#f9a8d4",
-    "ok": "#86efac",
+    "accent": "#7dd3fc",
+    "accent_2": "#fb7185",
+    "ok": "#34d399",
     "danger": "#fda4af",
-    "muted": "#a5acc9",
-    "null": "#94a3b8",
+    "muted": "#94a3b8",
+    "null": "#64748b",
+}
+
+PLOTLY_CONFIG: dict[str, object] = {
+    "responsive": True,
+    "displayModeBar": False,
+    "scrollZoom": False,
 }
 
 
 TEXT: dict[str, dict[str, str]] = {
     "en": {
-        "title": "Mercury in Prod — Exploratory Ephemeris & Incidents Lab",
+        "title": "Mercury in Prod — Exploratory Lab",
         "subtitle": (
             "Interactive statistical laboratory pairing an exact Python port of "
             "One UI Extra Widgets' AstrologyEngine with multi-year software incident dynamics."
         ),
+        "story_link": "Back to Executive Data Story ↗",
         "lang_label": "Language",
         "dataset_header": "Dataset Overview",
-        "tab_inspector": "Live Ephemeris Inspector",
-        "tab_lab": "Hypothesis & Permutation Lab",
-        "tab_phack": "P-Hacking & Multiple Testing",
+        "tab_inspector": "Ephemeris",
+        "tab_lab": "Hypothesis Lab",
+        "tab_phack": "P-Hacking & Audit",
         "date_pick": "Select UTC Date",
         "hour_pick": "UTC Hour",
         "sun_metric": "Sun Position",
@@ -76,6 +83,7 @@ TEXT: dict[str, dict[str, str]] = {
             "corrections filters out false discoveries."
         ),
         "volcano_title": "Multiple-Hypothesis Volcano Plot (57 Astrological Tests)",
+        "all_tests_expander": "Inspect All 57 Hypothesis Results",
         "real_audit_title": "Real Public Statuspage Incidents Audit (8 Engineering Platforms)",
         "reset_filters": "Reset Explorer Filters",
         "low_sample_warn": (
@@ -89,18 +97,21 @@ TEXT: dict[str, dict[str, str]] = {
         "status_fdr": "Survives FDR",
         "status_naive": "Naive Hit Only (False Positive)",
         "status_null": "Null",
+        "verdict_sig": "Statistically distinct in this raw slice (p_perm < 0.05) — check whether calendar confounding explains it.",
+        "verdict_null": "Null result (p_perm >= 0.05): no statistically meaningful difference from baseline days.",
     },
     "es": {
-        "title": "Mercury in Prod — Laboratorio Exploratorio de Efemérides e Incidentes",
+        "title": "Mercury in Prod — Laboratorio Exploratorio",
         "subtitle": (
             "Laboratorio estadístico interactivo que cruza una réplica exacta en Python de "
             "AstrologyEngine (One UI Extra Widgets) con series diarias de incidentes de software."
         ),
+        "story_link": "Volver a la Historia de Datos ↗",
         "lang_label": "Idioma",
         "dataset_header": "Resumen del Dataset",
-        "tab_inspector": "Inspector de Efemérides en Vivo",
-        "tab_lab": "Laboratorio de Hipótesis y Permutaciones",
-        "tab_phack": "Simulador de P-Hacking y Corrección FDR",
+        "tab_inspector": "Efemérides",
+        "tab_lab": "Laboratorio",
+        "tab_phack": "P-Hacking y Auditoría",
         "date_pick": "Fecha UTC",
         "hour_pick": "Hora UTC",
         "sun_metric": "Posición Solar",
@@ -132,6 +143,7 @@ TEXT: dict[str, dict[str, str]] = {
             "Bonferroni muestran qué sobrevive realmente."
         ),
         "volcano_title": "Gráfico Volcán de Múltiples Hipótesis (57 Pruebas)",
+        "all_tests_expander": "Ver las 57 Hipótesis Evaluadas",
         "real_audit_title": "Auditoría de Incidentes Públicos Reales en Statuspage (8 Plataformas)",
         "reset_filters": "Restablecer Filtros",
         "low_sample_warn": (
@@ -145,6 +157,8 @@ TEXT: dict[str, dict[str, str]] = {
         "status_fdr": "Sobrevive FDR",
         "status_naive": "Falso Hit Ingenuo",
         "status_null": "Nulo",
+        "verdict_sig": "Diferencia aparente en este corte crudo (p_perm < 0.05) — verifica si se debe al calendario.",
+        "verdict_null": "Resultado nulo (p_perm >= 0.05): sin diferencia estadística frente a los días base.",
     },
 }
 
@@ -184,35 +198,65 @@ def load_project_data() -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     return df, raw_df, results
 
 
+def _style_plotly_fig(fig):
+    """Apply consistent dark Observatory styling and mobile-friendly legends."""
+    fig.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        margin={"t": 46, "r": 16, "b": 64, "l": 46},
+        legend={
+            "orientation": "h",
+            "yanchor": "top",
+            "y": -0.22,
+            "xanchor": "center",
+            "x": 0.5,
+            "title_text": "",
+        },
+    )
+    return fig
+
+
 def main() -> None:
     icon_path = Path("site/favicon.png")
     st.set_page_config(
         page_title="Mercury in Prod — Exploratory Lab",
         page_icon=str(icon_path) if icon_path.exists() else None,
         layout="wide",
+        initial_sidebar_state="collapsed",
     )
 
-    with st.sidebar:
-        if icon_path.exists():
-            st.image(str(icon_path), width=56)
-        lang_choice = st.radio("Language / Idioma", options=["EN", "ES"], horizontal=True)
-        lang = lang_choice.lower()
-        t = TEXT[lang]
-        is_es = lang == "es"
+    head_left, head_right = st.columns([3, 1], vertical_alignment="center")
+    with head_right:
+        lang_choice = st.radio(
+            "Language / Idioma",
+            options=["EN", "ES"],
+            horizontal=True,
+            label_visibility="collapsed",
+        )
+    lang = lang_choice.lower()
+    t = TEXT[lang]
+    is_es = lang == "es"
+
+    with head_left:
+        st.title(t["title"])
+    st.markdown(t["subtitle"])
 
     try:
         df, raw_df, results = load_project_data()
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, pd.errors.ParserError, pd.errors.EmptyDataError):
-        st.title(t["title"])
         st.error(t["load_error"])
         if st.button(t["retry_load"]):
             st.rerun()
         return
 
+    summary = results["summary"]
     with st.sidebar:
+        if icon_path.exists():
+            st.image(str(icon_path), width=56)
+        st.link_button(t["story_link"], "https://mercury.ana-catalina.com", use_container_width=True)
         st.divider()
         st.subheader(t["dataset_header"])
-        summary = results["summary"]
         st.metric("Panel Days" if not is_es else "Días del Panel", f"{summary['panel_days']:,}")
         st.metric(
             "Real Statuspage Incidents" if not is_es else "Incidentes Reales Statuspage",
@@ -224,8 +268,18 @@ def main() -> None:
         )
         st.caption(f"{summary['start_date']} -> {summary['end_date']}")
 
-    st.title(t["title"])
-    st.markdown(t["subtitle"])
+    with st.expander(f"{t['dataset_header']} ({summary['panel_days']:,}d · {summary['real_public_incidents_count']} outages)", expanded=False):
+        ds1, ds2, ds3 = st.columns(3)
+        ds1.metric("Panel Days" if not is_es else "Días del Panel", f"{summary['panel_days']:,}")
+        ds2.metric(
+            "Real Outages" if not is_es else "Fallos Reales",
+            f"{summary['real_public_incidents_count']:,} ({summary['real_public_sources_count']} APIs)",
+        )
+        ds3.metric(
+            "Weekday vs Weekend" if not is_es else "Laboral vs Fin de Semana",
+            f"{summary['weekday_mean_incidents']:.2f} vs {summary['weekend_mean_incidents']:.2f}",
+        )
+        st.link_button(t["story_link"], "https://mercury.ana-catalina.com")
 
     tab1, tab2, tab3 = st.tabs([t["tab_inspector"], t["tab_lab"], t["tab_phack"]])
 
@@ -407,6 +461,10 @@ def main() -> None:
 
         if stats_res["n_exposed"] < 2:
             st.warning(t["low_sample_warn"])
+        elif stats_res["p_perm"] < 0.05:
+            st.warning(t["verdict_sig"])
+        else:
+            st.success(t["verdict_null"])
 
         k1, k2, k3, k4, k5 = st.columns(5)
         k1.metric(t["exposed_days"], f"{stats_res['n_exposed']} / {len(sub_df)}")
@@ -439,7 +497,8 @@ def main() -> None:
                     "Línea Base": THEME_COLORS["accent"],
                 },
             )
-            st.plotly_chart(fig_dist, width="stretch")
+            _style_plotly_fig(fig_dist)
+            st.plotly_chart(fig_dist, width="stretch", config=PLOTLY_CONFIG)
 
     # ------------------------------------------------------------------
     # Tab 3: Multiple Hypothesis Testing & Real Statuspage Audit
@@ -488,7 +547,8 @@ def main() -> None:
                 line_color=THEME_COLORS["danger"],
                 annotation_text="Bonferroni",
             )
-            st.plotly_chart(fig_volcano, width="stretch")
+            _style_plotly_fig(fig_volcano)
+            st.plotly_chart(fig_volcano, width="stretch", config=PLOTLY_CONFIG)
 
             label_col = "label_es" if is_es else "label_en"
             display_cols = [
@@ -515,13 +575,36 @@ def main() -> None:
                 "naive_hit": st.column_config.CheckboxColumn("Naive Hit" if not is_es else "Hit Ingenuo"),
                 "survives_fdr": st.column_config.CheckboxColumn("Survives FDR" if not is_es else "Sobrevive FDR"),
             }
-            st.dataframe(scan_df[display_cols], column_config=scan_col_config, width="stretch", hide_index=True)
+            with st.expander(t["all_tests_expander"], expanded=False):
+                st.dataframe(scan_df[display_cols], column_config=scan_col_config, width="stretch", hide_index=True)
 
         st.subheader(t["real_audit_title"])
         audit = results["real_statuspage_audit"]
         if audit.get("tests"):
             audit_df = pd.DataFrame(audit["tests"])
             audit_label_col = "label_es" if is_es else "label_en"
+            audit_melt = audit_df.melt(
+                id_vars=[audit_label_col],
+                value_vars=["observed_pct", "expected_pct"],
+                var_name="Series",
+                value_name="Share (%)",
+            )
+            obs_lbl = "Observed (%)" if not is_es else "Observado (%)"
+            exp_lbl = "Expected (%)" if not is_es else "Esperado (%)"
+            audit_melt["Series"] = audit_melt["Series"].replace({"observed_pct": obs_lbl, "expected_pct": exp_lbl})
+            fig_audit = px.bar(
+                audit_melt,
+                y=audit_label_col,
+                x="Share (%)",
+                color="Series",
+                barmode="group",
+                orientation="h",
+                color_discrete_map={obs_lbl: THEME_COLORS["accent_2"], exp_lbl: THEME_COLORS["accent"]},
+            )
+            _style_plotly_fig(fig_audit)
+            fig_audit.update_layout(yaxis_title="", margin={"t": 24, "r": 16, "b": 56, "l": 120})
+            st.plotly_chart(fig_audit, width="stretch", config=PLOTLY_CONFIG)
+
             audit_col_config = {
                 audit_label_col: st.column_config.TextColumn("Condition" if not is_es else "Condición"),
                 "observed_count": st.column_config.NumberColumn("Observed" if not is_es else "Observados", format="%d"),
