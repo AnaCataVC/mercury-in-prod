@@ -28,6 +28,9 @@ mercury-in-prod/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml            # Pipeline CI con Ruff, pytest y verificación del sitio estático
+├── docs/
+│   └── ux/
+│       └── mercury-in-prod-lab.md  # Especificación UX de 5 estados y contrato de interacción
 ├── src/
 │   ├── ephemeris.py          # Réplica exacta de AstrologyEngine (Sol, Luna, Mercurio–Saturno)
 │   ├── incidents.py          # Ingesta pública Statuspage v2 + panel operativo multi-año
