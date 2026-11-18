@@ -11,17 +11,19 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #12131f;
-      --bg-hero: #27224a;
-      --surface: #191b2b;
-      --surface-card: rgba(25, 27, 43, 0.9);
-      --surface-alt: #22253a;
-      --grid: #272a42;
-      --plot-bg: rgba(18, 19, 31, 0.65);
+      --bg: #0f101a;
+      --bg-hero: #241f46;
+      --surface: #171928;
+      --surface-card: rgba(23, 25, 40, 0.88);
+      --surface-alt: #1f2236;
+      --nav-bg: rgba(15, 16, 26, 0.82);
+      --grid: #262940;
+      --plot-bg: rgba(15, 16, 26, 0.55);
       --plot-transparent: rgba(0, 0, 0, 0);
-      --border: #363a59;
+      --border: #323654;
+      --border-hover: #52598a;
       --text: #f3f4fc;
-      --muted: #a5acc9;
+      --muted: #9ea6c4;
       --muted-light: #cbd2eb;
       --accent: #93c5fd;
       --accent-contrast: #0f172a;
@@ -29,114 +31,172 @@
       --ok: #86efac;
       --danger: #fda4af;
       --null-color: #94a3b8;
-      --hover-bg: rgba(165, 180, 252, 0.12);
+      --hover-bg: rgba(147, 197, 253, 0.12);
+      --chip-bg: rgba(31, 34, 54, 0.9);
+      --chip-active-bg: rgba(147, 197, 253, 0.18);
+      --retro-band: rgba(249, 168, 212, 0.09);
       --callout-bg: linear-gradient(135deg, rgba(147, 197, 253, 0.14), rgba(249, 168, 212, 0.1));
       --callout-border: rgba(196, 181, 253, 0.35);
-      --badge-null-bg: rgba(148, 163, 184, 0.2);
+      --badge-null-bg: rgba(148, 163, 184, 0.18);
       --badge-null-text: #cbd2eb;
-      --badge-hit-bg: rgba(249, 168, 212, 0.2);
+      --badge-hit-bg: rgba(249, 168, 212, 0.18);
       --badge-hit-text: #fbcfe8;
-      --badge-fdr-bg: rgba(134, 239, 172, 0.2);
+      --badge-fdr-bg: rgba(134, 239, 172, 0.18);
       --badge-fdr-text: #bbf7d0;
       --notice-error-border: rgba(253, 164, 175, 0.45);
       --notice-error-bg: rgba(253, 164, 175, 0.08);
-      --radius-lg: 16px;
-      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-md: 8px;
       --radius-sm: 6px;
       --radius-pill: 999px;
     }
     * { box-sizing: border-box; }
     html {
+      scroll-behavior: smooth;
       scrollbar-color: var(--border) var(--surface);
     }
-    ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--surface);
-    }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
     ::-webkit-scrollbar-thumb {
       background: var(--border);
       border-radius: var(--radius-pill);
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--muted);
-    }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
     body {
       margin: 0;
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top right, var(--bg-hero) 0%, var(--bg) 48%);
+      background:
+        radial-gradient(circle at 85% 0%, var(--bg-hero) 0%, transparent 45%),
+        var(--bg);
       color: var(--text);
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
-    }
-    header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      padding-bottom: 1.75rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .brand-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    .brand-icon {
-      width: 56px;
-      height: 56px;
-      flex-shrink: 0;
-      border-radius: var(--radius-md);
+      line-height: 1.55;
     }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       *, *::before, *::after {
         transition: none !important;
         animation: none !important;
       }
     }
+
+    /* Sticky Top Navigation */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .read-progress {
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.1s linear;
+    }
+    .top-nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0.6rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-brand img {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-sm);
+    }
+    .nav-pills {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-pills::-webkit-scrollbar { display: none; }
+    .nav-pill {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.32rem 0.7rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      white-space: nowrap;
+      transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .nav-pill:hover {
+      color: var(--text);
+      background: var(--hover-bg);
+    }
+    .nav-pill.active {
+      color: var(--accent);
+      background: var(--chip-active-bg);
+      border-color: var(--callout-border);
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 4rem;
+    }
+    header.hero {
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
     .eyebrow {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
       font-weight: 700;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
     h1 {
-      margin: 0 0 0.5rem;
-      font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+      margin: 0 0 0.45rem;
+      font-size: clamp(1.75rem, 3.4vw, 2.55rem);
       line-height: 1.15;
+      letter-spacing: -0.02em;
     }
     .subtitle {
-      max-width: 760px;
+      max-width: 700px;
       color: var(--muted);
       margin: 0;
-      font-size: 1.02rem;
+      font-size: 0.98rem;
     }
+
     .lang-switch {
       display: inline-flex;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-pill);
-      padding: 0.25rem;
-      gap: 0.25rem;
+      padding: 0.2rem;
+      gap: 0.2rem;
+      flex-shrink: 0;
     }
     .lang-btn {
       border: none;
       background: transparent;
       color: var(--muted);
-      padding: 0.4rem 0.9rem;
+      padding: 0.3rem 0.72rem;
       border-radius: var(--radius-pill);
       cursor: pointer;
-      font-weight: 600;
-      font-size: 0.85rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      transition: background 0.15s ease, color 0.15s ease;
     }
     .lang-btn:hover:not(.active):not(:disabled) {
       color: var(--text);
@@ -147,104 +207,179 @@
       color: var(--accent-contrast);
     }
     .lang-btn:active:not(:disabled),
-    .btn-secondary:active:not(:disabled) {
+    .btn-secondary:active:not(:disabled),
+    .chip-btn:active:not(:disabled) {
       transform: translateY(1px);
     }
     .lang-btn:focus-visible,
     .btn-secondary:focus-visible,
+    .chip-btn:focus-visible,
+    .nav-pill:focus-visible,
     select:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
     .lang-btn:disabled,
     .btn-secondary:disabled,
+    .chip-btn:disabled,
     select:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       pointer-events: none;
     }
+
     .btn-secondary {
       background: var(--surface-alt);
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 0.55rem 0.9rem;
-      font-size: 0.9rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.86rem;
       font-weight: 600;
       cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
     .btn-secondary:hover:not(:disabled) {
       border-color: var(--accent);
       background: var(--hover-bg);
     }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .chip-btn {
+      background: var(--chip-bg);
+      color: var(--muted-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 0.34rem 0.78rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+    .chip-btn:hover:not(.active):not(:disabled) {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+    .chip-btn.active {
+      background: var(--chip-active-bg);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin: 1.75rem 0;
+      gap: 0.9rem;
+      margin: 1.4rem 0;
     }
     .card {
       background: var(--surface-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 1.2rem 1.25rem;
+      padding: 1.15rem 1.25rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
-    .table-card {
-      margin-top: 1rem;
-      overflow-x: auto;
+    .kpi-card {
+      position: relative;
+      overflow: hidden;
     }
-    .card-title {
-      margin-top: 0;
-      font-size: 1.05rem;
+    .kpi-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
     }
     .kpi-label {
-      font-size: 0.82rem;
+      font-size: 0.76rem;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
+      font-weight: 600;
     }
     .kpi-value {
-      font-size: 1.85rem;
-      font-weight: 700;
-      margin: 0.3rem 0 0.2rem;
+      font-size: 1.8rem;
+      font-weight: 750;
+      margin: 0.25rem 0 0.15rem;
+      letter-spacing: -0.02em;
     }
     .kpi-sub {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--muted);
     }
+
     .callout {
       background: var(--callout-bg);
       border: 1px solid var(--callout-border);
       border-radius: var(--radius-lg);
-      padding: 1.25rem 1.4rem;
-      margin: 1.5rem 0 2rem;
+      padding: 1rem 1.25rem;
+      margin: 1.15rem 0 2rem;
+      font-size: 0.95rem;
     }
     .callout strong { color: var(--accent); }
+
     section {
-      margin-top: 2.5rem;
+      margin-top: 2.35rem;
+      scroll-margin-top: 4.2rem;
+    }
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem 1rem;
+      margin-bottom: 0.85rem;
     }
     h2 {
-      font-size: 1.45rem;
-      margin: 0 0 0.4rem;
+      font-size: 1.32rem;
+      margin: 0;
+      letter-spacing: -0.01em;
     }
     .section-desc {
       color: var(--muted);
-      margin: 0 0 1rem;
-      max-width: 860px;
+      margin: 0.25rem 0 0;
+      font-size: 0.92rem;
+      max-width: 780px;
+    }
+
+    .chart-card {
+      padding: 1rem 1.1rem;
+    }
+    .chart-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+    .chart-title {
+      margin: 0;
+      font-size: 0.96rem;
+      font-weight: 650;
+      color: var(--text);
+    }
+    .chart-pill {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 0.18rem 0.6rem;
+      border-radius: var(--radius-pill);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--muted-light);
     }
     .chart-box {
-      background: var(--surface);
+      background: var(--plot-bg);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 0.75rem;
-      min-height: 410px;
-    }
-    .card .chart-box {
       border-radius: var(--radius-md);
+      padding: 0.45rem;
+      min-height: 410px;
     }
     .chart-box--compact {
       min-height: 360px;
     }
+
     .state-notice {
       display: flex;
       flex-direction: column;
@@ -263,29 +398,80 @@
       border-color: var(--notice-error-border);
       background: var(--notice-error-bg);
     }
-    .state-notice p {
-      margin: 0;
-      max-width: 520px;
+    .state-notice p { margin: 0; max-width: 520px; }
+
+    .table-card {
+      margin-top: 1rem;
+      overflow-x: auto;
     }
+    .table-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-title {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+      margin-top: 0.5rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.58rem 0.7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    tbody tr {
+      transition: background 0.12s ease;
+    }
+    tbody tr:hover {
+      background: var(--hover-bg);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.14rem 0.55rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-null { background: var(--badge-null-bg); color: var(--badge-null-text); }
+    .badge-hit { background: var(--badge-hit-bg); color: var(--badge-hit-text); }
+    .badge-fdr { background: var(--badge-fdr-bg); color: var(--badge-fdr-text); }
+
     .controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.85rem;
       align-items: flex-end;
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
     .control-group {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
-      min-width: 240px;
+      gap: 0.3rem;
+      min-width: 230px;
+      flex: 1 1 230px;
     }
     .control-actions {
       display: flex;
       align-items: flex-end;
     }
     label {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: var(--muted);
       font-weight: 600;
     }
@@ -294,117 +480,161 @@
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 0.55rem 0.75rem;
-      font-size: 0.95rem;
+      padding: 0.5rem 0.72rem;
+      font-size: 0.9rem;
     }
-    select:hover:not(:disabled) {
-      border-color: var(--muted);
+    select:hover:not(:disabled) { border-color: var(--muted); }
+    select:active:not(:disabled) { border-color: var(--accent); }
+
+    .quick-picks {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
     }
-    select:active:not(:disabled) {
-      border-color: var(--accent);
+    .quick-picks-label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      font-weight: 600;
+      margin-right: 0.2rem;
     }
+
     .explorer-stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 0.75rem;
-      margin-bottom: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 0.95rem;
     }
     .mini-stat {
       background: var(--surface-alt);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 0.75rem 0.9rem;
+      padding: 0.65rem 0.85rem;
     }
-    .mini-stat .label { font-size: 0.76rem; color: var(--muted); }
-    .mini-stat .val { font-size: 1.2rem; font-weight: 700; margin-top: 0.2rem; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-    }
-    th, td {
-      text-align: left;
-      padding: 0.65rem 0.75rem;
-      border-bottom: 1px solid var(--border);
-    }
-    th {
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-    }
-    .badge {
-      display: inline-block;
-      padding: 0.15rem 0.55rem;
-      border-radius: var(--radius-pill);
-      font-size: 0.76rem;
-      font-weight: 600;
-    }
-    .badge-null { background: var(--badge-null-bg); color: var(--badge-null-text); }
-    .badge-hit { background: var(--badge-hit-bg); color: var(--badge-hit-text); }
-    .badge-fdr { background: var(--badge-fdr-bg); color: var(--badge-fdr-text); }
+    .mini-stat .label { font-size: 0.74rem; color: var(--muted); }
+    .mini-stat .val { font-size: 1.1rem; font-weight: 700; margin-top: 0.15rem; }
+
     footer {
-      margin-top: 3.5rem;
-      padding-top: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 1.25rem;
       border-top: 1px solid var(--border);
       color: var(--muted);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand-row">
-        <img src="favicon.png" alt="Mercury in Prod project icon" class="brand-icon" width="56" height="56" />
-        <div>
-          <div class="eyebrow" data-i18n="eyebrow"></div>
-          <h1 data-i18n="title"></h1>
-          <p class="subtitle" data-i18n="subtitle"></p>
-        </div>
+  <nav class="top-nav" aria-label="Section navigation">
+    <div class="read-progress" id="read-progress"></div>
+    <div class="top-nav-inner">
+      <a href="#overview" class="nav-brand">
+        <img src="favicon.png" alt="Mercury in Prod icon" width="26" height="26" />
+        <span>Mercury in Prod</span>
+      </a>
+      <div class="nav-pills" id="nav-pills">
+        <a href="#overview" class="nav-pill active" data-section="overview" data-i18n="nav_overview"></a>
+        <a href="#timeline" class="nav-pill" data-section="timeline" data-i18n="nav_timeline"></a>
+        <a href="#glm" class="nav-pill" data-section="glm" data-i18n="nav_glm"></a>
+        <a href="#phacking" class="nav-pill" data-section="phacking" data-i18n="nav_phacking"></a>
+        <a href="#audit" class="nav-pill" data-section="audit" data-i18n="nav_audit"></a>
+        <a href="#explorer" class="nav-pill" data-section="explorer" data-i18n="nav_explorer"></a>
       </div>
       <div class="lang-switch" role="group" aria-label="Language switch">
         <button type="button" class="lang-btn active" id="btn-en" aria-pressed="true" onclick="setLang('en')">EN</button>
         <button type="button" class="lang-btn" id="btn-es" aria-pressed="false" onclick="setLang('es')">ES</button>
       </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="hero" id="overview">
+      <div class="eyebrow" data-i18n="eyebrow"></div>
+      <h1 data-i18n="title"></h1>
+      <p class="subtitle" data-i18n="subtitle"></p>
     </header>
 
     <div class="kpi-grid" id="kpi-grid"></div>
-
     <div class="callout" id="verdict-callout"></div>
 
-    <section>
-      <h2 data-i18n="sec1_title"></h2>
-      <p class="section-desc" data-i18n="sec1_desc"></p>
-      <div class="chart-box" id="chart-timeline"></div>
+    <section id="timeline">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="sec1_title"></h2>
+          <p class="section-desc" data-i18n="sec1_desc"></p>
+        </div>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title" data-i18n="chart1_title"></h3>
+          <span class="chart-pill" data-i18n="chart1_pill"></span>
+        </div>
+        <div class="chart-box" id="chart-timeline"></div>
+      </div>
     </section>
 
-    <section>
-      <h2 data-i18n="sec2_title"></h2>
-      <p class="section-desc" data-i18n="sec2_desc"></p>
-      <div class="chart-box" id="chart-forest"></div>
+    <section id="glm">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="sec2_title"></h2>
+          <p class="section-desc" data-i18n="sec2_desc"></p>
+        </div>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title" data-i18n="chart2_title"></h3>
+          <span class="chart-pill" data-i18n="chart2_pill"></span>
+        </div>
+        <div class="chart-box" id="chart-forest"></div>
+      </div>
     </section>
 
-    <section>
-      <h2 data-i18n="sec3_title"></h2>
-      <p class="section-desc" data-i18n="sec3_desc"></p>
-      <div class="chart-box" id="chart-volcano"></div>
+    <section id="phacking">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="sec3_title"></h2>
+          <p class="section-desc" data-i18n="sec3_desc"></p>
+        </div>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title" data-i18n="chart3_title"></h3>
+          <span class="chart-pill" data-i18n="chart3_pill"></span>
+        </div>
+        <div class="chart-box" id="chart-volcano"></div>
+      </div>
       <div class="card table-card">
-        <h3 class="card-title" data-i18n="top_hits_title"></h3>
+        <div class="table-toolbar">
+          <h3 class="card-title" data-i18n="top_hits_title"></h3>
+          <div class="chip-row" id="table-filter-chips"></div>
+        </div>
         <table id="top-hits-table"></table>
       </div>
     </section>
 
-    <section>
-      <h2 data-i18n="sec4_title"></h2>
-      <p class="section-desc" data-i18n="sec4_desc"></p>
-      <div class="chart-box" id="chart-real-audit"></div>
+    <section id="audit">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="sec4_title"></h2>
+          <p class="section-desc" data-i18n="sec4_desc"></p>
+        </div>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title" data-i18n="chart4_title"></h3>
+          <span class="chart-pill" data-i18n="chart4_pill"></span>
+        </div>
+        <div class="chart-box" id="chart-real-audit"></div>
+      </div>
     </section>
 
-    <section>
-      <h2 data-i18n="sec5_title"></h2>
-      <p class="section-desc" data-i18n="sec5_desc"></p>
+    <section id="explorer">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="sec5_title"></h2>
+          <p class="section-desc" data-i18n="sec5_desc"></p>
+        </div>
+      </div>
       <div class="card">
         <div class="controls">
           <div class="control-group">
@@ -419,6 +649,7 @@
             <button type="button" class="btn-secondary" id="btn-reset-explorer" onclick="resetExplorer()" data-i18n="btn_reset"></button>
           </div>
         </div>
+        <div class="quick-picks" id="quick-picks"></div>
         <div class="explorer-stats" id="explorer-stats"></div>
         <div class="chart-box chart-box--compact" id="chart-explorer"></div>
       </div>
@@ -457,23 +688,38 @@
     const storedLang = readStored(STORAGE_KEYS.lang, "en");
     let currentLang = storedLang === "es" ? "es" : "en";
     let explorerInitialized = false;
+    let volcanoFilter = "top10";
 
     const I18N = {
       en: {
-        eyebrow: "Empirical Ephemeris & Spurious Correlation Lab",
+        nav_overview: "Overview",
+        nav_timeline: "Timeline",
+        nav_glm: "GLM",
+        nav_phacking: "P-Hacking",
+        nav_audit: "Statuspage",
+        nav_explorer: "Explorer",
+        eyebrow: "Empirical Ephemeris Lab",
         title: "Mercury in Prod: Do Planets Break Deployments?",
-        subtitle: "A 2,130-day statistical audit pairing an exact Python port of One UI Extra Widgets' AstrologyEngine with production incident dynamics and 400 real public Statuspage outages.",
-        sec1_title: "1. Apparent Orbital Speed vs. Daily Incident Volume",
-        sec1_desc: "Mercury's daily geocentric angular speed (pastel pink) dips below zero three times a year during retrograde loops. The 14-day rolling average of software incidents (pastel sky) follows release freezes and workweeks rather than orbital loops.",
-        sec2_title: "2. Confounder-Controlled Poisson GLM (Incident Rate Ratios)",
-        sec2_desc: "Once engineering calendar confounders (weekends, Tue–Thu deploy windows, Patch Tuesday, and Q4 code freeze) are controlled in a robust Poisson GLM, every astrological predictor sits squarely at IRR = 1.0.",
-        sec3_title: "3. P-Hacking Scan: 57 Hypotheses & Multiple-Testing Correction",
-        sec3_desc: "Testing 57 planetary, lunar, and zodiacal slices without correction produces naive hits below p = 0.05. Benjamini-Hochberg FDR eliminates random noise hits—and exposes how the lone FDR survivor (Sun in Capricorn) is actually seasonal confounding from the December Q4 code freeze.",
-        top_hits_title: "Lowest Raw p-Values Before & After Multiple-Testing Correction",
-        sec4_title: "4. Real Public Statuspage Audit (8 Cloud & Dev Platforms)",
-        sec4_desc: "Cross-referencing 400 real incidents fetched from GitHub, Cloudflare, npm, Discord, Reddit, Bitbucket, Vercel, and DigitalOcean against each provider's exact date-window base rate shows zero excess outage risk.",
+        subtitle: "2,130-day statistical audit comparing planetary transits against software incidents and 400 real Statuspage outages.",
+        sec1_title: "1. Orbital Speed vs. Incident Volume",
+        sec1_desc: "Shaded bands mark Mercury retrograde (< 0°/day). Incidents track release freezes and workweeks, not orbits.",
+        chart1_title: "2021–2026 Time Series: Mercury Speed vs. 14-Day Rolling Incidents",
+        chart1_pill: "Interactive Zoom",
+        sec2_title: "2. Controlled Poisson GLM",
+        sec2_desc: "Controlling for engineering calendars places every astrological predictor at IRR = 1.0.",
+        chart2_title: "Incident Rate Ratios (95% CI)",
+        chart2_pill: "1.0 = No Effect",
+        sec3_title: "3. P-Hacking Scan: 57 Hypotheses",
+        sec3_desc: "Benjamini-Hochberg FDR filters out random noise; the sole survivor (Sun in Capricorn) reflects December's code freeze.",
+        chart3_title: "Volcano Plot: Effect Size vs. Statistical Significance",
+        chart3_pill: "BH-FDR & Bonferroni",
+        top_hits_title: "Hypothesis Results",
+        sec4_title: "4. Real Statuspage Audit",
+        sec4_desc: "400 real outages across 8 cloud platforms match expected astronomical base rates.",
+        chart4_title: "Observed vs. Window-Expected Share (%)",
+        chart4_pill: "Zero Excess Risk",
         sec5_title: "5. Interactive Hypothesis Explorer",
-        sec5_desc: "Inspect any planetary motion state or lunar phase directly in the browser, and toggle weekday filtering to see how calendar selection bias distorts naive rates.",
+        sec5_desc: "Test any planetary condition and filter by weekday/weekend to inspect calendar bias.",
         lbl_hypothesis: "Astrological Condition",
         lbl_slice: "Calendar Slice",
         btn_reset: "Reset Explorer Filters",
@@ -482,23 +728,37 @@
         empty_chart_msg: "No records available for this view.",
         empty_audit_msg: "No real Statuspage audit tests are available in this snapshot.",
         error_chart_msg: "Unable to render this interactive chart right now.",
-        footer_note: "Built with astronomy-engine, statsmodels, and Plotly. Ephemeris logic matches AstrologyEngine.kt from one-ui-extra-widgets.",
+        footer_note: "Built with astronomy-engine, statsmodels, and Plotly.",
       },
       es: {
-        eyebrow: "Laboratorio Empírico de Efemérides y Correlaciones Espurias",
+        nav_overview: "Resumen",
+        nav_timeline: "Serie",
+        nav_glm: "GLM",
+        nav_phacking: "P-Hacking",
+        nav_audit: "Statuspage",
+        nav_explorer: "Explorador",
+        eyebrow: "Laboratorio Empírico de Efemérides",
         title: "Mercury in Prod: ¿Los planetas rompen producción?",
-        subtitle: "Auditoría estadística de 2,130 días que cruza una réplica exacta en Python de AstrologyEngine (One UI Extra Widgets) con dinámicas operativas de software y 400 incidentes públicos reales de Statuspage.",
-        sec1_title: "1. Velocidad Orbital Aparente vs. Volumen Diario de Incidentes",
-        sec1_desc: "La velocidad angular geocéntrica diaria de Mercurio (rosa pastel) cae bajo cero tres veces al año durante cada retrogradación. La media móvil de 14 días de incidentes (azul cielo) sigue semanas laborales y congelamientos de código, no las órbitas.",
-        sec2_title: "2. Modelo GLM de Poisson Controlado por Confusores (IRR)",
-        sec2_desc: "Al controlar los confusores reales de ingeniería (fines de semana, ventanas Mar–Jue, Patch Tuesday y Code Freeze de fin de año), todos los predictores astrológicos colapsan alrededor de IRR = 1.0.",
-        sec3_title: "3. Escaneo de P-Hacking: 57 Hipótesis y Corrección FDR / Bonferroni",
-        sec3_desc: "Probar 57 hipótesis planetarias, lunares y zodiacales sin ajuste produce falsos positivos con p < 0.05. La corrección FDR de Benjamini-Hochberg elimina el ruido aleatorio y revela que el único sobreviviente (Sol en Capricornio) es confusión estacional por el Code Freeze de diciembre.",
-        top_hits_title: "Menores p-values crudos antes y después de corregir por múltiples hipótesis",
-        sec4_title: "4. Auditoría sobre Incidentes Reales de Statuspage (8 Plataformas)",
-        sec4_desc: "Al contrastar 400 incidentes reales de GitHub, Cloudflare, npm, Discord, Reddit, Bitbucket, Vercel y DigitalOcean contra la tasa base exacta de cada ventana temporal, no aparece exceso de riesgo.",
-        sec5_title: "5. Explorador Interactivo de Hipótesis",
-        sec5_desc: "Explora cualquier estado planetario o fase lunar directamente en el navegador y activa filtros de días laborales para observar el sesgo de selección de calendario.",
+        subtitle: "Auditoría estadística de 2,130 días que cruza efemérides planetarias con incidentes de software y 400 fallos reales de Statuspage.",
+        sec1_title: "1. Velocidad Orbital vs. Incidentes",
+        sec1_desc: "Las bandas rosadas marcan Mercurio retrógrado (< 0°/día). Los incidentes siguen semanas laborales y freezes, no órbitas.",
+        chart1_title: "Serie 2021–2026: Velocidad de Mercurio vs. Media Móvil 14d",
+        chart1_pill: "Zoom Interactivo",
+        sec2_title: "2. Modelo GLM de Poisson Controlado",
+        sec2_desc: "Al controlar el calendario de ingeniería, todos los predictores astrológicos quedan en IRR = 1.0.",
+        chart2_title: "Incident Rate Ratios (IC 95%)",
+        chart2_pill: "1.0 = Sin Efecto",
+        sec3_title: "3. Escaneo de P-Hacking: 57 Hipótesis",
+        sec3_desc: "La corrección BH-FDR elimina el ruido aleatorio; el único sobreviviente (Sol en Capricornio) responde al Code Freeze de diciembre.",
+        chart3_title: "Gráfico Volcán: Tamaño de Efecto vs. Significancia",
+        chart3_pill: "BH-FDR y Bonferroni",
+        top_hits_title: "Resultados por Hipótesis",
+        sec4_title: "4. Auditoría Real en Statuspage",
+        sec4_desc: "400 incidentes reales en 8 plataformas coinciden con la tasa base astronómica esperada.",
+        chart4_title: "Observado vs. Esperado por Ventana (%)",
+        chart4_pill: "Sin Exceso de Riesgo",
+        sec5_title: "5. Explorador Interactivo",
+        sec5_desc: "Prueba cualquier condición astronómica y filtra por días laborales o fines de semana.",
         lbl_hypothesis: "Condición Astrológica",
         lbl_slice: "Filtro de Calendario",
         btn_reset: "Restablecer Filtros",
@@ -507,7 +767,7 @@
         empty_chart_msg: "No hay registros disponibles para esta vista.",
         empty_audit_msg: "No hay pruebas reales de Statuspage disponibles en esta instantánea.",
         error_chart_msg: "No fue posible renderizar este gráfico interactivo en este momento.",
-        footer_note: "Construido con astronomy-engine, statsmodels y Plotly. La lógica de efemérides replica AstrologyEngine.kt de one-ui-extra-widgets.",
+        footer_note: "Construido con astronomy-engine, statsmodels y Plotly.",
       }
     };
 
@@ -525,6 +785,9 @@
         accent2: token("--accent-2"),
         ok: token("--ok"),
         danger: token("--danger"),
+        surface: token("--surface"),
+        surfaceAlt: token("--surface-alt"),
+        retroBand: token("--retro-band"),
         plotBg: token("--plot-bg"),
         plotTransparent: token("--plot-transparent"),
       };
@@ -532,18 +795,43 @@
 
     let THEME = readThemeTokens();
 
-    function buildLayoutBase() {
-      return {
+    // Always return a fresh layout object so Plotly never mutates shared axes across charts.
+    function freshLayout(overrides = {}) {
+      const base = {
         paper_bgcolor: THEME.plotTransparent,
-        plot_bgcolor: THEME.plotBg,
-        font: { color: THEME.text, family: "Inter, sans-serif" },
-        margin: { t: 48, r: 28, b: 52, l: 60 },
-        xaxis: { gridcolor: THEME.grid, zerolinecolor: THEME.border },
-        yaxis: { gridcolor: THEME.grid, zerolinecolor: THEME.border },
+        plot_bgcolor: THEME.plotTransparent,
+        font: { color: THEME.text, family: "Inter, -apple-system, sans-serif", size: 12 },
+        margin: { t: 40, r: 24, b: 48, l: 58 },
+        hoverlabel: {
+          bgcolor: THEME.surfaceAlt,
+          bordercolor: THEME.border,
+          font: { color: THEME.text, size: 12 },
+        },
+        xaxis: {
+          gridcolor: THEME.grid,
+          zerolinecolor: THEME.border,
+          automargin: true,
+        },
+        yaxis: {
+          gridcolor: THEME.grid,
+          zerolinecolor: THEME.border,
+          automargin: true,
+        },
+      };
+      return {
+        ...base,
+        ...overrides,
+        xaxis: { ...base.xaxis, ...(overrides.xaxis || {}) },
+        yaxis: { ...base.yaxis, ...(overrides.yaxis || {}) },
       };
     }
 
-    let layoutBase = buildLayoutBase();
+    const PLOTLY_CONFIG = {
+      responsive: true,
+      displayModeBar: "hover",
+      displaylogo: false,
+      modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d"],
+    };
 
     function renderNotice(container, message, isError, includeRetry) {
       container.innerHTML = "";
@@ -564,7 +852,6 @@
         btn.onclick = () => renderAll();
         box.appendChild(btn);
       }
-
       container.appendChild(box);
     }
 
@@ -584,7 +871,7 @@
 
       try {
         container.innerHTML = "";
-        Plotly.newPlot(containerId, traces, layout, { responsive: true });
+        Plotly.newPlot(containerId, traces, layout, PLOTLY_CONFIG);
       } catch (_) {
         renderNotice(container, I18N[currentLang].error_chart_msg, true, true);
       }
@@ -626,29 +913,29 @@
         {
           label: isEs ? "Días Analizados" : "Panel Horizon",
           value: s.panel_days.toLocaleString(),
-          sub: `${s.start_date} -> ${s.end_date}`,
+          sub: `${s.start_date} → ${s.end_date}`,
         },
         {
-          label: isEs ? "Incidentes Reales Statuspage" : "Real Statuspage Incidents",
+          label: isEs ? "Incidentes Reales" : "Real Outages",
           value: s.real_public_incidents_count.toLocaleString(),
-          sub: isEs ? `${s.real_public_sources_count} plataformas tech públicas` : `${s.real_public_sources_count} public tech platforms`,
+          sub: isEs ? `${s.real_public_sources_count} plataformas Statuspage` : `${s.real_public_sources_count} Statuspage platforms`,
         },
         {
-          label: isEs ? "IRR Mercurio Retrógrado (GLM)" : "Mercury Retrograde IRR (GLM)",
+          label: isEs ? "IRR Mercurio Retrógrado" : "Mercury Retro IRR",
           value: retroGlm ? `${retroGlm.irr.toFixed(2)}x` : "N/A",
           sub: retroGlm
             ? `95% CI [${retroGlm.ci_low.toFixed(2)}, ${retroGlm.ci_high.toFixed(2)}] · p=${retroGlm.p_value.toFixed(2)}`
-            : (isEs ? "Sin término disponible" : "Term unavailable"),
+            : (isEs ? "No disponible" : "Unavailable"),
         },
         {
-          label: isEs ? "Hits Ingenuos vs FDR" : "Naive Hits vs FDR",
-          value: `${scan.naive_hits_count} -> ${scan.fdr_survivors_count}`,
-          sub: isEs ? `de ${scan.total_hypotheses} hipótesis (1 confusión estacional)` : `of ${scan.total_hypotheses} tests (1 seasonal confounder)`,
+          label: isEs ? "Hits Ingenuos → FDR" : "Naive Hits → FDR",
+          value: `${scan.naive_hits_count} → ${scan.fdr_survivors_count}`,
+          sub: isEs ? `de ${scan.total_hypotheses} hipótesis (1 confusor dic.)` : `of ${scan.total_hypotheses} tests (1 Dec confounder)`,
         },
       ];
 
       document.getElementById("kpi-grid").innerHTML = cards.map(c => `
-        <div class="card">
+        <div class="card kpi-card">
           <div class="kpi-label">${c.label}</div>
           <div class="kpi-value">${c.value}</div>
           <div class="kpi-sub">${c.sub}</div>
@@ -656,16 +943,43 @@
       `).join("");
 
       const verdictHtml = isEs
-        ? `<strong>Veredicto estadístico:</strong> Los despliegues no fallan por Mercurio retrógrado. El factor dominante es el calendario humano: los fines de semana reducen los incidentes un <strong>69%</strong> (IRR = 0.31, p &lt; 0.0001) y las ventanas de despliegue de martes a jueves los elevan un <strong>23%</strong> (IRR = 1.23, p &lt; 0.0001).`
-        : `<strong>Statistical Verdict:</strong> Production outages do not track Mercury retrograde. Human release calendars drive the variance: weekends reduce incident rates by <strong>69%</strong> (IRR = 0.31, p &lt; 0.0001), while Tue–Thu deploy windows raise them by <strong>23%</strong> (IRR = 1.23, p &lt; 0.0001).`;
+        ? `<strong>Veredicto:</strong> Mercurio retrógrado no causa incidentes. El calendario humano explica la varianza: fines de semana <strong>-69%</strong> (IRR = 0.31, p &lt; 0.0001) y ventanas Mar–Jue <strong>+23%</strong> (IRR = 1.23, p &lt; 0.0001).`
+        : `<strong>Verdict:</strong> Mercury retrograde does not break production. Human calendars drive the variance: weekends <strong>-69%</strong> (IRR = 0.31, p &lt; 0.0001) and Tue–Thu deploy windows <strong>+23%</strong> (IRR = 1.23, p &lt; 0.0001).`;
       document.getElementById("verdict-callout").innerHTML = verdictHtml;
+    }
+
+    function computeRetrogradeBands(rows) {
+      const bands = [];
+      let start = null;
+      for (let i = 0; i < rows.length; i++) {
+        const isRetro = rows[i].mercury_daily_speed_deg < 0;
+        if (isRetro && start === null) {
+          start = rows[i].date;
+        } else if (!isRetro && start !== null) {
+          bands.push({ x0: start, x1: rows[i - 1].date });
+          start = null;
+        }
+      }
+      if (start !== null) bands.push({ x0: start, x1: rows[rows.length - 1].date });
+      return bands.map(b => ({
+        type: "rect",
+        xref: "x",
+        yref: "paper",
+        x0: b.x0,
+        x1: b.x1,
+        y0: 0,
+        y1: 1,
+        fillcolor: THEME.retroBand,
+        line: { width: 0 },
+        layer: "below",
+      }));
     }
 
     function renderTimeline() {
       const isEs = currentLang === "es";
       const rows = STUDY_DATA.timeline || [];
       if (rows.length === 0) {
-        renderPlot("chart-timeline", [], layoutBase);
+        renderPlot("chart-timeline", [], freshLayout());
         return;
       }
 
@@ -673,7 +987,6 @@
       const speeds = rows.map(r => r.mercury_daily_speed_deg);
       const counts = rows.map(r => r.incident_count);
 
-      // 14-day rolling mean
       const rolling = counts.map((_, idx) => {
         const start = Math.max(0, idx - 13);
         const slice = counts.slice(start, idx + 1);
@@ -683,10 +996,11 @@
       const traceInc = {
         x: dates,
         y: rolling,
-        name: isEs ? "Incidentes (Media móvil 14d)" : "Incidents (14d Rolling Mean)",
+        name: isEs ? "Incidentes (Media 14d)" : "Incidents (14d MA)",
         type: "scatter",
         mode: "lines",
-        line: { color: THEME.accent, width: 2 },
+        line: { color: THEME.accent, width: 2.2 },
+        hovertemplate: "%{x}<br>%{y:.2f} inc/day<extra></extra>",
       };
 
       const traceSpeed = {
@@ -698,13 +1012,36 @@
         yaxis: "y2",
         line: { color: THEME.accent2, width: 1.4 },
         opacity: 0.85,
+        hovertemplate: "%{x}<br>%{y:.2f}°/day<extra></extra>",
       };
 
-      const layout = {
-        ...layoutBase,
-        title: isEs ? "Serie Temporal 2021–2026: Velocidad de Mercurio vs Incidentes" : "2021–2026 Time Series: Mercury Speed vs Incidents",
-        yaxis: { ...layoutBase.yaxis, title: isEs ? "Incidentes / día (14d MA)" : "Incidents / day (14d MA)" },
+      const layout = freshLayout({
+        margin: { t: 54, r: 64, b: 44, l: 56 },
+        hovermode: "x unified",
+        shapes: computeRetrogradeBands(rows),
+        xaxis: {
+          type: "date",
+          rangeselector: {
+            bgcolor: THEME.surfaceAlt,
+            activecolor: THEME.border,
+            bordercolor: THEME.border,
+            font: { color: THEME.text, size: 11 },
+            x: 1,
+            xanchor: "right",
+            y: 1.04,
+            buttons: [
+              { count: 1, label: isEs ? "1A" : "1Y", step: "year", stepmode: "backward" },
+              { count: 3, label: isEs ? "3A" : "3Y", step: "year", stepmode: "backward" },
+              { step: "all", label: isEs ? "Todo" : "All" },
+            ],
+          },
+        },
+        yaxis: {
+          type: "linear",
+          title: isEs ? "Incidentes / día (14d)" : "Incidents / day (14d)",
+        },
         yaxis2: {
+          type: "linear",
           title: isEs ? "Velocidad (°/día)" : "Speed (°/day)",
           overlaying: "y",
           side: "right",
@@ -712,8 +1049,8 @@
           zeroline: true,
           zerolinecolor: THEME.danger,
         },
-        legend: { orientation: "h", y: 1.12 },
-      };
+        legend: { orientation: "h", x: 0, y: 1.03, yanchor: "bottom" },
+      });
       renderPlot("chart-timeline", [traceInc, traceSpeed], layout);
     }
 
@@ -721,54 +1058,102 @@
       const isEs = currentLang === "es";
       const terms = [...(STUDY_DATA.controlled_glm.terms || [])].reverse();
       if (terms.length === 0) {
-        renderPlot("chart-forest", [], layoutBase);
+        renderPlot("chart-forest", [], freshLayout());
         return;
       }
 
-      const labels = terms.map(t => isEs ? t.label_es : t.label_en);
-      const irrs = terms.map(t => t.irr);
-      const errPlus = terms.map(t => t.ci_high - t.irr);
-      const errMinus = terms.map(t => t.irr - t.ci_low);
-      const colors = terms.map(t => t.category === "engineering" ? THEME.accent : THEME.accent2);
+      const engTerms = terms.filter(t => t.category === "engineering");
+      const astroTerms = terms.filter(t => t.category !== "engineering");
+      const allLabels = terms.map(t => isEs ? t.label_es : t.label_en);
 
-      const trace = {
-        x: irrs,
-        y: labels,
+      const makeTrace = (subset, name, color) => ({
+        x: subset.map(t => t.irr),
+        y: subset.map(t => isEs ? t.label_es : t.label_en),
         type: "scatter",
         mode: "markers",
-        marker: { color: colors, size: 11 },
+        name,
+        marker: { color, size: 11 },
         error_x: {
           type: "data",
           symmetric: false,
-          array: errPlus,
-          arrayminus: errMinus,
+          array: subset.map(t => t.ci_high - t.irr),
+          arrayminus: subset.map(t => t.irr - t.ci_low),
           color: THEME.mutedLight,
           thickness: 1.8,
         },
-        hovertemplate: "%{y}<br>IRR: %{x:.3f}<extra></extra>",
-      };
+        customdata: subset.map(t => [t.ci_low.toFixed(3), t.ci_high.toFixed(3), t.p_value.toFixed(4)]),
+        hovertemplate: "<b>%{y}</b><br>IRR: %{x:.3f} [%{customdata[0]}, %{customdata[1]}]<br>p = %{customdata[2]}<extra></extra>",
+      });
 
-      const layout = {
-        ...layoutBase,
-        margin: { t: 48, r: 30, b: 50, l: 250 },
-        title: isEs ? "Forest Plot GLM Controlado (IRR con IC 95%)" : "Controlled GLM Forest Plot (IRR with 95% CI)",
-        xaxis: { ...layoutBase.xaxis, title: "Incident Rate Ratio (1.0 = No Effect)" },
+      const traces = [];
+      if (engTerms.length > 0) traces.push(makeTrace(engTerms, isEs ? "Calendario Ingeniería" : "Engineering Calendar", THEME.accent));
+      if (astroTerms.length > 0) traces.push(makeTrace(astroTerms, isEs ? "Predictores Astrológicos" : "Astrological Predictors", THEME.accent2));
+
+      const layout = freshLayout({
+        margin: { t: 46, r: 28, b: 48, l: 220 },
+        xaxis: {
+          type: "linear",
+          title: isEs ? "Incident Rate Ratio (1.0 = Sin efecto)" : "Incident Rate Ratio (1.0 = No Effect)",
+        },
+        yaxis: {
+          type: "category",
+          categoryorder: "array",
+          categoryarray: allLabels,
+        },
+        legend: { orientation: "h", x: 0, y: 1.03, yanchor: "bottom" },
         shapes: [{
-          type: "line", x0: 1.0, x1: 1.0, y0: -0.5, y1: terms.length - 0.5,
+          type: "line",
+          x0: 1.0,
+          x1: 1.0,
+          y0: -0.5,
+          y1: terms.length - 0.5,
           line: { color: THEME.muted, dash: "dash", width: 1.5 },
         }],
+      });
+      renderPlot("chart-forest", traces, layout);
+    }
+
+    function renderTableFilterChips(hyps) {
+      const isEs = currentLang === "es";
+      const counts = {
+        top10: Math.min(10, hyps.length),
+        fdr: hyps.filter(h => h.survives_fdr).length,
+        naive: hyps.filter(h => h.naive_hit && !h.survives_fdr).length,
+        all: hyps.length,
       };
-      renderPlot("chart-forest", [trace], layout);
+      const chips = [
+        { id: "top10", label: isEs ? `Top ${counts.top10}` : `Top ${counts.top10}` },
+        { id: "fdr", label: isEs ? `Sobrevive FDR (${counts.fdr})` : `FDR Survivor (${counts.fdr})` },
+        { id: "naive", label: isEs ? `Falso Hit (${counts.naive})` : `Naive Hit (${counts.naive})` },
+        { id: "all", label: isEs ? `Todas (${counts.all})` : `All (${counts.all})` },
+      ];
+      const container = document.getElementById("table-filter-chips");
+      container.innerHTML = chips.map(c => `
+        <button type="button" class="chip-btn ${volcanoFilter === c.id ? "active" : ""}" data-filter="${c.id}">
+          ${c.label}
+        </button>
+      `).join("");
+      container.querySelectorAll(".chip-btn").forEach(btn => {
+        btn.onclick = () => {
+          volcanoFilter = btn.getAttribute("data-filter");
+          renderVolcanoTable(hyps);
+          renderTableFilterChips(hyps);
+        };
+      });
     }
 
     function renderVolcanoTable(hyps) {
       const isEs = currentLang === "es";
-      const topRows = hyps.slice(0, 10);
-      const headers = isEs
-        ? ["Hipótesis", "Familia", "N Expuesto", "Rate Ratio", "p crudo", "q (BH-FDR)", "p (Bonf.)", "Estado"]
-        : ["Hypothesis", "Family", "Exposed N", "Rate Ratio", "Raw p", "q (BH-FDR)", "Bonferroni p", "Status"];
+      let rows = hyps;
+      if (volcanoFilter === "top10") rows = hyps.slice(0, 10);
+      else if (volcanoFilter === "fdr") rows = hyps.filter(h => h.survives_fdr);
+      else if (volcanoFilter === "naive") rows = hyps.filter(h => h.naive_hit && !h.survives_fdr);
 
-      if (topRows.length === 0) {
+      const headers = isEs
+        ? ["Hipótesis", "Familia", "N Exp.", "Rate Ratio", "p crudo", "q (FDR)", "Estado"]
+        : ["Hypothesis", "Family", "Exp. N", "Rate Ratio", "Raw p", "q (FDR)", "Status"];
+
+      if (rows.length === 0) {
         document.getElementById("top-hits-table").innerHTML = `
           <thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>
           <tbody><tr><td colspan="${headers.length}">${I18N[currentLang].empty_chart_msg}</td></tr></tbody>
@@ -776,15 +1161,15 @@
         return;
       }
 
-      const tableHtml = `
+      document.getElementById("top-hits-table").innerHTML = `
         <thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>
         <tbody>
-          ${topRows.map(r => {
+          ${rows.map(r => {
             const label = isEs ? r.label_es : r.label_en;
             const badge = r.survives_fdr
-              ? `<span class="badge badge-fdr">${isEs ? "Sobrevive FDR (Confusión Dic)" : "FDR Survivor (Dec Confounder)"}</span>`
+              ? `<span class="badge badge-fdr">${isEs ? "Sobrevive FDR (Dic)" : "FDR Survivor (Dec)"}</span>`
               : r.naive_hit
-              ? `<span class="badge badge-hit">${isEs ? "Falso Positivo Ingenuo" : "Naive False Hit"}</span>`
+              ? `<span class="badge badge-hit">${isEs ? "Falso Hit" : "Naive Hit"}</span>`
               : `<span class="badge badge-null">${isEs ? "Nulo" : "Null"}</span>`;
             return `<tr>
               <td>${label}</td>
@@ -793,23 +1178,22 @@
               <td>${r.rate_ratio.toFixed(3)}x</td>
               <td>${r.p_raw.toFixed(4)}</td>
               <td>${r.q_fdr.toFixed(4)}</td>
-              <td>${r.p_bonferroni.toFixed(4)}</td>
               <td>${badge}</td>
             </tr>`;
           }).join("")}
         </tbody>
       `;
-      document.getElementById("top-hits-table").innerHTML = tableHtml;
     }
 
     function renderVolcano() {
       const isEs = currentLang === "es";
       const scan = STUDY_DATA.phacking_scan;
       const hyps = scan.hypotheses || [];
+      renderTableFilterChips(hyps);
       renderVolcanoTable(hyps);
 
       if (hyps.length === 0) {
-        renderPlot("chart-volcano", [], layoutBase);
+        renderPlot("chart-volcano", [], freshLayout());
         return;
       }
 
@@ -822,43 +1206,67 @@
         },
         {
           key: "naive",
-          name: isEs ? "Falso Hit Ingenuo (p < 0.05, falla FDR)" : "Naive Hit Only (fails FDR)",
+          name: isEs ? "Falso Hit (p < 0.05, falla FDR)" : "Naive Hit (fails FDR)",
           color: THEME.accent2,
           items: hyps.filter(h => h.naive_hit && !h.survives_fdr),
         },
         {
           key: "fdr",
-          name: isEs ? "Sobrevive FDR (Confusión estacional Dic)" : "Survives FDR (Dec Freeze Confounder)",
+          name: isEs ? "Sobrevive FDR (Confusor Dic)" : "Survives FDR (Dec Confounder)",
           color: THEME.ok,
           items: hyps.filter(h => h.survives_fdr),
         },
       ].filter(g => g.items.length > 0);
 
       const traces = groups.map(g => ({
-        x: g.items.map(h => h.log2_fold_change),
-        y: g.items.map(h => h.neg_log10_p),
-        text: g.items.map(h => `${isEs ? h.label_es : h.label_en}<br>RR=${h.rate_ratio} · p_raw=${h.p_raw} · q_FDR=${h.q_fdr}`),
+        x: g.items.map(h => Number(h.log2_fold_change)),
+        y: g.items.map(h => Number(h.neg_log10_p)),
+        text: g.items.map(h => `<b>${isEs ? h.label_es : h.label_en}</b><br>RR: ${h.rate_ratio.toFixed(3)}x<br>p_raw: ${h.p_raw.toFixed(4)} · q_FDR: ${h.q_fdr.toFixed(4)}`),
         name: g.name,
         mode: "markers",
         type: "scatter",
-        marker: { color: g.color, size: 10 },
+        marker: { color: g.color, size: 10, opacity: 0.9 },
         hovertemplate: "%{text}<extra></extra>",
       }));
 
+      const xs = hyps.map(h => Number(h.log2_fold_change));
+      const pad = 0.08;
+      const minX = Math.min(-0.45, ...xs) - pad;
+      const maxX = Math.max(0.45, ...xs) + pad;
       const bonfY = -Math.log10(0.05 / Math.max(1, scan.total_hypotheses));
       const rawY = -Math.log10(0.05);
 
-      const layout = {
-        ...layoutBase,
-        title: isEs ? "Gráfico Volcán de 57 Hipótesis Astrológicas" : "Volcano Plot of 57 Astrological Hypotheses",
-        xaxis: { ...layoutBase.xaxis, title: "log2(Incident Rate Ratio)" },
-        yaxis: { ...layoutBase.yaxis, title: "-log10(raw p-value)" },
-        legend: { orientation: "h", y: 1.13 },
+      const layout = freshLayout({
+        margin: { t: 46, r: 24, b: 50, l: 58 },
+        xaxis: {
+          type: "linear",
+          title: "log2(Incident Rate Ratio)",
+          range: [minX, maxX],
+          zeroline: true,
+        },
+        yaxis: {
+          type: "linear",
+          title: "-log10(raw p-value)",
+        },
+        legend: { orientation: "h", x: 0, y: 1.03, yanchor: "bottom" },
         shapes: [
-          { type: "line", x0: -0.6, x1: 0.6, y0: rawY, y1: rawY, line: { color: THEME.accent2, dash: "dash" } },
-          { type: "line", x0: -0.6, x1: 0.6, y0: bonfY, y1: bonfY, line: { color: THEME.danger, dash: "dot" } },
+          { type: "line", x0: minX, x1: maxX, y0: rawY, y1: rawY, line: { color: THEME.accent2, dash: "dash", width: 1.4 } },
+          { type: "line", x0: minX, x1: maxX, y0: bonfY, y1: bonfY, line: { color: THEME.danger, dash: "dot", width: 1.4 } },
         ],
-      };
+        annotations: [
+          {
+            x: maxX, y: rawY, xanchor: "right", yanchor: "bottom",
+            text: "p = 0.05", showarrow: false,
+            font: { color: THEME.accent2, size: 11 },
+          },
+          {
+            x: maxX, y: bonfY, xanchor: "right", yanchor: "bottom",
+            text: `Bonferroni (${(0.05 / Math.max(1, scan.total_hypotheses)).toFixed(4)})`,
+            showarrow: false,
+            font: { color: THEME.danger, size: 11 },
+          },
+        ],
+      });
       renderPlot("chart-volcano", traces, layout);
     }
 
@@ -866,11 +1274,11 @@
       const isEs = currentLang === "es";
       const tests = STUDY_DATA.real_statuspage_audit.tests || [];
       if (tests.length === 0) {
-        renderPlot("chart-real-audit", [], layoutBase, I18N[currentLang].empty_audit_msg);
+        renderPlot("chart-real-audit", [], freshLayout(), I18N[currentLang].empty_audit_msg);
         return;
       }
 
-      const labels = tests.map(t => `${isEs ? t.label_es : t.label_en} (p=${t.p_value.toFixed(2)})`);
+      const labels = tests.map(t => `${isEs ? t.label_es : t.label_en}<br>(p=${t.p_value.toFixed(2)})`);
 
       const traceObs = {
         x: labels,
@@ -878,25 +1286,55 @@
         name: isEs ? "Observado (%)" : "Observed (%)",
         type: "bar",
         marker: { color: THEME.accent2 },
+        hovertemplate: "%{x}<br>%{y:.2f}%<extra></extra>",
       };
       const traceExp = {
         x: labels,
         y: tests.map(t => t.expected_pct),
-        name: isEs ? "Esperado por Ventana (%)" : "Window-Expected (%)",
+        name: isEs ? "Esperado (%)" : "Expected (%)",
         type: "bar",
         marker: { color: THEME.accent },
+        hovertemplate: "%{x}<br>%{y:.2f}%<extra></extra>",
       };
 
-      const layout = {
-        ...layoutBase,
+      const layout = freshLayout({
+        margin: { t: 46, r: 24, b: 64, l: 58 },
         barmode: "group",
-        title: isEs
-          ? "400 Incidentes Reales de Statuspage: Observado vs Tasa Astronómica Esperada"
-          : "400 Real Statuspage Incidents: Observed vs Expected Astronomical Base Rate",
-        yaxis: { ...layoutBase.yaxis, title: isEs ? "Porcentaje de Incidentes (%)" : "Share of Incidents (%)" },
-        legend: { orientation: "h", y: 1.12 },
-      };
+        xaxis: { type: "category" },
+        yaxis: { type: "linear", title: isEs ? "Incidentes (%)" : "Share (%)" },
+        legend: { orientation: "h", x: 0, y: 1.03, yanchor: "bottom" },
+      });
       renderPlot("chart-real-audit", [traceObs, traceExp], layout);
+    }
+
+    function renderQuickPicks() {
+      const isEs = currentLang === "es";
+      const opts = STUDY_DATA.explorer.options || {};
+      const currentHyp = document.getElementById("select-hypothesis").value;
+      const featuredIds = ["mercury_retrograde", "sun_in_capricorn", "full_moon_weekdays", "mercury_shadow"];
+      const validIds = featuredIds.filter(id => opts[id]);
+
+      const container = document.getElementById("quick-picks");
+      if (validIds.length === 0) {
+        container.innerHTML = "";
+        return;
+      }
+
+      container.innerHTML = `
+        <span class="quick-picks-label">${isEs ? "Accesos rápidos:" : "Quick picks:"}</span>
+        ${validIds.map(id => {
+          const o = opts[id];
+          return `<button type="button" class="chip-btn ${currentHyp === id ? "active" : ""}" data-hyp="${id}">
+            ${isEs ? o.label_es : o.label_en}
+          </button>`;
+        }).join("")}
+      `;
+      container.querySelectorAll(".chip-btn").forEach(btn => {
+        btn.onclick = () => {
+          document.getElementById("select-hypothesis").value = btn.getAttribute("data-hyp");
+          onExplorerFilterChange();
+        };
+      });
     }
 
     function populateExplorerDropdowns() {
@@ -912,9 +1350,9 @@
       hypSel.value = opts.some(o => o.id === desiredHyp) ? desiredHyp : opts[0].id;
 
       const slices = [
-        { id: "all", en: "All Days (Unfiltered)", es: "Todos los días (Sin filtro)" },
-        { id: "weekdays", en: "Weekdays Only (Mon–Fri)", es: "Solo laborales (Lun–Vie)" },
-        { id: "weekends", en: "Weekends Only (Sat–Sun)", es: "Solo fines de semana (Sáb–Dom)" },
+        { id: "all", en: "All Days", es: "Todos los días" },
+        { id: "weekdays", en: "Weekdays (Mon–Fri)", es: "Laborales (Lun–Vie)" },
+        { id: "weekends", en: "Weekends (Sat–Sun)", es: "Fines de semana (Sáb–Dom)" },
       ];
       const desiredSlice = explorerInitialized
         ? sliceSel.value
@@ -945,20 +1383,22 @@
       const isEs = currentLang === "es";
       const hypId = document.getElementById("select-hypothesis").value;
       const sliceId = document.getElementById("select-slice").value;
+      renderQuickPicks();
+
       const option = STUDY_DATA.explorer.options[hypId];
       if (!option || !option.slices[sliceId]) {
         document.getElementById("explorer-stats").innerHTML = "";
-        renderPlot("chart-explorer", [], layoutBase);
+        renderPlot("chart-explorer", [], freshLayout());
         return;
       }
 
       const data = option.slices[sliceId];
       const statsCards = [
         { label: isEs ? "Días Expuestos" : "Exposed Days", val: `${data.n_exposed} / ${data.n_exposed + data.n_baseline}` },
-        { label: isEs ? "Media Expuesta vs Base" : "Exposed vs Baseline Mean", val: `${data.mean_exposed.toFixed(2)} vs ${data.mean_baseline.toFixed(2)}` },
+        { label: isEs ? "Media Exp. vs Base" : "Exposed vs Base", val: `${data.mean_exposed.toFixed(2)} vs ${data.mean_baseline.toFixed(2)}` },
         { label: "Rate Ratio", val: `${data.rate_ratio.toFixed(3)}x (${data.pct_diff >= 0 ? "+" : ""}${data.pct_diff.toFixed(1)}%)` },
         { label: "Welch p / Perm p", val: `${data.p_raw.toFixed(4)} / ${data.p_perm.toFixed(4)}` },
-        { label: "BH-FDR q", val: data.q_fdr !== null && data.q_fdr !== undefined ? data.q_fdr.toFixed(4) : "N/A (Slice)" },
+        { label: "BH-FDR q", val: data.q_fdr !== null && data.q_fdr !== undefined ? data.q_fdr.toFixed(4) : "N/A" },
       ];
 
       document.getElementById("explorer-stats").innerHTML = statsCards.map(s => `
@@ -972,33 +1412,60 @@
       const tExp = {
         x: bins,
         y: data.exposed_hist_pct,
-        name: isEs ? "Días Expuestos (%)" : "Exposed Days (%)",
+        name: isEs ? "Expuestos (%)" : "Exposed (%)",
         type: "bar",
         marker: { color: THEME.accent2 },
-        opacity: 0.78,
+        opacity: 0.85,
       };
       const tBase = {
         x: bins,
         y: data.baseline_hist_pct,
-        name: isEs ? "Línea Base (%)" : "Baseline Days (%)",
+        name: isEs ? "Línea Base (%)" : "Baseline (%)",
         type: "bar",
         marker: { color: THEME.accent },
-        opacity: 0.78,
+        opacity: 0.85,
       };
-      const layout = {
-        ...layoutBase,
+      const layout = freshLayout({
+        margin: { t: 44, r: 20, b: 48, l: 54 },
         barmode: "group",
-        title: `${isEs ? option.label_es : option.label_en}`,
-        xaxis: { ...layoutBase.xaxis, title: isEs ? "Incidentes diarios" : "Daily Incident Count" },
-        yaxis: { ...layoutBase.yaxis, title: isEs ? "Frecuencia (%)" : "Share of Days (%)" },
-        legend: { orientation: "h", y: 1.15 },
-      };
+        xaxis: { type: "linear", title: isEs ? "Incidentes diarios" : "Daily Incidents" },
+        yaxis: { type: "linear", title: isEs ? "Frecuencia (%)" : "Share (%)" },
+        legend: { orientation: "h", x: 0, y: 1.03, yanchor: "bottom" },
+      });
       renderPlot("chart-explorer", [tExp, tBase], layout);
+    }
+
+    function initNavigationTracking() {
+      const progress = document.getElementById("read-progress");
+      const updateProgress = () => {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+        progress.style.width = `${pct}%`;
+      };
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      updateProgress();
+
+      const pills = Array.from(document.querySelectorAll(".nav-pill"));
+      const sections = pills
+        .map(p => document.getElementById(p.getAttribute("data-section")))
+        .filter(Boolean);
+
+      if ("IntersectionObserver" in window && sections.length > 0) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              pills.forEach(p => p.classList.toggle("active", p.getAttribute("data-section") === id));
+            }
+          });
+        }, { rootMargin: "-25% 0px -65% 0px" });
+        sections.forEach(s => obs.observe(s));
+      }
     }
 
     function renderAll() {
       THEME = readThemeTokens();
-      layoutBase = buildLayoutBase();
       syncLangControls(currentLang);
       renderStaticText();
       renderKpis();
@@ -1010,6 +1477,7 @@
       renderRealAudit();
     }
 
+    initNavigationTracking();
     renderAll();
   </script>
 </body>
