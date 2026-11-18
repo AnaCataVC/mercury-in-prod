@@ -58,6 +58,13 @@ def test_build_static_site_embeds_study_json_and_accessibility_styles(tmp_path: 
     html = output_path.read_text(encoding="utf-8")
     assert "__STUDY_JSON__" not in html
     assert ":focus-visible" in html
+    assert "color-scheme: dark" in html
+    assert "aria-pressed" in html
+    assert "getComputedStyle" in html
+
+    template_without_root = re.sub(r":root\s*\{.*?\}", "", html, count=1, flags=re.DOTALL)
+    template_without_data = re.sub(r"const STUDY_DATA = \{.*?\};", "", template_without_root, count=1, flags=re.DOTALL)
+    assert re.findall(r"#[0-9a-fA-F]{3,8}\b", template_without_data) == []
 
     match = re.search(r"const STUDY_DATA = (\{.*?\});", html, flags=re.DOTALL)
     assert match is not None

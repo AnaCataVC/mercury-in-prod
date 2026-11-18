@@ -17,24 +17,59 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <style>
     :root {
+      color-scheme: dark;
       --bg: #0b1120;
       --bg-hero: #172554;
       --surface: #111827;
+      --surface-card: rgba(17, 24, 39, 0.88);
       --surface-alt: #1e293b;
+      --grid: #1e293b;
+      --plot-bg: rgba(15, 23, 42, 0.65);
+      --plot-transparent: rgba(0, 0, 0, 0);
       --border: #334155;
       --text: #f8fafc;
       --muted: #94a3b8;
+      --muted-light: #cbd5e1;
       --accent: #38bdf8;
       --accent-contrast: #082f49;
       --accent-2: #f97316;
       --ok: #10b981;
       --danger: #ef4444;
       --null-color: #64748b;
+      --hover-bg: rgba(148, 163, 184, 0.12);
+      --callout-bg: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(249, 115, 22, 0.08));
+      --callout-border: rgba(56, 189, 248, 0.35);
+      --badge-null-bg: rgba(148, 163, 184, 0.2);
       --badge-null-text: #cbd5e1;
+      --badge-hit-bg: rgba(249, 115, 22, 0.2);
       --badge-hit-text: #fdba74;
+      --badge-fdr-bg: rgba(16, 185, 129, 0.2);
       --badge-fdr-text: #6ee7b7;
+      --notice-error-border: rgba(239, 68, 68, 0.45);
+      --notice-error-bg: rgba(239, 68, 68, 0.08);
+      --radius-lg: 14px;
+      --radius-md: 8px;
+      --radius-sm: 6px;
+      --radius-pill: 999px;
     }
     * { box-sizing: border-box; }
+    html {
+      scrollbar-color: var(--border) var(--surface);
+    }
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--surface);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: var(--radius-pill);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--muted);
+    }
     body {
       margin: 0;
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -79,7 +114,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       display: inline-flex;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       padding: 0.25rem;
       gap: 0.25rem;
     }
@@ -88,23 +123,49 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       background: transparent;
       color: var(--muted);
       padding: 0.4rem 0.9rem;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       cursor: pointer;
       font-weight: 600;
       font-size: 0.85rem;
     }
-    .lang-btn:hover:not(.active) {
+    .lang-btn:hover:not(.active):not(:disabled) {
       color: var(--text);
-      background: rgba(148, 163, 184, 0.12);
+      background: var(--hover-bg);
     }
     .lang-btn.active {
       background: var(--accent);
       color: var(--accent-contrast);
     }
+    .lang-btn:active:not(:disabled),
+    .btn-secondary:active:not(:disabled) {
+      transform: translateY(1px);
+    }
     .lang-btn:focus-visible,
+    .btn-secondary:focus-visible,
     select:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
+    }
+    .lang-btn:disabled,
+    .btn-secondary:disabled,
+    select:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .btn-secondary {
+      background: var(--surface-alt);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.55rem 0.9rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--hover-bg);
     }
     .kpi-grid {
       display: grid;
@@ -113,10 +174,18 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       margin: 1.75rem 0;
     }
     .card {
-      background: rgba(17, 24, 39, 0.88);
+      background: var(--surface-card);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: var(--radius-lg);
       padding: 1.2rem 1.25rem;
+    }
+    .table-card {
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+    .card-title {
+      margin-top: 0;
+      font-size: 1.05rem;
     }
     .kpi-label {
       font-size: 0.82rem;
@@ -134,9 +203,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       color: var(--muted);
     }
     .callout {
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(249, 115, 22, 0.08));
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 14px;
+      background: var(--callout-bg);
+      border: 1px solid var(--callout-border);
+      border-radius: var(--radius-lg);
       padding: 1.25rem 1.4rem;
       margin: 1.5rem 0 2rem;
     }
@@ -156,9 +225,37 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     .chart-box {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: var(--radius-lg);
       padding: 0.75rem;
       min-height: 410px;
+    }
+    .card .chart-box {
+      border-radius: var(--radius-md);
+    }
+    .chart-box--compact {
+      min-height: 360px;
+    }
+    .state-notice {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0.75rem;
+      min-height: 320px;
+      padding: 1.5rem;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-alt);
+      color: var(--muted-light);
+    }
+    .state-notice--error {
+      border-color: var(--notice-error-border);
+      background: var(--notice-error-bg);
+    }
+    .state-notice p {
+      margin: 0;
+      max-width: 520px;
     }
     .controls {
       display: flex;
@@ -173,6 +270,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       gap: 0.35rem;
       min-width: 240px;
     }
+    .control-actions {
+      display: flex;
+      align-items: flex-end;
+    }
     label {
       font-size: 0.82rem;
       color: var(--muted);
@@ -182,12 +283,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       background: var(--surface-alt);
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       padding: 0.55rem 0.75rem;
       font-size: 0.95rem;
     }
-    select:hover {
+    select:hover:not(:disabled) {
       border-color: var(--muted);
+    }
+    select:active:not(:disabled) {
+      border-color: var(--accent);
     }
     .explorer-stats {
       display: grid;
@@ -198,7 +302,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     .mini-stat {
       background: var(--surface-alt);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: var(--radius-md);
       padding: 0.75rem 0.9rem;
     }
     .mini-stat .label { font-size: 0.76rem; color: var(--muted); }
@@ -223,13 +327,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     .badge {
       display: inline-block;
       padding: 0.15rem 0.55rem;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       font-size: 0.76rem;
       font-weight: 600;
     }
-    .badge-null { background: rgba(148, 163, 184, 0.2); color: var(--badge-null-text); }
-    .badge-hit { background: rgba(249, 115, 22, 0.2); color: var(--badge-hit-text); }
-    .badge-fdr { background: rgba(16, 185, 129, 0.2); color: var(--badge-fdr-text); }
+    .badge-null { background: var(--badge-null-bg); color: var(--badge-null-text); }
+    .badge-hit { background: var(--badge-hit-bg); color: var(--badge-hit-text); }
+    .badge-fdr { background: var(--badge-fdr-bg); color: var(--badge-fdr-text); }
     footer {
       margin-top: 3.5rem;
       padding-top: 1.5rem;
@@ -248,8 +352,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <p class="subtitle" data-i18n="subtitle"></p>
       </div>
       <div class="lang-switch" role="group" aria-label="Language switch">
-        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" id="btn-es" onclick="setLang('es')">ES</button>
+        <button type="button" class="lang-btn active" id="btn-en" aria-pressed="true" onclick="setLang('en')">EN</button>
+        <button type="button" class="lang-btn" id="btn-es" aria-pressed="false" onclick="setLang('es')">ES</button>
       </div>
     </header>
 
@@ -273,8 +377,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <h2 data-i18n="sec3_title"></h2>
       <p class="section-desc" data-i18n="sec3_desc"></p>
       <div class="chart-box" id="chart-volcano"></div>
-      <div class="card" style="margin-top: 1rem; overflow-x: auto;">
-        <h3 style="margin-top:0; font-size: 1.05rem;" data-i18n="top_hits_title"></h3>
+      <div class="card table-card">
+        <h3 class="card-title" data-i18n="top_hits_title"></h3>
         <table id="top-hits-table"></table>
       </div>
     </section>
@@ -292,15 +396,18 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div class="controls">
           <div class="control-group">
             <label for="select-hypothesis" data-i18n="lbl_hypothesis"></label>
-            <select id="select-hypothesis" onchange="renderExplorer()"></select>
+            <select id="select-hypothesis" onchange="onExplorerFilterChange()"></select>
           </div>
           <div class="control-group">
             <label for="select-slice" data-i18n="lbl_slice"></label>
-            <select id="select-slice" onchange="renderExplorer()"></select>
+            <select id="select-slice" onchange="onExplorerFilterChange()"></select>
+          </div>
+          <div class="control-actions">
+            <button type="button" class="btn-secondary" id="btn-reset-explorer" onclick="resetExplorer()" data-i18n="btn_reset"></button>
           </div>
         </div>
         <div class="explorer-stats" id="explorer-stats"></div>
-        <div class="chart-box" id="chart-explorer" style="min-height: 360px;"></div>
+        <div class="chart-box chart-box--compact" id="chart-explorer"></div>
       </div>
     </section>
 
@@ -311,7 +418,32 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
   <script>
     const STUDY_DATA = __STUDY_JSON__;
-    let currentLang = "en";
+    const STORAGE_KEYS = {
+      lang: "mercury_lang",
+      hyp: "mercury_hyp",
+      slice: "mercury_slice",
+    };
+
+    function readStored(key, fallback) {
+      try {
+        const val = window.localStorage.getItem(key);
+        return val !== null && val !== "" ? val : fallback;
+      } catch (_) {
+        return fallback;
+      }
+    }
+
+    function writeStored(key, value) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (_) {
+        // Ignore storage restrictions in private or sandboxed contexts.
+      }
+    }
+
+    const storedLang = readStored(STORAGE_KEYS.lang, "en");
+    let currentLang = storedLang === "es" ? "es" : "en";
+    let explorerInitialized = false;
 
     const I18N = {
       en: {
@@ -331,6 +463,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         sec5_desc: "Inspect any planetary motion state or lunar phase directly in the browser, and toggle weekday filtering to see how calendar selection bias distorts naive rates.",
         lbl_hypothesis: "Astrological Condition",
         lbl_slice: "Calendar Slice",
+        btn_reset: "Reset Explorer Filters",
+        btn_retry: "Retry Chart Render",
+        offline_chart_msg: "Interactive chart unavailable offline — statistical summary active above.",
+        empty_chart_msg: "No records available for this view.",
+        empty_audit_msg: "No real Statuspage audit tests are available in this snapshot.",
+        error_chart_msg: "Unable to render this interactive chart right now.",
         footer_note: "Built with astronomy-engine, statsmodels, and Plotly. Ephemeris logic matches AstrologyEngine.kt from one-ui-extra-widgets.",
       },
       es: {
@@ -350,36 +488,110 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         sec5_desc: "Explora cualquier estado planetario o fase lunar directamente en el navegador y activa filtros de días laborales para observar el sesgo de selección de calendario.",
         lbl_hypothesis: "Condición Astrológica",
         lbl_slice: "Filtro de Calendario",
+        btn_reset: "Restablecer Filtros",
+        btn_retry: "Reintentar Renderizado",
+        offline_chart_msg: "Gráfico interactivo no disponible sin conexión — resumen estadístico activo arriba.",
+        empty_chart_msg: "No hay registros disponibles para esta vista.",
+        empty_audit_msg: "No hay pruebas reales de Statuspage disponibles en esta instantánea.",
+        error_chart_msg: "No fue posible renderizar este gráfico interactivo en este momento.",
         footer_note: "Construido con astronomy-engine, statsmodels y Plotly. La lógica de efemérides replica AstrologyEngine.kt de one-ui-extra-widgets.",
       }
     };
 
-    const THEME = {
-      text: "#e2e8f0",
-      grid: "#1e293b",
-      border: "#334155",
-      muted: "#94a3b8",
-      mutedLight: "#cbd5e1",
-      nullColor: "#64748b",
-      accent: "#38bdf8",
-      accent2: "#f97316",
-      ok: "#10b981",
-      danger: "#ef4444",
-    };
+    function readThemeTokens() {
+      const styles = getComputedStyle(document.documentElement);
+      const token = (name) => styles.getPropertyValue(name).trim();
+      return {
+        text: token("--text"),
+        grid: token("--grid"),
+        border: token("--border"),
+        muted: token("--muted"),
+        mutedLight: token("--muted-light"),
+        nullColor: token("--null-color"),
+        accent: token("--accent"),
+        accent2: token("--accent-2"),
+        ok: token("--ok"),
+        danger: token("--danger"),
+        plotBg: token("--plot-bg"),
+        plotTransparent: token("--plot-transparent"),
+      };
+    }
 
-    const layoutBase = {
-      paper_bgcolor: "rgba(0,0,0,0)",
-      plot_bgcolor: "rgba(15,23,42,0.65)",
-      font: { color: THEME.text, family: "Inter, sans-serif" },
-      margin: { t: 48, r: 28, b: 52, l: 60 },
-      xaxis: { gridcolor: THEME.grid, zerolinecolor: THEME.border },
-      yaxis: { gridcolor: THEME.grid, zerolinecolor: THEME.border },
-    };
+    let THEME = readThemeTokens();
+
+    function buildLayoutBase() {
+      return {
+        paper_bgcolor: THEME.plotTransparent,
+        plot_bgcolor: THEME.plotBg,
+        font: { color: THEME.text, family: "Inter, sans-serif" },
+        margin: { t: 48, r: 28, b: 52, l: 60 },
+        xaxis: { gridcolor: THEME.grid, zerolinecolor: THEME.border },
+        yaxis: { gridcolor: THEME.grid, zerolinecolor: THEME.border },
+      };
+    }
+
+    let layoutBase = buildLayoutBase();
+
+    function renderNotice(container, message, isError, includeRetry) {
+      container.innerHTML = "";
+      const box = document.createElement("div");
+      box.className = isError ? "state-notice state-notice--error" : "state-notice";
+      box.setAttribute("role", "status");
+      box.setAttribute("aria-live", "polite");
+
+      const p = document.createElement("p");
+      p.textContent = message;
+      box.appendChild(p);
+
+      if (includeRetry) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn-secondary";
+        btn.textContent = I18N[currentLang].btn_retry;
+        btn.onclick = () => renderAll();
+        box.appendChild(btn);
+      }
+
+      container.appendChild(box);
+    }
+
+    function renderPlot(containerId, traces, layout, emptyMessage) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      if (!traces || traces.length === 0) {
+        renderNotice(container, emptyMessage || I18N[currentLang].empty_chart_msg, false, false);
+        return;
+      }
+
+      if (typeof Plotly === "undefined") {
+        renderNotice(container, I18N[currentLang].offline_chart_msg, false, true);
+        return;
+      }
+
+      try {
+        container.innerHTML = "";
+        Plotly.newPlot(containerId, traces, layout, { responsive: true });
+      } catch (_) {
+        renderNotice(container, I18N[currentLang].error_chart_msg, true, true);
+      }
+    }
+
+    function syncLangControls(lang) {
+      document.documentElement.lang = lang;
+      const btnEn = document.getElementById("btn-en");
+      const btnEs = document.getElementById("btn-es");
+      const isEs = lang === "es";
+      btnEn.classList.toggle("active", !isEs);
+      btnEs.classList.toggle("active", isEs);
+      btnEn.setAttribute("aria-pressed", String(!isEs));
+      btnEs.setAttribute("aria-pressed", String(isEs));
+    }
 
     function setLang(lang) {
-      currentLang = lang;
-      document.getElementById("btn-en").classList.toggle("active", lang === "en");
-      document.getElementById("btn-es").classList.toggle("active", lang === "es");
+      currentLang = lang === "es" ? "es" : "en";
+      writeStored(STORAGE_KEYS.lang, currentLang);
+      syncLangControls(currentLang);
       renderAll();
     }
 
@@ -410,8 +622,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         },
         {
           label: isEs ? "IRR Mercurio Retrógrado (GLM)" : "Mercury Retrograde IRR (GLM)",
-          value: `${retroGlm.irr.toFixed(2)}x`,
-          sub: `95% CI [${retroGlm.ci_low.toFixed(2)}, ${retroGlm.ci_high.toFixed(2)}] · p=${retroGlm.p_value.toFixed(2)}`,
+          value: retroGlm ? `${retroGlm.irr.toFixed(2)}x` : "N/A",
+          sub: retroGlm
+            ? `95% CI [${retroGlm.ci_low.toFixed(2)}, ${retroGlm.ci_high.toFixed(2)}] · p=${retroGlm.p_value.toFixed(2)}`
+            : (isEs ? "Sin término disponible" : "Term unavailable"),
         },
         {
           label: isEs ? "Hits Ingenuos vs FDR" : "Naive Hits vs FDR",
@@ -436,7 +650,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     function renderTimeline() {
       const isEs = currentLang === "es";
-      const rows = STUDY_DATA.timeline;
+      const rows = STUDY_DATA.timeline || [];
+      if (rows.length === 0) {
+        renderPlot("chart-timeline", [], layoutBase);
+        return;
+      }
+
       const dates = rows.map(r => r.date);
       const speeds = rows.map(r => r.mercury_daily_speed_deg);
       const counts = rows.map(r => r.incident_count);
@@ -476,18 +695,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           title: isEs ? "Velocidad (°/día)" : "Speed (°/day)",
           overlaying: "y",
           side: "right",
-          gridcolor: "rgba(0,0,0,0)",
+          gridcolor: THEME.plotTransparent,
           zeroline: true,
           zerolinecolor: THEME.danger,
         },
         legend: { orientation: "h", y: 1.12 },
       };
-      Plotly.newPlot("chart-timeline", [traceInc, traceSpeed], layout, { responsive: true });
+      renderPlot("chart-timeline", [traceInc, traceSpeed], layout);
     }
 
     function renderForest() {
       const isEs = currentLang === "es";
-      const terms = [...STUDY_DATA.controlled_glm.terms].reverse();
+      const terms = [...(STUDY_DATA.controlled_glm.terms || [])].reverse();
+      if (terms.length === 0) {
+        renderPlot("chart-forest", [], layoutBase);
+        return;
+      }
+
       const labels = terms.map(t => isEs ? t.label_es : t.label_en);
       const irrs = terms.map(t => t.irr);
       const errPlus = terms.map(t => t.ci_high - t.irr);
@@ -521,66 +745,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           line: { color: THEME.muted, dash: "dash", width: 1.5 },
         }],
       };
-      Plotly.newPlot("chart-forest", [trace], layout, { responsive: true });
+      renderPlot("chart-forest", [trace], layout);
     }
 
-    function renderVolcano() {
+    function renderVolcanoTable(hyps) {
       const isEs = currentLang === "es";
-      const scan = STUDY_DATA.phacking_scan;
-      const hyps = scan.hypotheses;
-
-      const groups = [
-        {
-          key: "null",
-          name: isEs ? "Nulo (p >= 0.05)" : "Null (p >= 0.05)",
-          color: THEME.nullColor,
-          items: hyps.filter(h => !h.naive_hit),
-        },
-        {
-          key: "naive",
-          name: isEs ? "Falso Hit Ingenuo (p < 0.05, falla FDR)" : "Naive Hit Only (fails FDR)",
-          color: THEME.accent2,
-          items: hyps.filter(h => h.naive_hit && !h.survives_fdr),
-        },
-        {
-          key: "fdr",
-          name: isEs ? "Sobrevive FDR (Confusión estacional Dic)" : "Survives FDR (Dec Freeze Confounder)",
-          color: THEME.ok,
-          items: hyps.filter(h => h.survives_fdr),
-        },
-      ];
-
-      const traces = groups.map(g => ({
-        x: g.items.map(h => h.log2_fold_change),
-        y: g.items.map(h => h.neg_log10_p),
-        text: g.items.map(h => `${isEs ? h.label_es : h.label_en}<br>RR=${h.rate_ratio} · p_raw=${h.p_raw} · q_FDR=${h.q_fdr}`),
-        name: g.name,
-        mode: "markers",
-        type: "scatter",
-        marker: { color: g.color, size: 10 },
-        hovertemplate: "%{text}<extra></extra>",
-      }));
-
-      const bonfY = -Math.log10(0.05 / scan.total_hypotheses);
-      const rawY = -Math.log10(0.05);
-
-      const layout = {
-        ...layoutBase,
-        title: isEs ? "Gráfico Volcán de 57 Hipótesis Astrológicas" : "Volcano Plot of 57 Astrological Hypotheses",
-        xaxis: { ...layoutBase.xaxis, title: "log2(Incident Rate Ratio)" },
-        yaxis: { ...layoutBase.yaxis, title: "-log10(raw p-value)" },
-        legend: { orientation: "h", y: 1.13 },
-        shapes: [
-          { type: "line", x0: -0.6, x1: 0.6, y0: rawY, y1: rawY, line: { color: THEME.accent2, dash: "dash" } },
-          { type: "line", x0: -0.6, x1: 0.6, y0: bonfY, y1: bonfY, line: { color: THEME.danger, dash: "dot" } },
-        ],
-      };
-      Plotly.newPlot("chart-volcano", traces, layout, { responsive: true });
-
       const topRows = hyps.slice(0, 10);
       const headers = isEs
         ? ["Hipótesis", "Familia", "N Expuesto", "Rate Ratio", "p crudo", "q (BH-FDR)", "p (Bonf.)", "Estado"]
         : ["Hypothesis", "Family", "Exposed N", "Rate Ratio", "Raw p", "q (BH-FDR)", "Bonferroni p", "Status"];
+
+      if (topRows.length === 0) {
+        document.getElementById("top-hits-table").innerHTML = `
+          <thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>
+          <tbody><tr><td colspan="${headers.length}">${I18N[currentLang].empty_chart_msg}</td></tr></tbody>
+        `;
+        return;
+      }
 
       const tableHtml = `
         <thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>
@@ -608,9 +789,74 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       document.getElementById("top-hits-table").innerHTML = tableHtml;
     }
 
+    function renderVolcano() {
+      const isEs = currentLang === "es";
+      const scan = STUDY_DATA.phacking_scan;
+      const hyps = scan.hypotheses || [];
+      renderVolcanoTable(hyps);
+
+      if (hyps.length === 0) {
+        renderPlot("chart-volcano", [], layoutBase);
+        return;
+      }
+
+      const groups = [
+        {
+          key: "null",
+          name: isEs ? "Nulo (p >= 0.05)" : "Null (p >= 0.05)",
+          color: THEME.nullColor,
+          items: hyps.filter(h => !h.naive_hit),
+        },
+        {
+          key: "naive",
+          name: isEs ? "Falso Hit Ingenuo (p < 0.05, falla FDR)" : "Naive Hit Only (fails FDR)",
+          color: THEME.accent2,
+          items: hyps.filter(h => h.naive_hit && !h.survives_fdr),
+        },
+        {
+          key: "fdr",
+          name: isEs ? "Sobrevive FDR (Confusión estacional Dic)" : "Survives FDR (Dec Freeze Confounder)",
+          color: THEME.ok,
+          items: hyps.filter(h => h.survives_fdr),
+        },
+      ].filter(g => g.items.length > 0);
+
+      const traces = groups.map(g => ({
+        x: g.items.map(h => h.log2_fold_change),
+        y: g.items.map(h => h.neg_log10_p),
+        text: g.items.map(h => `${isEs ? h.label_es : h.label_en}<br>RR=${h.rate_ratio} · p_raw=${h.p_raw} · q_FDR=${h.q_fdr}`),
+        name: g.name,
+        mode: "markers",
+        type: "scatter",
+        marker: { color: g.color, size: 10 },
+        hovertemplate: "%{text}<extra></extra>",
+      }));
+
+      const bonfY = -Math.log10(0.05 / Math.max(1, scan.total_hypotheses));
+      const rawY = -Math.log10(0.05);
+
+      const layout = {
+        ...layoutBase,
+        title: isEs ? "Gráfico Volcán de 57 Hipótesis Astrológicas" : "Volcano Plot of 57 Astrological Hypotheses",
+        xaxis: { ...layoutBase.xaxis, title: "log2(Incident Rate Ratio)" },
+        yaxis: { ...layoutBase.yaxis, title: "-log10(raw p-value)" },
+        legend: { orientation: "h", y: 1.13 },
+        shapes: [
+          { type: "line", x0: -0.6, x1: 0.6, y0: rawY, y1: rawY, line: { color: THEME.accent2, dash: "dash" } },
+          { type: "line", x0: -0.6, x1: 0.6, y0: bonfY, y1: bonfY, line: { color: THEME.danger, dash: "dot" } },
+        ],
+      };
+      renderPlot("chart-volcano", traces, layout);
+    }
+
     function renderRealAudit() {
       const isEs = currentLang === "es";
       const tests = STUDY_DATA.real_statuspage_audit.tests || [];
+      if (tests.length === 0) {
+        renderPlot("chart-real-audit", [], layoutBase, I18N[currentLang].empty_audit_msg);
+        return;
+      }
+
       const labels = tests.map(t => `${isEs ? t.label_es : t.label_en} (p=${t.p_value.toFixed(2)})`);
 
       const traceObs = {
@@ -637,26 +883,49 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         yaxis: { ...layoutBase.yaxis, title: isEs ? "Porcentaje de Incidentes (%)" : "Share of Incidents (%)" },
         legend: { orientation: "h", y: 1.12 },
       };
-      Plotly.newPlot("chart-real-audit", [traceObs, traceExp], layout, { responsive: true });
+      renderPlot("chart-real-audit", [traceObs, traceExp], layout);
     }
 
     function populateExplorerDropdowns() {
       const isEs = currentLang === "es";
       const hypSel = document.getElementById("select-hypothesis");
-      const prevHyp = hypSel.value || "mercury_retrograde";
-      const opts = Object.values(STUDY_DATA.explorer.options);
-      hypSel.innerHTML = opts.map(o => `<option value="${o.id}">${isEs ? o.label_es : o.label_en}</option>`).join("");
-      hypSel.value = opts.some(o => o.id === prevHyp) ? prevHyp : opts[0].id;
-
       const sliceSel = document.getElementById("select-slice");
-      const prevSlice = sliceSel.value || "all";
+      const opts = Object.values(STUDY_DATA.explorer.options);
+
+      const desiredHyp = explorerInitialized
+        ? hypSel.value
+        : readStored(STORAGE_KEYS.hyp, "mercury_retrograde");
+      hypSel.innerHTML = opts.map(o => `<option value="${o.id}">${isEs ? o.label_es : o.label_en}</option>`).join("");
+      hypSel.value = opts.some(o => o.id === desiredHyp) ? desiredHyp : opts[0].id;
+
       const slices = [
         { id: "all", en: "All Days (Unfiltered)", es: "Todos los días (Sin filtro)" },
         { id: "weekdays", en: "Weekdays Only (Mon–Fri)", es: "Solo laborales (Lun–Vie)" },
         { id: "weekends", en: "Weekends Only (Sat–Sun)", es: "Solo fines de semana (Sáb–Dom)" },
       ];
+      const desiredSlice = explorerInitialized
+        ? sliceSel.value
+        : readStored(STORAGE_KEYS.slice, "all");
       sliceSel.innerHTML = slices.map(s => `<option value="${s.id}">${isEs ? s.es : s.en}</option>`).join("");
-      sliceSel.value = prevSlice;
+      sliceSel.value = slices.some(s => s.id === desiredSlice) ? desiredSlice : "all";
+
+      explorerInitialized = true;
+    }
+
+    function onExplorerFilterChange() {
+      writeStored(STORAGE_KEYS.hyp, document.getElementById("select-hypothesis").value);
+      writeStored(STORAGE_KEYS.slice, document.getElementById("select-slice").value);
+      renderExplorer();
+    }
+
+    function resetExplorer() {
+      const opts = Object.values(STUDY_DATA.explorer.options);
+      const defaultHyp = opts.some(o => o.id === "mercury_retrograde") ? "mercury_retrograde" : opts[0].id;
+      document.getElementById("select-hypothesis").value = defaultHyp;
+      document.getElementById("select-slice").value = "all";
+      writeStored(STORAGE_KEYS.hyp, defaultHyp);
+      writeStored(STORAGE_KEYS.slice, "all");
+      renderExplorer();
     }
 
     function renderExplorer() {
@@ -664,8 +933,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       const hypId = document.getElementById("select-hypothesis").value;
       const sliceId = document.getElementById("select-slice").value;
       const option = STUDY_DATA.explorer.options[hypId];
-      const data = option.slices[sliceId];
+      if (!option || !option.slices[sliceId]) {
+        document.getElementById("explorer-stats").innerHTML = "";
+        renderPlot("chart-explorer", [], layoutBase);
+        return;
+      }
 
+      const data = option.slices[sliceId];
       const statsCards = [
         { label: isEs ? "Días Expuestos" : "Exposed Days", val: `${data.n_exposed} / ${data.n_exposed + data.n_baseline}` },
         { label: isEs ? "Media Expuesta vs Base" : "Exposed vs Baseline Mean", val: `${data.mean_exposed.toFixed(2)} vs ${data.mean_baseline.toFixed(2)}` },
@@ -706,18 +980,21 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         yaxis: { ...layoutBase.yaxis, title: isEs ? "Frecuencia (%)" : "Share of Days (%)" },
         legend: { orientation: "h", y: 1.15 },
       };
-      Plotly.newPlot("chart-explorer", [tExp, tBase], layout, { responsive: true });
+      renderPlot("chart-explorer", [tExp, tBase], layout);
     }
 
     function renderAll() {
+      THEME = readThemeTokens();
+      layoutBase = buildLayoutBase();
+      syncLangControls(currentLang);
       renderStaticText();
       renderKpis();
+      populateExplorerDropdowns();
+      renderExplorer();
       renderTimeline();
       renderForest();
       renderVolcano();
       renderRealAudit();
-      populateExplorerDropdowns();
-      renderExplorer();
     }
 
     renderAll();

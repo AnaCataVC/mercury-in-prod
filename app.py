@@ -77,6 +77,18 @@ TEXT: dict[str, dict[str, str]] = {
         ),
         "volcano_title": "Multiple-Hypothesis Volcano Plot (57 Astrological Tests)",
         "real_audit_title": "Real Public Statuspage Incidents Audit (8 Engineering Platforms)",
+        "reset_filters": "Reset Explorer Filters",
+        "low_sample_warn": (
+            "Sample size too small (< 2 exposed days) for reliable inference. "
+            "Select a broader calendar slice."
+        ),
+        "empty_slice_info": "No exposed days match this filter combination. Reset or widen the calendar slice.",
+        "empty_audit_info": "No real Statuspage audit records are available in the current snapshot.",
+        "load_error": "Unable to load or build the study dataset right now. Verify cached files and retry.",
+        "retry_load": "Retry Loading Data",
+        "status_fdr": "Survives FDR",
+        "status_naive": "Naive Hit Only (False Positive)",
+        "status_null": "Null",
     },
     "es": {
         "title": "Mercury in Prod — Laboratorio Exploratorio de Efemérides e Incidentes",
@@ -121,8 +133,37 @@ TEXT: dict[str, dict[str, str]] = {
         ),
         "volcano_title": "Gráfico Volcán de Múltiples Hipótesis (57 Pruebas)",
         "real_audit_title": "Auditoría de Incidentes Públicos Reales en Statuspage (8 Plataformas)",
+        "reset_filters": "Restablecer Filtros",
+        "low_sample_warn": (
+            "Muestra insuficiente (< 2 días expuestos) para inferencia fiable. "
+            "Selecciona un filtro de calendario más amplio."
+        ),
+        "empty_slice_info": "Ningún día expuesto coincide con este filtro. Restablece o amplía la ventana.",
+        "empty_audit_info": "No hay registros de auditoría Statuspage disponibles en la instantánea actual.",
+        "load_error": "No fue posible cargar ni construir el conjunto de datos en este momento. Intenta nuevamente.",
+        "retry_load": "Reintentar Carga de Datos",
+        "status_fdr": "Sobrevive FDR",
+        "status_naive": "Falso Hit Ingenuo",
+        "status_null": "Nulo",
     },
 }
+
+_LAB_STATE_KEYS = (
+    "lab_dim",
+    "lab_planet",
+    "lab_moon",
+    "lab_sun",
+    "lab_outcome",
+    "lab_cal",
+    "lab_state",
+    "lab_perm",
+)
+
+
+def _reset_lab_filters() -> None:
+    """Reset Hypothesis Lab widget state keys back to their initial defaults."""
+    for key in _LAB_STATE_KEYS:
+        st.session_state.pop(key, None)
 
 
 @st.cache_data(show_spinner="Loading ephemeris & incidents data...")
@@ -149,14 +190,22 @@ def main() -> None:
         layout="wide",
     )
 
-    df, raw_df, results = load_project_data()
-
     with st.sidebar:
         lang_choice = st.radio("Language / Idioma", options=["EN", "ES"], horizontal=True)
         lang = lang_choice.lower()
         t = TEXT[lang]
         is_es = lang == "es"
 
+    try:
+        df, raw_df, results = load_project_data()
+    except (OSError, ValueError, KeyError, TypeError, RuntimeError, pd.errors.ParserError, pd.errors.EmptyDataError):
+        st.title(t["title"])
+        st.error(t["load_error"])
+        if st.button(t["retry_load"]):
+            st.rerun()
+        return
+
+    with st.sidebar:
         st.divider()
         st.subheader(t["dataset_header"])
         summary = results["summary"]
@@ -235,6 +284,12 @@ def main() -> None:
             color="mercury_motion_state",
             title=t["speed_chart_title"],
             labels={"date": "UTC Date", "mercury_daily_speed_deg": "Speed (°/day)"},
+            color_discrete_map={
+                "RETROGRADE": THEME_COLORS["danger"],
+                "PRE_SHADOW": THEME_COLORS["accent_2"],
+                "POST_SHADOW": THEME_COLORS["muted"],
+                "DIRECT": THEME_COLORS["accent"],
+            },
         )
         fig_speed.add_hline(y=0.0, line_dash="dash", line_color=THEME_COLORS["danger"])
         fig_speed.add_vline(x=selected_date.strftime("%Y-%m-%d"), line_dash="dot", line_color=THEME_COLORS["muted"])
@@ -245,15 +300,33 @@ def main() -> None:
     # ------------------------------------------------------------------
     with tab2:
         st.markdown(t["lab_intro"])
+
+        outcome_map = {
+            "incident_count": "Total Incidents / Day" if not is_es else "Incidentes Totales / Día",
+            "critical_major_count": "Critical & Major / Day" if not is_es else "Críticos y Mayores / Día",
+            "mean_duration_min": "Mean Duration (min)" if not is_es else "Duración Media (min)",
+        }
+        dim_options = {
+            "planet": "Planetary Motion" if not is_es else "Movimiento Planetario",
+            "moon": "Lunar Phase" if not is_es else "Fase Lunar",
+            "sun_sign": "Sun Sign" if not is_es else "Signo Solar",
+        }
+        cal_options = {
+            "all": "All Days (Uncontrolled)" if not is_es else "Todos los días (Sin control)",
+            "weekdays": "Weekdays Only (Mon–Fri)" if not is_es else "Solo laborales (Lun–Vie)",
+            "midweek": "Midweek Deploy Window (Tue–Thu)" if not is_es else "Ventana Despliegues (Mar–Jue)",
+            "weekends": "Weekends Only (Sat–Sun)" if not is_es else "Solo Fines de Semana",
+        }
+
         c1, c2, c3, c4 = st.columns(4)
 
         with c1:
-            dim_options = {
-                "planet": "Planetary Motion" if not is_es else "Movimiento Planetario",
-                "moon": "Lunar Phase" if not is_es else "Fase Lunar",
-                "sun_sign": "Sun Sign" if not is_es else "Signo Solar",
-            }
-            dim_key = st.selectbox(t["filter_type"], options=list(dim_options.keys()), format_func=lambda k: dim_options[k])
+            dim_key = st.selectbox(
+                t["filter_type"],
+                options=list(dim_options.keys()),
+                format_func=lambda k: dim_options[k],
+                key="lab_dim",
+            )
 
         with c2:
             if dim_key == "planet":
@@ -261,58 +334,54 @@ def main() -> None:
                     t["planet_select"],
                     options=list(PLANET_LABELS.keys()),
                     format_func=lambda k: PLANET_LABELS[k][1 if is_es else 0],
+                    key="lab_planet",
                 )
             elif dim_key == "moon":
                 moon_choice = st.selectbox(
                     t["moon_select"],
                     options=[p[0] for p in LUNAR_PHASES_EN_ES],
                     format_func=lambda en: next(p[1] if is_es else p[0] for p in LUNAR_PHASES_EN_ES if p[0] == en),
+                    key="lab_moon",
                 )
             else:
                 sun_choice = st.selectbox(
                     t["sign_select"],
                     options=[s.name_en for s in ZodiacSign],
                     format_func=lambda en: next(s.localized_name(is_es) for s in ZodiacSign if s.name_en == en),
+                    key="lab_sun",
                 )
 
-        outcome_map = {
-            "incident_count": "Total Incidents / Day" if not is_es else "Incidentes Totales / Día",
-            "critical_major_count": "Critical & Major / Day" if not is_es else "Críticos y Mayores / Día",
-            "mean_duration_min": "Mean Duration (min)" if not is_es else "Duración Media (min)",
-        }
-
         with c3:
+            outcome_col = st.selectbox(
+                t["outcome_select"],
+                options=list(outcome_map.keys()),
+                format_func=lambda k: outcome_map[k],
+                key="lab_outcome",
+            )
+
+        with c4:
+            cal_key = st.selectbox(
+                t["calendar_filter"],
+                options=list(cal_options.keys()),
+                format_func=lambda k: cal_options[k],
+                key="lab_cal",
+            )
+
+        r2_c1, r2_c2, r2_c3 = st.columns([2, 2, 1], vertical_alignment="bottom")
+        with r2_c1:
             if dim_key == "planet":
                 state_key = st.selectbox(
                     t["state_select"],
                     options=["RETROGRADE", "PRE_SHADOW", "POST_SHADOW", "DIRECT"],
                     format_func=lambda k: STATE_LABELS[k][1 if is_es else 0],
+                    key="lab_state",
                 )
             else:
-                outcome_col = st.selectbox(
-                    t["outcome_select"],
-                    options=list(outcome_map.keys()),
-                    format_func=lambda k: outcome_map[k],
-                )
-
-        with c4:
-            cal_options = {
-                "all": "All Days (Uncontrolled)" if not is_es else "Todos los días (Sin control)",
-                "weekdays": "Weekdays Only (Mon–Fri)" if not is_es else "Solo laborales (Lun–Vie)",
-                "midweek": "Midweek Deploy Window (Tue–Thu)" if not is_es else "Ventana Despliegues (Mar–Jue)",
-                "weekends": "Weekends Only (Sat–Sun)" if not is_es else "Solo Fines de Semana",
-            }
-            cal_key = st.selectbox(t["calendar_filter"], options=list(cal_options.keys()), format_func=lambda k: cal_options[k])
-
-        if dim_key == "planet":
-            outcome_col = st.selectbox(
-                t["outcome_select"],
-                options=list(outcome_map.keys()),
-                format_func=lambda k: outcome_map[k],
-                key="planet_outcome",
-            )
-
-        n_perm = st.slider(t["perm_slider"], min_value=250, max_value=5000, value=1000, step=250)
+                state_key = "RETROGRADE"
+        with r2_c2:
+            n_perm = st.slider(t["perm_slider"], min_value=250, max_value=5000, value=1000, step=250, key="lab_perm")
+        with r2_c3:
+            st.button(t["reset_filters"], on_click=_reset_lab_filters, type="secondary", width="stretch")
 
         if cal_key == "weekdays":
             sub_df = df[~df["is_weekend"]].copy()
@@ -332,6 +401,9 @@ def main() -> None:
 
         stats_res = compare_binary_hypothesis(sub_df, mask, outcome_col=outcome_col, n_perm=n_perm, seed=42)
 
+        if stats_res["n_exposed"] < 2:
+            st.warning(t["low_sample_warn"])
+
         k1, k2, k3, k4, k5 = st.columns(5)
         k1.metric(t["exposed_days"], f"{stats_res['n_exposed']} / {len(sub_df)}")
         k2.metric(t["rate_ratio"], f"{stats_res['rate_ratio']:.3f}x", f"{stats_res['pct_diff']:+.1f}%")
@@ -339,28 +411,31 @@ def main() -> None:
         k4.metric(t["mw_p"], f"{stats_res['mann_whitney_p']:.4f}")
         k5.metric(t["perm_p"], f"{stats_res['p_perm']:.4f}")
 
-        plot_df = pd.DataFrame(
-            {
-                "value": sub_df[outcome_col],
-                "Group": np.where(mask, "Exposed" if not is_es else "Expuesto", "Baseline" if not is_es else "Línea Base"),
-            }
-        )
-        fig_dist = px.histogram(
-            plot_df,
-            x="value",
-            color="Group",
-            barmode="overlay",
-            histnorm="percent",
-            nbins=20,
-            title=t["dist_title"],
-            color_discrete_map={
-                "Exposed": THEME_COLORS["accent_2"],
-                "Expuesto": THEME_COLORS["accent_2"],
-                "Baseline": THEME_COLORS["accent"],
-                "Línea Base": THEME_COLORS["accent"],
-            },
-        )
-        st.plotly_chart(fig_dist, width="stretch")
+        if stats_res["n_exposed"] == 0:
+            st.info(t["empty_slice_info"])
+        else:
+            plot_df = pd.DataFrame(
+                {
+                    "value": sub_df[outcome_col],
+                    "Group": np.where(mask, "Exposed" if not is_es else "Expuesto", "Baseline" if not is_es else "Línea Base"),
+                }
+            )
+            fig_dist = px.histogram(
+                plot_df,
+                x="value",
+                color="Group",
+                barmode="overlay",
+                histnorm="percent",
+                nbins=20,
+                title=t["dist_title"],
+                color_discrete_map={
+                    "Exposed": THEME_COLORS["accent_2"],
+                    "Expuesto": THEME_COLORS["accent_2"],
+                    "Baseline": THEME_COLORS["accent"],
+                    "Línea Base": THEME_COLORS["accent"],
+                },
+            )
+            st.plotly_chart(fig_dist, width="stretch")
 
     # ------------------------------------------------------------------
     # Tab 3: Multiple Hypothesis Testing & Real Statuspage Audit
@@ -378,53 +453,90 @@ def main() -> None:
         s4.metric("FDR Survivors (q < 0.05)" if not is_es else "Sobrevivientes FDR (q < 0.05)", scan["fdr_survivors_count"])
 
         scan_df = pd.DataFrame(scan["hypotheses"])
-        scan_df["Status"] = np.where(
-            scan_df["survives_fdr"],
-            "Survives FDR",
-            np.where(scan_df["naive_hit"], "Naive Hit Only (False Positive)", "Null"),
-        )
-        fig_volcano = px.scatter(
-            scan_df,
-            x="log2_fold_change",
-            y="neg_log10_p",
-            color="Status",
-            hover_data=["label_en", "rate_ratio", "p_raw", "q_fdr", "p_bonferroni", "n_exposed"],
-            title=t["volcano_title"],
-            color_discrete_map={
-                "Survives FDR": THEME_COLORS["ok"],
-                "Naive Hit Only (False Positive)": THEME_COLORS["accent_2"],
-                "Null": THEME_COLORS["null"],
-            },
-        )
-        fig_volcano.add_hline(
-            y=-np.log10(0.05),
-            line_dash="dash",
-            line_color=THEME_COLORS["accent_2"],
-            annotation_text="p = 0.05",
-        )
-        fig_volcano.add_hline(
-            y=-np.log10(0.05 / scan["total_hypotheses"]),
-            line_dash="dot",
-            line_color=THEME_COLORS["danger"],
-            annotation_text="Bonferroni",
-        )
-        st.plotly_chart(fig_volcano, width="stretch")
+        if not scan_df.empty:
+            scan_df["Status"] = np.where(
+                scan_df["survives_fdr"],
+                t["status_fdr"],
+                np.where(scan_df["naive_hit"], t["status_naive"], t["status_null"]),
+            )
+            fig_volcano = px.scatter(
+                scan_df,
+                x="log2_fold_change",
+                y="neg_log10_p",
+                color="Status",
+                hover_data=["label_en", "rate_ratio", "p_raw", "q_fdr", "p_bonferroni", "n_exposed"],
+                title=t["volcano_title"],
+                color_discrete_map={
+                    t["status_fdr"]: THEME_COLORS["ok"],
+                    t["status_naive"]: THEME_COLORS["accent_2"],
+                    t["status_null"]: THEME_COLORS["null"],
+                },
+            )
+            fig_volcano.add_hline(
+                y=-np.log10(0.05),
+                line_dash="dash",
+                line_color=THEME_COLORS["accent_2"],
+                annotation_text="p = 0.05",
+            )
+            fig_volcano.add_hline(
+                y=-np.log10(0.05 / scan["total_hypotheses"]),
+                line_dash="dot",
+                line_color=THEME_COLORS["danger"],
+                annotation_text="Bonferroni",
+            )
+            st.plotly_chart(fig_volcano, width="stretch")
 
-        display_cols = ["label_es" if is_es else "label_en", "family", "n_exposed", "rate_ratio", "p_raw", "q_fdr", "p_bonferroni", "p_perm", "naive_hit", "survives_fdr"]
-        st.dataframe(scan_df[display_cols], width="stretch", hide_index=True)
+            label_col = "label_es" if is_es else "label_en"
+            display_cols = [
+                label_col,
+                "family",
+                "n_exposed",
+                "rate_ratio",
+                "p_raw",
+                "q_fdr",
+                "p_bonferroni",
+                "p_perm",
+                "naive_hit",
+                "survives_fdr",
+            ]
+            scan_col_config = {
+                label_col: st.column_config.TextColumn("Hypothesis" if not is_es else "Hipótesis"),
+                "family": st.column_config.TextColumn("Family" if not is_es else "Familia"),
+                "n_exposed": st.column_config.NumberColumn("Exposed Days" if not is_es else "Días Expuestos", format="%d"),
+                "rate_ratio": st.column_config.NumberColumn("Rate Ratio" if not is_es else "Razón de Tasas", format="%.3f"),
+                "p_raw": st.column_config.NumberColumn("Raw p" if not is_es else "p crudo", format="%.4f"),
+                "q_fdr": st.column_config.NumberColumn("BH-FDR q", format="%.4f"),
+                "p_bonferroni": st.column_config.NumberColumn("Bonferroni p", format="%.4f"),
+                "p_perm": st.column_config.NumberColumn("Permutation p" if not is_es else "p Permutación", format="%.4f"),
+                "naive_hit": st.column_config.CheckboxColumn("Naive Hit" if not is_es else "Hit Ingenuo"),
+                "survives_fdr": st.column_config.CheckboxColumn("Survives FDR" if not is_es else "Sobrevive FDR"),
+            }
+            st.dataframe(scan_df[display_cols], column_config=scan_col_config, width="stretch", hide_index=True)
 
         st.subheader(t["real_audit_title"])
         audit = results["real_statuspage_audit"]
         if audit.get("tests"):
             audit_df = pd.DataFrame(audit["tests"])
+            audit_label_col = "label_es" if is_es else "label_en"
+            audit_col_config = {
+                audit_label_col: st.column_config.TextColumn("Condition" if not is_es else "Condición"),
+                "observed_count": st.column_config.NumberColumn("Observed" if not is_es else "Observados", format="%d"),
+                "expected_count": st.column_config.NumberColumn("Expected" if not is_es else "Esperados", format="%.2f"),
+                "observed_pct": st.column_config.NumberColumn("Observed (%)" if not is_es else "Observado (%)", format="%.2f%%"),
+                "expected_pct": st.column_config.NumberColumn("Expected (%)" if not is_es else "Esperado (%)", format="%.2f%%"),
+                "p_value": st.column_config.NumberColumn("Binomial p" if not is_es else "p-value Binomial", format="%.4f"),
+            }
             st.dataframe(
-                audit_df[["label_es" if is_es else "label_en", "observed_count", "expected_count", "observed_pct", "expected_pct", "p_value"]],
+                audit_df[[audit_label_col, "observed_count", "expected_count", "observed_pct", "expected_pct", "p_value"]],
+                column_config=audit_col_config,
                 width="stretch",
                 hide_index=True,
             )
             if not raw_df.empty:
                 with st.expander("Inspect Raw Statuspage Sources" if not is_es else "Ver Fuentes Statuspage"):
                     st.dataframe(raw_df.head(100), width="stretch", hide_index=True)
+        else:
+            st.info(t["empty_audit_info"])
 
 
 if __name__ == "__main__":
