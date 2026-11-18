@@ -24,12 +24,12 @@ from src.stats import (
 DATA_DIR = Path("data")
 
 THEME_COLORS: dict[str, str] = {
-    "accent": "#38bdf8",
-    "accent_2": "#f97316",
-    "ok": "#10b981",
-    "danger": "#ef4444",
-    "muted": "#94a3b8",
-    "null": "#64748b",
+    "accent": "#93c5fd",
+    "accent_2": "#f9a8d4",
+    "ok": "#86efac",
+    "danger": "#fda4af",
+    "muted": "#a5acc9",
+    "null": "#94a3b8",
 }
 
 
@@ -185,12 +185,16 @@ def load_project_data() -> tuple[pd.DataFrame, pd.DataFrame, dict]:
 
 
 def main() -> None:
+    icon_path = Path("site/favicon.png")
     st.set_page_config(
         page_title="Mercury in Prod — Exploratory Lab",
+        page_icon=str(icon_path) if icon_path.exists() else None,
         layout="wide",
     )
 
     with st.sidebar:
+        if icon_path.exists():
+            st.image(str(icon_path), width=56)
         lang_choice = st.radio("Language / Idioma", options=["EN", "ES"], horizontal=True)
         lang = lang_choice.lower()
         t = TEXT[lang]

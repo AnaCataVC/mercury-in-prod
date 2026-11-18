@@ -4,41 +4,44 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mercury in Prod — Ephemeris vs. Software Incidents</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0b1120;
-      --bg-hero: #172554;
-      --surface: #111827;
-      --surface-card: rgba(17, 24, 39, 0.88);
-      --surface-alt: #1e293b;
-      --grid: #1e293b;
-      --plot-bg: rgba(15, 23, 42, 0.65);
+      --bg: #12131f;
+      --bg-hero: #27224a;
+      --surface: #191b2b;
+      --surface-card: rgba(25, 27, 43, 0.9);
+      --surface-alt: #22253a;
+      --grid: #272a42;
+      --plot-bg: rgba(18, 19, 31, 0.65);
       --plot-transparent: rgba(0, 0, 0, 0);
-      --border: #334155;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --muted-light: #cbd5e1;
-      --accent: #38bdf8;
-      --accent-contrast: #082f49;
-      --accent-2: #f97316;
-      --ok: #10b981;
-      --danger: #ef4444;
-      --null-color: #64748b;
-      --hover-bg: rgba(148, 163, 184, 0.12);
-      --callout-bg: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(249, 115, 22, 0.08));
-      --callout-border: rgba(56, 189, 248, 0.35);
+      --border: #363a59;
+      --text: #f3f4fc;
+      --muted: #a5acc9;
+      --muted-light: #cbd2eb;
+      --accent: #93c5fd;
+      --accent-contrast: #0f172a;
+      --accent-2: #f9a8d4;
+      --ok: #86efac;
+      --danger: #fda4af;
+      --null-color: #94a3b8;
+      --hover-bg: rgba(165, 180, 252, 0.12);
+      --callout-bg: linear-gradient(135deg, rgba(147, 197, 253, 0.14), rgba(249, 168, 212, 0.1));
+      --callout-border: rgba(196, 181, 253, 0.35);
       --badge-null-bg: rgba(148, 163, 184, 0.2);
-      --badge-null-text: #cbd5e1;
-      --badge-hit-bg: rgba(249, 115, 22, 0.2);
-      --badge-hit-text: #fdba74;
-      --badge-fdr-bg: rgba(16, 185, 129, 0.2);
-      --badge-fdr-text: #6ee7b7;
-      --notice-error-border: rgba(239, 68, 68, 0.45);
-      --notice-error-bg: rgba(239, 68, 68, 0.08);
-      --radius-lg: 14px;
-      --radius-md: 8px;
+      --badge-null-text: #cbd2eb;
+      --badge-hit-bg: rgba(249, 168, 212, 0.2);
+      --badge-hit-text: #fbcfe8;
+      --badge-fdr-bg: rgba(134, 239, 172, 0.2);
+      --badge-fdr-text: #bbf7d0;
+      --notice-error-border: rgba(253, 164, 175, 0.45);
+      --notice-error-bg: rgba(253, 164, 175, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 10px;
       --radius-sm: 6px;
       --radius-pill: 999px;
     }
@@ -80,6 +83,23 @@
       gap: 1rem;
       padding-bottom: 1.75rem;
       border-bottom: 1px solid var(--border);
+    }
+    .brand-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .brand-icon {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      border-radius: var(--radius-md);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
     }
     .eyebrow {
       font-size: 0.78rem;
@@ -336,10 +356,13 @@
 <body>
   <div class="container">
     <header>
-      <div>
-        <div class="eyebrow" data-i18n="eyebrow"></div>
-        <h1 data-i18n="title"></h1>
-        <p class="subtitle" data-i18n="subtitle"></p>
+      <div class="brand-row">
+        <img src="favicon.png" alt="Mercury in Prod project icon" class="brand-icon" width="56" height="56" />
+        <div>
+          <div class="eyebrow" data-i18n="eyebrow"></div>
+          <h1 data-i18n="title"></h1>
+          <p class="subtitle" data-i18n="subtitle"></p>
+        </div>
       </div>
       <div class="lang-switch" role="group" aria-label="Language switch">
         <button type="button" class="lang-btn active" id="btn-en" aria-pressed="true" onclick="setLang('en')">EN</button>
@@ -441,7 +464,7 @@
         title: "Mercury in Prod: Do Planets Break Deployments?",
         subtitle: "A 2,130-day statistical audit pairing an exact Python port of One UI Extra Widgets' AstrologyEngine with production incident dynamics and 400 real public Statuspage outages.",
         sec1_title: "1. Apparent Orbital Speed vs. Daily Incident Volume",
-        sec1_desc: "Mercury's daily geocentric angular speed (orange) dips below zero three times a year during retrograde loops. The 14-day rolling average of software incidents (cyan) follows release freezes and workweeks rather than orbital loops.",
+        sec1_desc: "Mercury's daily geocentric angular speed (pastel pink) dips below zero three times a year during retrograde loops. The 14-day rolling average of software incidents (pastel sky) follows release freezes and workweeks rather than orbital loops.",
         sec2_title: "2. Confounder-Controlled Poisson GLM (Incident Rate Ratios)",
         sec2_desc: "Once engineering calendar confounders (weekends, Tue–Thu deploy windows, Patch Tuesday, and Q4 code freeze) are controlled in a robust Poisson GLM, every astrological predictor sits squarely at IRR = 1.0.",
         sec3_title: "3. P-Hacking Scan: 57 Hypotheses & Multiple-Testing Correction",
@@ -466,7 +489,7 @@
         title: "Mercury in Prod: ¿Los planetas rompen producción?",
         subtitle: "Auditoría estadística de 2,130 días que cruza una réplica exacta en Python de AstrologyEngine (One UI Extra Widgets) con dinámicas operativas de software y 400 incidentes públicos reales de Statuspage.",
         sec1_title: "1. Velocidad Orbital Aparente vs. Volumen Diario de Incidentes",
-        sec1_desc: "La velocidad angular geocéntrica diaria de Mercurio (naranja) cae bajo cero tres veces al año durante cada retrogradación. La media móvil de 14 días de incidentes (cian) sigue semanas laborales y congelamientos de código, no las órbitas.",
+        sec1_desc: "La velocidad angular geocéntrica diaria de Mercurio (rosa pastel) cae bajo cero tres veces al año durante cada retrogradación. La media móvil de 14 días de incidentes (azul cielo) sigue semanas laborales y congelamientos de código, no las órbitas.",
         sec2_title: "2. Modelo GLM de Poisson Controlado por Confusores (IRR)",
         sec2_desc: "Al controlar los confusores reales de ingeniería (fines de semana, ventanas Mar–Jue, Patch Tuesday y Code Freeze de fin de año), todos los predictores astrológicos colapsan alrededor de IRR = 1.0.",
         sec3_title: "3. Escaneo de P-Hacking: 57 Hipótesis y Corrección FDR / Bonferroni",
