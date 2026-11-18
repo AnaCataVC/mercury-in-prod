@@ -962,7 +962,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       }
       .evidence-summary {
         margin-bottom: 0;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch;
+        position: relative;
+        padding-right: 2.5rem;
+        gap: 0.45rem;
+      }
+      .evidence-summary h2 {
+        font-size: 1.05rem;
+      }
+      .evidence-summary-meta {
+        justify-content: flex-start;
+      }
+      .evidence-chevron {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
       }
       .evidence-accordion[open] .evidence-summary {
         margin-bottom: 0.85rem;
@@ -1359,6 +1375,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       en: {
         nav_overview: "Overview",
         nav_findings: "Findings",
+        nav_evidence: "Evidence",
         nav_timeline: "Timeline",
         nav_glm: "GLM",
         nav_phacking: "P-Hacking",
@@ -1372,6 +1389,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         cta_evidence: "Inspect the Evidence",
         findings_title: "Why Engineers Blame Mercury (3 Key Findings)",
         findings_desc: "Before diving into the charts, here is how human calendars and multiple-testing traps create illusory cosmic patterns.",
+        evidence_heading: "Controlled Statistical Evidence",
+        evidence_sub: "Tap any section below to expand the interactive chart and numbers.",
         sec1_title: "1. Orbital Speed vs. Incident Volume",
         sec1_desc: "Shaded bands mark Mercury retrograde (< 0°/day). Incidents track release freezes and workweeks, not orbits.",
         chart1_title: "2021–2026 Time Series: Mercury Speed vs. 14-Day Rolling Incidents",
@@ -1406,6 +1425,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       es: {
         nav_overview: "Resumen",
         nav_findings: "Hallazgos",
+        nav_evidence: "Evidencia",
         nav_timeline: "Serie",
         nav_glm: "GLM",
         nav_phacking: "P-Hacking",
@@ -1419,6 +1439,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         cta_evidence: "Ver la evidencia",
         findings_title: "Por qué culpamos a Mercurio (3 Hallazgos Clave)",
         findings_desc: "Antes de ver los gráficos, así es como el calendario humano y las pruebas múltiples crean patrones ilusorios.",
+        evidence_heading: "Evidencia Estadística Controlada",
+        evidence_sub: "Toca cualquier sección para desplegar su gráfico interactivo y detalle.",
         sec1_title: "1. Velocidad Orbital vs. Incidentes",
         sec1_desc: "Las bandas rosadas marcan Mercurio retrógrado (< 0°/día). Los incidentes siguen semanas laborales y freezes, no órbitas.",
         chart1_title: "Serie 2021–2026: Velocidad de Mercurio vs. Media Móvil 14d",
